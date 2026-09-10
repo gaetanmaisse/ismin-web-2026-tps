@@ -1,6 +1,6 @@
 ---
 theme: seriph
-background: /cover.svg
+layout: center
 title: "Séance 3 : Persistance : ORM & base de données"
 info: |
   ## Développement Web · ISMIN 3A
@@ -17,6 +17,8 @@ drawings:
 transition: slide-left
 mdc: true
 ---
+
+<CourseCover :sprint="1" :seance="3" />
 
 # La persistance
 
@@ -51,6 +53,13 @@ Ne coupez JAMAIS le N+1 : c'est LE piège des ORM.
 
 Ctrl+Shift+R pour remettre le relevé à zéro MAINTENANT.
 -->
+
+
+<style>
+/* Ce bloc est propre à la slide de couverture : Slidev scope les styles. */
+h1 { color: #0f2b3d; }
+h2 { color: #1e3a5f; font-weight: 400; }
+</style>
 
 ---
 layout: center
