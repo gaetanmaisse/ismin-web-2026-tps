@@ -17,7 +17,6 @@ drawings:
 transition: slide-left
 mdc: true
 ---
----
 
 # Développement Web
 
@@ -25,9 +24,11 @@ mdc: true
 
 <div class="pt-4 op-75">Séance 1: Git &amp; TypeScript</div>
 
-<div class="pt-10 text-sm op-75">
+<div class="pt-12">
+<div class="inline-block px-5 py-3 rounded bg-black bg-opacity-40 text-sm">
 📱 Les slides sont en ligne, suivez sur votre écran :<br/>
-<b>gaetanmaisse.github.io/ismin-web-2026-tps</b>
+<b class="text-base">gaetanmaisse.github.io/ismin-web-2026-tps</b>
+</div>
 </div>
 
 <!--
