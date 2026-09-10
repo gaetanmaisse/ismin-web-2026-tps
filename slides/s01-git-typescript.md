@@ -1,6 +1,6 @@
 ---
 theme: seriph
-background: https://cover.sli.dev
+background: /cover.svg
 title: "Séance 1: Git & TypeScript"
 info: |
   ## Développement Web · ISMIN 3A
@@ -24,11 +24,9 @@ mdc: true
 
 <div class="pt-4 op-75">Séance 1: Git &amp; TypeScript</div>
 
-<div class="pt-12">
-<div class="inline-block px-5 py-3 rounded bg-black bg-opacity-40 text-sm">
+<div class="pt-14 text-sm op-80">
 📱 Les slides sont en ligne, suivez sur votre écran :<br/>
 <b class="text-base">gaetanmaisse.github.io/ismin-web-2026-tps</b>
-</div>
 </div>
 
 <!--

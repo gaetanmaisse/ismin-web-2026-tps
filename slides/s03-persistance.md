@@ -1,6 +1,6 @@
 ---
 theme: seriph
-background: https://cover.sli.dev
+background: /cover.svg
 title: "Séance 3 : Persistance : ORM & base de données"
 info: |
   ## Développement Web · ISMIN 3A

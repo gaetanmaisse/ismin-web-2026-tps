@@ -1,6 +1,6 @@
 ---
 theme: seriph
-background: https://cover.sli.dev
+background: /cover.svg
 title: "Séance 2 : NestJS : API REST & asynchronisme"
 info: |
   ## Développement Web · ISMIN 3A
