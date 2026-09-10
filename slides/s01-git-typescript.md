@@ -1,7 +1,6 @@
 ---
 theme: seriph
-background: https://cover.sli.dev
-title: "Séance 1: Git & TypeScript"
+title: "Séance 1 : Git & TypeScript"
 info: |
   ## Développement Web · ISMIN 3A
   Full-Stack TypeScript, DevOps & AI-Assisted Coding
@@ -16,21 +15,68 @@ drawings:
   persist: false
 transition: slide-left
 mdc: true
----
+layout: center
 ---
 
 # Développement Web
 
-## Full-Stack TypeScript, DevOps & AI-Assisted Coding
+<div class="op-75">Full-Stack TypeScript, DevOps &amp; AI-Assisted Coding</div>
 
-<div class="pt-4 op-75">Séance 1: Git &amp; TypeScript</div>
+<div class="pt-1 text-sm op-60">Séance 1 : Git &amp; TypeScript</div>
 
-<div class="pt-10 text-sm op-75">
-📱 Les slides sont en ligne, suivez sur votre écran :<br/>
+<div class="pt-10 text-5xl">🤗</div>
+
+<div class="text-2xl font-medium pt-1">huggingface.co</div>
+
+<div class="pt-2 text-sm op-75">
+Le catalogue où le monde entier publie ses modèles d'IA.<br/>
+Plus de <b>3 millions de modèles</b>, partagés par <b>18 millions de développeurs</b>.
+</div>
+
+<v-click>
+
+<div class="pt-5 mx-auto max-w-2xl p-3 rounded bg-amber-500 bg-opacity-10 border-l-4 border-amber-500 text-left text-sm">
+📰 <b>3 septembre 2026</b> : Nvidia annonce son rachat pour <b>12,9 milliards de dollars</b>.
+<span class="op-75">Clôture attendue en 2027, sous réserve des autorisations réglementaires.</span>
+</div>
+
+</v-click>
+
+<v-click>
+
+<div class="pt-5 text-lg">
+<b>On va en reconstruire une version. Et dans quatre semaines, la vôtre sera en ligne.</b>
+</div>
+
+</v-click>
+
+<div class="pt-8 text-sm op-60">
+📱 Les slides sont en ligne, suivez sur votre écran :
 <b>gaetanmaisse.github.io/ismin-web-2026-tps</b>
 </div>
 
 <!--
+🔴 NE PAS RESTER SUR LA SLIDE : ouvrir huggingface.co au vidéoprojecteur.
+Montrer la liste, un filtre par tâche, la fiche d'un modèle (Mistral-7B).
+« Qui a déjà téléchargé un modèle là-dessus ? »
+
+Cette slide est à l'écran pendant qu'ils s'installent : le titre et l'URL
+des slides font leur travail tout seuls. On enchaîne sur l'accroche dès
+que la salle est calme.
+
+L'actu tombe à pic : elle a onze jours, ils l'ont vue passer. Deux usages :
+
+1. Ça donne du poids au fil rouge : « le catalogue qu'on va construire
+   cet après-midi, Nvidia vient de l'acheter 13 milliards ».
+
+2. Ça amorce la souveraineté sans faire la leçon : le dépôt central des
+   modèles ouverts passe sous le contrôle du fabricant de puces qui domine
+   le marché. Une question à leur poser, pas une réponse à leur donner,
+   et ça éclaire pourquoi ce cours s'outille chez Mistral.
+
+Ne pas s'étendre : 3 minutes pour toute la slide, démo comprise.
+⚠️ Dire « annoncé », pas « racheté » : l'opération n'est pas encore conclue.
+
 ⏱ MINUTAGE PRÉVU (minutes depuis le début)
   +00  Accroche : Hugging Face en direct
   +03  Qui je suis (1 min), puis sondage « et vous ? » (3 min)
@@ -57,58 +103,6 @@ elles servent de référence aux étudiants pendant le TP.
 
 Relevé automatique : Ctrl+Shift+R pour remettre à zéro MAINTENANT,
 Ctrl+Shift+T en fin de séance pour télécharger le CSV.
--->
-
----
-layout: center
-class: text-center
----
-
-# Vous connaissez ça ?
-
-<div class="text-6xl pt-2">🤗</div>
-
-## huggingface.co
-
-<div class="pt-4 op-75">
-Le catalogue où le monde entier publie ses modèles d'IA.<br/>
-Plus de <b>3 millions de modèles</b>, partagés par <b>18 millions de développeurs</b>.
-</div>
-
-<v-click>
-
-<div class="pt-6 mx-auto max-w-2xl p-4 rounded bg-amber-500 bg-opacity-10 border-l-4 border-amber-500 text-left">
-📰 <b>3 septembre 2026</b> : Nvidia annonce son rachat pour <b>12,9 milliards de dollars</b>.
-<span class="text-sm op-75">Clôture attendue en 2027, sous réserve des autorisations réglementaires.</span>
-</div>
-
-</v-click>
-
-<v-click>
-
-<div class="pt-6 text-lg">
-<b>On va en reconstruire une version. Et dans quatre semaines, la vôtre sera en ligne.</b>
-</div>
-
-</v-click>
-
-<!--
-🔴 NE PAS RESTER SUR LA SLIDE : ouvrir huggingface.co au vidéoprojecteur.
-Montrer la liste, un filtre par tâche, la fiche d'un modèle (Mistral-7B).
-« Qui a déjà téléchargé un modèle là-dessus ? »
-
-L'actu tombe à pic : elle a onze jours, ils l'ont vue passer. Deux usages :
-
-1. Ça donne du poids au fil rouge : « le catalogue qu'on va construire
-   cet après-midi, Nvidia vient de l'acheter 13 milliards ».
-
-2. Ça amorce la souveraineté sans faire la leçon : le dépôt central des
-   modèles ouverts passe sous le contrôle du fabricant de puces qui domine
-   le marché. Une question à leur poser, pas une réponse à leur donner,
-   et ça éclaire pourquoi ce cours s'outille chez Mistral.
-
-Ne pas s'étendre : 2 minutes pour toute la slide.
-⚠️ Dire « annoncé », pas « racheté » : l'opération n'est pas encore conclue.
 -->
 
 ---
