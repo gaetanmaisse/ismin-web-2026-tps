@@ -1,0 +1,29 @@
+{
+  "name": "ismin-web-slides",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "slidev s01-git-typescript.md --open",
+    "dev:s01": "slidev s01-git-typescript.md --open",
+    "dev:s02": "slidev s02-nestjs.md --open",
+    "dev:s03": "slidev s03-persistance.md --open",
+    "build": "npm run build:s01 && npm run build:s02 && npm run build:s03",
+    "build:s01": "slidev build s01-git-typescript.md --base /ismin-web-2026-tps/s01/ --out dist/s01",
+    "build:s02": "slidev build s02-nestjs.md --base /ismin-web-2026-tps/s02/ --out dist/s02",
+    "build:s03": "slidev build s03-persistance.md --base /ismin-web-2026-tps/s03/ --out dist/s03",
+    "export:s01": "slidev export s01-git-typescript.md --output export/s01.pdf",
+    "export:s02": "slidev export s02-nestjs.md --output export/s02.pdf",
+    "export:s03": "slidev export s03-persistance.md --output export/s03.pdf",
+    "check:s01": "slidev export s01-git-typescript.md --format png --output ../.preview/s01 --timeout 90000",
+    "check:s02": "slidev export s02-nestjs.md --format png --output ../.preview/s02 --timeout 90000",
+    "check:s03": "slidev export s03-persistance.md --format png --output ../.preview/s03 --timeout 90000"
+  },
+  "dependencies": {
+    "@slidev/cli": "^52.0.0",
+    "@slidev/theme-default": "^0.25.0",
+    "@slidev/theme-seriph": "^0.25.0"
+  },
+  "devDependencies": {
+    "playwright-chromium": "^1.63.0"
+  }
+}

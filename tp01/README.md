@@ -1,0 +1,150 @@
+# TP1 — Introduction to TypeScript
+
+*Web Development — ISMIN 3A, session 1.*
+
+## 🎯 Goal
+
+Discover TypeScript and its ecosystem by implementing **ModelZoo**, a catalogue of AI models — the thread you will keep growing over the next four weeks, until you deploy it to production.
+
+By the end of this lab you will be able to declare types, implement a class, and make a test suite pass.
+
+## 🔀 Step 1 — Git
+
+You work on **your own fork** of the course repository.
+
+```sh
+# 1. Fork this repository from the GitHub interface ("Fork" button, top right)
+
+# 2. Clone YOUR fork (replace YOUR-USERNAME)
+git clone https://github.com/YOUR-USERNAME/ismin-web-2026-tps.git
+cd ismin-web-2026-tps
+
+# 3. Check
+git remote -v
+```
+
+> 💡 From session 2 on, you will add a second remote pointing at the course
+> repository, to pull each new lab. We will set that up together when you need it.
+
+Then create a branch for your work:
+
+```sh
+git switch -c tp01-modelzoo
+```
+
+At the end of the lab you will push this branch to your fork. Later, on the final project, you will work in pairs and propose your changes through **pull requests** — that is when code review starts to mean something.
+
+## 🚀 Step 2 — Get started
+
+```sh
+cd tp01
+npm install
+
+# Run the tests once
+npm run test
+
+# Re-run the tests on every save — keep this terminal open
+npm run test:watch
+```
+
+The test run does not even *start*: `src/model-zoo.test.ts` imports two files
+that do not exist yet.
+
+```
+Failed to load url ./model-zoo.js — does the file exist?
+```
+
+That is the whole assignment. `npm run typecheck` shows both files at once:
+
+```
+error TS2307: Cannot find module './model.js'
+error TS2307: Cannot find module './model-zoo.js'
+```
+
+## 📝 Step 3 — Write the types
+
+`src/` contains **one file**: the tests. They are the specification, and they are
+detailed enough to tell you everything the code must look like. Read them first,
+end to end, before writing a line.
+
+Create `src/model.ts` and declare two types in it:
+
+- **`Task`** — what a model is able to do. Exactly four possibilities, no more:
+  `text-generation`, `translation`, `image-classification`, `speech-to-text`.
+  Not an `enum`, not a `string`: a **union of string literals**. Once it is
+  written, typing `"text-gen"` somewhere must be a *compile* error, caught before
+  any test runs.
+
+- **`Model`** — a model in the catalogue. The test file builds three of them at
+  the top: every field you need is there, and their values tell you the types.
+  `id` is a URL-safe slug, unique in the catalogue.
+
+> 💡 Use `interface` for `Model` and `type` for `Task`. Both keywords work for
+> both; the course appendix explains when each one is the idiomatic choice.
+
+## 📝 Step 4 — Implement the class
+
+Create `src/model-zoo.ts` and export a `ModelZoo` class fulfilling this contract:
+
+```ts
+class ModelZoo {
+  addModel(model: Model): void;
+  getModel(id: string): Model | undefined;
+  getModelsOf(org: string): Model[];
+  getAllModels(): Model[];
+  getTotalNumberOfModels(): number;
+  getModelsByTask(task: Task): Model[];
+}
+```
+
+Your first real decision: **how do you store the models inside the class?**
+An array? A `Map` keyed by `id`? Both make the tests pass, but one makes
+`getModel` a direct lookup and the other a scan. Choose deliberately — you
+will be asked to justify it.
+
+Work **test by test, top to bottom**. Each `describe` block maps to one method:
+make the first one pass, then move on. Do not try to write the whole class at
+once.
+
+> 💡 The compiler is your first reviewer. Run `npm run typecheck` regularly — it
+> catches things the tests do not.
+
+## 🤖 Using AI during this lab
+
+You may use [Le Chat](https://chat.mistral.ai) — and you are encouraged to, in order to **understand**, not to produce.
+
+Today's exercise: when the TypeScript compiler returns an error you do not understand, ask it to explain, **then verify its answer** against the [official documentation](https://www.typescriptlang.org/docs/). You will be surprised how often a plausible explanation turns out to be wrong.
+
+> ⚠️ **Golden rule**: during the labs I walk around and ask you to explain your code. Any part you cannot explain, I delete.
+
+## 🛰 Going further
+
+If you finish early. None of these has an obvious solution — write the test before the implementation.
+
+1. **The typed URL.** Write `huggingFaceUrl(model)`, returning the address of the model's page.
+   Constraint: its **return type** must make it impossible to return `"https://example.com"`.
+   The compiler should reject it, not a test.
+
+2. **The tamper-proof catalogue.** Can a caller corrupt your catalogue **from the outside**,
+   without going through `addModel`? Find how, write the test that proves it, then make it impossible.
+
+3. **Grouping.** Add `groupByTask()`, returning the models arranged by task.
+   Constraints: **a single pass** over the array, and **no `any`** in the signature.
+
+4. **⭐ The generic catalogue.** Turn `ModelZoo` into a `Catalogue<T>` reusable for any entity,
+   not just models. What must you **require** of `T` for `getById` to still work?
+
+## ✅ Wrapping up
+
+```sh
+git diff                    # read what you are about to commit
+git add .
+git commit -m "feat(tp01): implement ModelZoo"
+git push -u origin tp01-modelzoo
+```
+
+Reading your own diff before committing is a habit worth building.
+
+---
+
+**Next up:** in session 2, this `ModelZoo` becomes a real REST API with NestJS.

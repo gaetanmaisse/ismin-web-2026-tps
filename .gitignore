@@ -1,0 +1,8 @@
+node_modules/
+dist/
+export/
+*.local
+.DS_Store
+.env
+*.db
+.preview/

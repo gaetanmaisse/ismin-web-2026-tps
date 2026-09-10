@@ -1,0 +1,89 @@
+name: Publier les slides
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "slides/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: slides
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26
+          cache: npm
+          cache-dependency-path: slides/package-lock.json
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: Page d'accueil listant les séances
+        run: |
+          cat > dist/index.html <<'HTML'
+          <!doctype html>
+          <html lang="fr">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Développement Web : ISMIN 3A</title>
+            <style>
+              :root { color-scheme: light dark; }
+              body {
+                font-family: system-ui, sans-serif;
+                max-width: 42rem; margin: 4rem auto; padding: 0 1.25rem;
+                line-height: 1.6;
+              }
+              h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+              p.sub { opacity: .7; margin-top: 0; }
+              ul { list-style: none; padding: 0; }
+              li { padding: .6rem 0; border-bottom: 1px solid rgba(128,128,128,.25); }
+              a { text-decoration: none; }
+              a:hover { text-decoration: underline; }
+              .num { font-variant-numeric: tabular-nums; opacity: .6; margin-right: .6rem; }
+            </style>
+          </head>
+          <body>
+            <h1>Développement Web : Full-Stack TypeScript, DevOps &amp; AI-Assisted Coding</h1>
+            <p class="sub">Mines Saint-Étienne : ISMIN 3A, promotion 2026</p>
+            <ul>
+              <li><span class="num">S1</span><a href="./s01/">Git &amp; TypeScript</a></li>
+              <li><span class="num">S2</span><a href="./s02/">NestJS : API REST &amp; asynchronisme</a></li>
+              <li><span class="num">S3</span><a href="./s03/">Persistance : ORM &amp; base de données</a></li>
+            </ul>
+            <p class="sub">Les énoncés de TP sont dans <a href="https://github.com/gaetanmaisse/ismin-web-2026-tps">ce dépôt</a>.</p>
+          </body>
+          </html>
+          HTML
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: slides/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
