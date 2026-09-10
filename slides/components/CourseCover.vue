@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useDarkMode } from '@slidev/client'
 import { computed } from 'vue'
 
 /**
@@ -12,6 +13,10 @@ import { computed } from 'vue'
  * On ne passe pas par le front-matter `background:` : la mise en page `cover`
  * de Slidev superposerait un linear-gradient(#0005, #0008) et forcerait le
  * texte en blanc, ce qui ruine un fond clair.
+ *
+ * Le fond suit le thème : un fond figé en clair rendrait le sous-titre
+ * invisible dès que Slidev passe en mode sombre, puisque le thème écrit
+ * alors en blanc.
  */
 const props = withDefaults(defineProps<{ sprint?: number, seance?: number }>(), {
   sprint: 1,
@@ -31,6 +36,23 @@ const TEINTES: Record<number, string> = {
 }
 
 const SECONDAIRES = ['#2563eb', '#7c3aed', '#0d9488', '#d97706']
+
+/** En mode sombre les mêmes teintes sont éclaircies : les foncées y disparaissent. */
+const EN_SOMBRE: Record<string, string> = {
+  '#2563eb': '#60a5fa',
+  '#7c3aed': '#a78bfa',
+  '#0d9488': '#2dd4bf',
+  '#d97706': '#fbbf24',
+}
+
+const { isDark } = useDarkMode()
+
+const fond = computed(() => isDark.value
+  ? ['#0b1220', '#111c30', '#0a1a23']
+  : ['#ffffff', '#f5f8fc', '#eef3f7'])
+
+const halo = computed(() => isDark.value ? '#1d3a5c' : '#ffffff')
+const trait = computed(() => isDark.value ? '#94a3b8' : '#64748b')
 
 /** mulberry32 : générateur déterministe, pour que la couverture ne bouge jamais. */
 function alea(graine: number) {
@@ -62,9 +84,10 @@ const dessin = computed(() => {
       continue
 
     // Deux nœuds sur trois portent la couleur du sprint.
-    const c = rand() < 0.66
+    const brute = rand() < 0.66
       ? dominante
       : SECONDAIRES[Math.floor(rand() * SECONDAIRES.length)]
+    const c = isDark.value ? EN_SOMBRE[brute] ?? brute : brute
 
     noeuds.push({ x, y, r: [3, 3, 4, 5, 7][Math.floor(rand() * 5)], c, d })
   }
@@ -99,23 +122,24 @@ const dessin = computed(() => {
   >
     <defs>
       <linearGradient :id="`fond-${seance}`" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#ffffff" />
-        <stop offset="55%" stop-color="#f5f8fc" />
-        <stop offset="100%" stop-color="#eef3f7" />
+        <stop offset="0%" :stop-color="fond[0]" />
+        <stop offset="55%" :stop-color="fond[1]" />
+        <stop offset="100%" :stop-color="fond[2]" />
       </linearGradient>
       <radialGradient :id="`halo-${seance}`" cx="50%" cy="44%" r="58%">
-        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.92" />
-        <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+        <stop offset="0%" :stop-color="halo" :stop-opacity="isDark ? 0.5 : 0.92" />
+        <stop offset="100%" :stop-color="halo" stop-opacity="0" />
       </radialGradient>
     </defs>
 
     <rect :width="W" :height="H" :fill="`url(#fond-${seance})`" />
+    <rect v-if="isDark" :width="W" :height="H" :fill="`url(#halo-${seance})`" />
 
     <line
       v-for="([a, b], i) in dessin.aretes"
       :key="`a${i}`"
       :x1="a.x" :y1="a.y" :x2="b.x" :y2="b.y"
-      stroke="#64748b" stroke-width="1.2"
+      :stroke="trait" stroke-width="1.2"
       :stroke-opacity="0.10 + 0.16 * Math.min(a.d, b.d)"
     />
 
@@ -124,7 +148,8 @@ const dessin = computed(() => {
       <circle :cx="n.x" :cy="n.y" :r="n.r" :fill="n.c" :opacity="0.35 + 0.5 * n.d" />
     </template>
 
-    <!-- Le halo passe en dernier : il éclaircit le centre et détache le titre. -->
-    <rect :width="W" :height="H" :fill="`url(#halo-${seance})`" />
+    <!-- En clair le halo passe en dernier pour éclaircir le centre ; en sombre
+         il doit passer sous les nœuds, sinon il les ternit. -->
+    <rect v-if="!isDark" :width="W" :height="H" :fill="`url(#halo-${seance})`" />
   </svg>
 </template>
