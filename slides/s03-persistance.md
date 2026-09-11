@@ -1,5 +1,6 @@
 ---
 theme: seriph
+favicon: ./favicon-mse.png
 layout: center
 title: "Séance 3 : Persistance : ORM & base de données"
 info: |

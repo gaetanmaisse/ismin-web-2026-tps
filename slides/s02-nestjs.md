@@ -1,5 +1,6 @@
 ---
 theme: seriph
+favicon: ./favicon-mse.png
 layout: center
 title: "Séance 2 : NestJS : API REST & asynchronisme"
 info: |

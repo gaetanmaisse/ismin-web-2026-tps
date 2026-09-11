@@ -1,5 +1,6 @@
 ---
 theme: seriph
+favicon: ./favicon-mse.png
 layout: center
 title: "Séance 1: Git & TypeScript"
 info: |

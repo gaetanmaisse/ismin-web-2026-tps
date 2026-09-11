@@ -44,6 +44,7 @@ jobs:
           <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="icon" href="./favicon-mse.png">
             <title>Développement Web : ISMIN 3A</title>
             <style>
               :root { color-scheme: light dark; }
@@ -73,6 +74,9 @@ jobs:
           </body>
           </html>
           HTML
+
+      - name: Favicon de la page d'accueil
+        run: cp public/favicon-mse.png dist/favicon-mse.png
 
       - uses: actions/upload-pages-artifact@v3
         with:
