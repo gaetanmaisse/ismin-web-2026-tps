@@ -282,7 +282,7 @@ Compter combien : ça va dans le RETEX.
 <v-click>
 
 <div class="mt-4 p-4 rounded border-l-4 border-blue-500 bg-blue-500 bg-opacity-5">
-<b>À 17 h aujourd'hui</b>, vous aurez un dépôt Git à votre nom avec une branche poussée,
+<b>À 16 h 30 aujourd'hui</b>, vous aurez un dépôt Git à votre nom avec une branche poussée,
 et une classe TypeScript qui fait passer onze tests.
 </div>
 
@@ -756,7 +756,7 @@ ils ne tapent pas encore : ils referont tout seuls juste après.
 
 Le push de l'étape 3 marche sans aucun commit : il crée la branche sur
 le fork. Du coup le push final de l'étape 4 n'a plus besoin d'option,
-et les problèmes d'authentification GitHub sortent MAINTENANT, pas à 17 h.
+et les problèmes d'authentification GitHub sortent MAINTENANT, pas à 16 h 30.
 
 Git se REGARDE, il ne se lit pas. 6 minutes suffisent.
 Taper `git status` entre CHAQUE étape, sans commenter : c'est le
@@ -792,7 +792,7 @@ layout: section
 ⏱ On doit être à +43. Si on déborde ici, c'est le CM boîte à outils
 (après la pause) qu'on raccourcit, pas le TP ModelZoo.
 
-L'étape 4 est le filet : à 17 h, même ceux qui n'auront pas fini ont une
+L'étape 4 est le filet : à 16 h 30, même ceux qui n'auront pas fini ont une
 branche sur leur fork, et l'authentification GitHub est réglée tôt.
 
 Circuler. Les blocages classiques : Git non configuré (user.name/user.email),
