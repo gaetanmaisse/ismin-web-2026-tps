@@ -985,8 +985,9 @@ Signalé <b>dans l'éditeur</b>, avant même d'enregistrer le fichier, et bien a
 
 <div class="mt-8 p-4 bg-blue-500 bg-opacity-10 rounded">
 
-Autrement dit : **TypeScript, c'est le moteur d'exécution de JavaScript, plus un vérificateur à la compilation.**
-Rien de plus. Aucune bibliothèque supplémentaire, aucun surcoût à l'exécution.
+Autrement dit : **TypeScript, c'est JavaScript plus un vérificateur qui travaille à la compilation.**
+Il n'a pas de moteur à lui : à l'exécution, c'est du JavaScript, dans le même moteur qu'avant.
+Aucune bibliothèque supplémentaire, aucun surcoût à l'exécution.
 
 </div>
 
