@@ -767,9 +767,9 @@ layout: section
 
 # TP · Git
 
-<div class="op-75 pt-2">35 minutes · <code>tp01/README.md</code>, étape 1</div>
+<div class="op-75 pt-2"><code>tp01/README.md</code>, étape 1</div>
 
-<div class="pt-8 text-sm">
+<div class="pt-8 text-sm inline-block text-left">
 
 1. **Forkez** le dépôt du cours sur GitHub
 2. **Clonez** votre fork
@@ -1916,7 +1916,7 @@ layout: section
 
 # TP · ModelZoo
 
-<div class="op-75 pt-2">34 minutes · <code>tp01/README.md</code>, étapes 2 à 4</div>
+<div class="op-75 pt-2"><code>tp01/README.md</code>, étapes 2 à 4</div>
 
 ---
 

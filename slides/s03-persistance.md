@@ -421,9 +421,9 @@ layout: section
 
 # TP · partie 1
 
-<div class="op-75 pt-2">38 minutes · <code>tp03/README.md</code>, étapes 1 à 4</div>
+<div class="op-75 pt-2"><code>tp03/README.md</code>, étapes 1 à 4</div>
 
-<div class="pt-8 text-sm">
+<div class="pt-8 text-sm inline-block text-left">
 
 1. `git pull upstream main`, puis `npm install`
 2. Écrire le modèle `Model` dans `schema.prisma`
@@ -626,9 +626,9 @@ layout: section
 
 # TP · partie 2
 
-<div class="op-75 pt-2">33 minutes · <code>tp03/README.md</code>, étapes 5 à 7</div>
+<div class="op-75 pt-2"><code>tp03/README.md</code>, étapes 5 à 7</div>
 
-<div class="pt-8 text-sm">
+<div class="pt-8 text-sm inline-block text-left">
 
 5. Ajouter `Organisation` et la relation
 6. Peupler la base avec le script de seed

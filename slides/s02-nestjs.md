@@ -967,9 +967,9 @@ layout: section
 
 # TP · partie 1
 
-<div class="op-75 pt-2">24 minutes · <code>tp02/README.md</code>, étapes 1 à 3</div>
+<div class="op-75 pt-2"><code>tp02/README.md</code>, étapes 1 à 3</div>
 
-<div class="pt-8 text-sm">
+<div class="pt-8 text-sm inline-block text-left">
 
 1. Lire le projet : où est le contrôleur, où est le service ?
 2. `GET /models`
@@ -1316,9 +1316,9 @@ layout: section
 
 # TP · partie 2
 
-<div class="op-75 pt-2">20 minutes · <code>tp02/README.md</code>, étapes 4 à 6</div>
+<div class="op-75 pt-2"><code>tp02/README.md</code>, étapes 4 à 6</div>
 
-<div class="pt-8 text-sm">
+<div class="pt-8 text-sm inline-block text-left">
 
 4. `POST /models` et `DELETE /models/:id`
 5. Valider les entrées avec un DTO
