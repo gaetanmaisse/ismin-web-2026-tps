@@ -840,26 +840,43 @@ C'est ce qui rend possible un cours full-stack en quatre semaines.
 
 # À vous : ouvrez la console de votre navigateur
 
-<div class="text-sm op-75 mb-3">
-Clic droit → « Inspecter » → onglet <b>Console</b>. Tapez ces lignes, une par une.
+<div class="text-sm op-75 mb-2">
+Annoncez le résultat <b>avant</b> de lancer. Bouton ▶ sur chaque bloc.
 </div>
 
-```js
-""  == 0
+<div class="grid grid-cols-2 gap-x-6 text-sm">
+<div>
 
-"0" == 0
-
-""  == "0"
-
-1 < 3 < 2
-
-const model = { name: "Mistral-7B", parameters: 7.2 };
-model.paramaters * 2
+```js {monaco-run} {autorun:false}
+console.log("" == 0)
 ```
+
+```js {monaco-run} {autorun:false}
+console.log("0" == 0)
+```
+
+```js {monaco-run} {autorun:false}
+console.log("" == "0")
+```
+
+</div>
+<div>
+
+```js {monaco-run} {autorun:false}
+console.log(1 < 3 < 2)
+```
+
+```js {monaco-run} {autorun:false}
+const model = { name: "Mistral-7B", parameters: 7.2 }
+console.log(model.paramaters * 2)
+```
+
+</div>
+</div>
 
 <v-click>
 
-<div class="pt-4 p-4 bg-amber-500 bg-opacity-10 rounded text-sm">
+<div class="pt-2 p-3 bg-amber-500 bg-opacity-10 rounded text-sm">
 
 `true`, `true`, **`false`** : l'égalité n'est même pas transitive.
 `1 < 3 < 2` est `true`… et le reste pour n'importe quelles valeurs.
@@ -870,11 +887,18 @@ Et la faute de frappe sur `paramaters` donne `NaN`, **sans la moindre erreur**.
 </v-click>
 
 <!--
-🔴 NE PAS COMMENTER LA SLIDE : les faire taper. 3 minutes.
-Ils le voient sur LEUR écran, et ils repartent en sachant que
-cette console existe : ça leur servira tout le semestre.
+🔴 NE PAS COMMENTER LA SLIDE : les faire deviner. 3 minutes.
 
-Demander à voix haute ce qu'ils obtiennent AVANT de cliquer.
+Les blocs sont exécutables ici même et ne partent PAS tout seuls :
+on demande le résultat à voix haute, puis on clique. Le silence entre
+la question et le clic est ce qui fait le travail.
+
+Leur dire quand même d'ouvrir leur console (clic droit → Inspecter) :
+ils repartent en sachant qu'elle existe, ça leur sert tout le semestre.
+
+Le dernier bloc est le plus important : la faute de frappe donne NaN
+sans la moindre erreur. C'est l'argument pour TypeScript, et il arrive
+juste avant la slide qui l'annonce.
 -->
 
 ---
