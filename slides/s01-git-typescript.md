@@ -1004,10 +1004,10 @@ Aucune bibliothèque supplémentaire, aucun surcoût à l'exécution.
 # À quoi ça ressemble
 
 ```ts
-const parameters: number = 7;
-const org: string = "mistralai";
+const rows: number = 98_169;
+const org: string = "stanfordnlp";
 
-function show(m: Model): string { … }
+function show(d: Dataset): string { … }
 ```
 
 <v-clicks>
@@ -1023,9 +1023,9 @@ Le type s'écrit **après** le nom, séparé par `:`. Le type de retour, **aprè
 Pour un objet, on nomme sa forme avec `interface`, puis on l'utilise comme un type :
 
 ```ts
-interface Model {
+interface Dataset {
   name: string;
-  parameters: number;
+  rows: number;
 }
 ```
 
@@ -1053,18 +1053,18 @@ layoutClass: gap-4
 **C++ : nominal**
 
 ```cpp
-struct Model {
+struct Dataset {
   std::string name;
 };
 
-struct Dataset {   // mêmes champs…
+struct Benchmark {   // mêmes champs…
   std::string name;
 };
 
-void show(Model m);
+void show(Dataset d);
 
-Dataset d;
-show(d);  // ❌ refusé
+Benchmark b;
+show(b);  // ❌ refusé
 ```
 
 Un objet **est** d'un type parce qu'il le **déclare**.
@@ -1076,18 +1076,18 @@ Un objet **est** d'un type parce qu'il le **déclare**.
 **TypeScript : structurel**
 
 ```ts
-interface Model {
+interface Dataset {
   name: string;
 }
 
-interface Dataset {   // mêmes champs…
+interface Benchmark {   // mêmes champs…
   name: string;
 }
 
-function show(m: Model) {}
+function show(d: Dataset) {}
 
-const d: Dataset = { name: "SQuAD" };
-show(d);  // ✅ accepté
+const b: Benchmark = { name: "MMLU" };
+show(b);  // ✅ accepté
 ```
 
 Un objet **est** d'un type parce qu'il en a la **forme**.
@@ -1115,24 +1115,24 @@ Corollaire utile : pas besoin de déclarer qu'on implémente une interface.
 <div class="grid grid-cols-2 gap-6 pt-2">
 <div>
 
-**Ce que vous écrivez** : `model.ts`
+**Ce que vous écrivez** : `dataset.ts`
 
 ```ts
-interface Model {
+interface Dataset {
   name: string;
-  parameters: number;
+  rows: number;
 }
 
-const m: Model = load();
+const d: Dataset = load();
 ```
 
 </div>
 <div>
 
-**Ce qui s'exécute** : `model.js`
+**Ce qui s'exécute** : `dataset.js`
 
 ```js
-const m = load();
+const d = load();
 ```
 
 </div>
@@ -1175,10 +1175,10 @@ Slide clé. Un dev C++ s'attend à ce que les types soient « réels ».
 
 ```sh
 $ npx tsc
-model.ts:7:1 - error TS2551: Property 'paramaters' does not exist…
+essai.ts:7:1 - error TS2551: Property 'paramaters' does not exist…
 
 $ ls
-model.ts   model.js     # ← le fichier est bien là
+essai.ts   essai.js     # ← le fichier est bien là
 ```
 
 Contrairement à un compilateur C++, une erreur de type n'empêche pas la production du résultat.
@@ -1443,13 +1443,13 @@ const double = (n: number) => n * 2;
 double(7);                        // 14
 
 // Plusieurs lignes : accolades, et return
-const isLarge = (m: Model) => {
-  const threshold = 10;
-  return m.parameters > threshold;
+const isLarge = (d: Dataset) => {
+  const threshold = 1_000_000;
+  return d.rows > threshold;
 };
 
 // Le cas courant : passée à une méthode
-models.filter((m) => m.org === "mistralai");
+datasets.filter((d) => d.org === "mozilla");
 ```
 
 </div>
@@ -1458,7 +1458,7 @@ models.filter((m) => m.org === "mistralai");
 <v-click>
 
 <div class="pt-6 text-sm op-75">
-Dans <code>(m) => …</code>, le paramètre n'a pas de type écrit : TypeScript le <b>déduit</b> du tableau sur lequel on appelle la méthode. Vous en écrirez une par méthode de tableau, un peu plus loin.
+Dans <code>(d) => …</code>, le paramètre n'a pas de type écrit : TypeScript le <b>déduit</b> du tableau sur lequel on appelle la méthode. Vous en écrirez une par méthode de tableau, un peu plus loin.
 </div>
 
 </v-click>
@@ -1474,19 +1474,19 @@ un public C++ s'attend à devoir l'écrire.
 # Interfaces : décrire une forme
 
 ```ts
-interface Model {
-  id: string;
+interface Dataset {
   name: string;
-  parameters: number;
-  license?: string;      // le ? rend la propriété optionnelle
+  org: string;
+  rows: number;
+  description?: string;   // le ? rend la propriété optionnelle
 }
 
-function describe(model: Model): string {
-  return `${model.name} : ${model.parameters} milliards de paramètres`;
+function describe(dataset: Dataset): string {
+  return `${dataset.org}/${dataset.name} : ${dataset.rows} lignes`;
 }
 
 // Duck typing : aucune déclaration d'implémentation nécessaire
-describe({ id: "…", name: "Mistral-7B", parameters: 7.2 });   // ✅
+describe({ name: "squad", org: "stanfordnlp", rows: 98_169 });   // ✅
 ```
 
 <div class="pt-4 text-sm op-75">
@@ -1500,13 +1500,13 @@ describe({ id: "…", name: "Mistral-7B", parameters: 7.2 });   // ✅
 
 ```ts
 type Licence =
-  | "apache-2.0"
-  | "mit"
-  | "llama-3"
+  | "cc0-1.0"
+  | "cc-by-sa-4.0"
+  | "odc-by"
   | "propriétaire";
 
-const l1: Licence = "mit";           // ✅
-const l2: Licence = "MIT";           // ❌ erreur à la compilation
+const l1: Licence = "cc0-1.0";       // ✅
+const l2: Licence = "CC0-1.0";       // ❌ erreur à la compilation
 const l3: Licence = "gpl-3.0";       // ❌ erreur à la compilation
 ```
 
@@ -1528,15 +1528,15 @@ L'éditeur vous les propose en autocomplétion, et le compilateur refuse tout le
 # Génériques : le type entre chevrons
 
 ```ts
-const models: Array<Model> = [];
-const zoo: Map<string, Model> = new Map();
+const datasets: Array<Dataset> = [];
+const hub: Map<string, Dataset> = new Map();
 ```
 
 <v-click>
 
 <div class="pt-6">
 
-Le type entre chevrons dit **ce que contient** le tableau ou la `Map`. `Array<Model>` s'écrit aussi `Model[]`, c'est identique.
+Le type entre chevrons dit **ce que contient** le tableau ou la `Map`. `Array<Dataset>` s'écrit aussi `Dataset[]`, c'est identique.
 
 </div>
 
@@ -1549,11 +1549,11 @@ Le type entre chevrons dit **ce que contient** le tableau ou la `Map`. `Array<Mo
 ### `Map` : le dictionnaire
 
 ```ts
-const zoo = new Map<string, Model>();
-zoo.set(model.id, model);     // ajouter ou remplacer
-zoo.get("mistralai/…");       // Model | undefined
-zoo.size;                     // nombre d'entrées
-Array.from(zoo.values());     // toutes les valeurs, dans un tableau
+const hub = new Map<string, Dataset>();
+hub.set(dataset.name, dataset);   // ajouter ou remplacer
+hub.get("squad");                 // Dataset | undefined
+hub.size;                         // nombre d'entrées
+Array.from(hub.values());         // toutes les valeurs, dans un tableau
 ```
 
 </div>
@@ -1565,15 +1565,15 @@ Array.from(zoo.values());     // toutes les valeurs, dans un tableau
 # Les classes
 
 ```ts
-class ModelZoo {
-  private readonly models: Model[] = [];
+class DatasetCatalog {
+  private readonly datasets: Dataset[] = [];
 
-  addModel(model: Model): void {
-    this.models.push(model);
+  add(dataset: Dataset): void {
+    this.datasets.push(dataset);
   }
 
-  getTotalNumberOfModels(): number {
-    return this.models.length;
+  count(): number {
+    return this.datasets.length;
   }
 }
 ```
@@ -1681,20 +1681,20 @@ La slide « les enchaîner » est celle qui compte le plus.
 # Le jeu de données
 
 ```ts
-type Task = "text-generation" | "translation" | "speech-to-text";
+type Licence = "cc0-1.0" | "cc-by-sa-4.0" | "odc-by" | "propriétaire";
 
-interface Model {
+interface Dataset {
   name: string;
   org: string;
-  task: Task;
+  licence: Licence;
   downloads: number;
 }
 
-const models: Model[] = [
-  { name: "Mistral-7B",       org: "mistralai", task: "text-generation", downloads: 1_420_000 },
-  { name: "whisper-large-v3", org: "openai",    task: "speech-to-text",  downloads: 4_100_000 },
-  { name: "opus-mt-en-fr",    org: "Helsinki",  task: "translation",     downloads: 1_250_000 },
-  { name: "Devstral-Small",   org: "mistralai", task: "text-generation", downloads:   310_000 },
+const datasets: Dataset[] = [
+  { name: "fineweb",      org: "HuggingFaceFW", licence: "odc-by",       downloads: 1_420_000 },
+  { name: "common_voice", org: "mozilla",       licence: "cc0-1.0",      downloads: 4_100_000 },
+  { name: "squad",        org: "stanfordnlp",   licence: "cc-by-sa-4.0", downloads: 1_250_000 },
+  { name: "fineweb-edu",  org: "HuggingFaceFW", licence: "odc-by",       downloads:   310_000 },
 ];
 ```
 
@@ -1710,18 +1710,18 @@ On garde ce tableau pour les six slides qui suivent.
 
 ```ts
 // .some() : vrai si AU MOINS UN élément satisfait la condition
-models.some((m) => m.org === "openai")          // true
-models.some((m) => m.downloads > 9_000_000)     // false
+datasets.some((d) => d.org === "mozilla")          // true
+datasets.some((d) => d.downloads > 9_000_000)      // false
 
 // .every() : vrai si TOUS les éléments la satisfont
-models.every((m) => m.downloads > 0)            // true
-models.every((m) => m.org === "mistralai")      // false
+datasets.every((d) => d.downloads > 0)             // true
+datasets.every((d) => d.org === "HuggingFaceFW")   // false
 ```
 
 <v-click>
 
 <div class="pt-6 text-sm op-75">
-Utiles pour valider : « est-ce que tous les modèles ont un nom ? », « y a-t-il au moins un modèle de traduction ? »
+Utiles pour valider : « est-ce que tous les datasets ont un nom ? », « y en a-t-il au moins un sous licence cc0 ? »
 </div>
 
 </v-click>
@@ -1733,14 +1733,14 @@ Utiles pour valider : « est-ce que tous les modèles ont un nom ? », « y a-t-
 <div class="pt-2 text-sm op-75">Renvoie un <b>nouveau tableau</b> avec les éléments pour lesquels la fonction renvoie <code>true</code>.</div>
 
 ```ts
-models.filter((m) => m.org === "mistralai")
-// [ { name: "Mistral-7B",     org: "mistralai", … },
-//   { name: "Devstral-Small", org: "mistralai", … } ]
+datasets.filter((d) => d.org === "HuggingFaceFW")
+// [ { name: "fineweb",     org: "HuggingFaceFW", … },
+//   { name: "fineweb-edu", org: "HuggingFaceFW", … } ]
 
-models.filter((m) => m.downloads > 2_000_000)
-// [ { name: "whisper-large-v3", org: "openai", … } ]
+datasets.filter((d) => d.downloads > 2_000_000)
+// [ { name: "common_voice", org: "mozilla", … } ]
 
-models.filter((m) => m.task === "image-classification")
+datasets.filter((d) => d.licence === "propriétaire")
 // []   ← aucun résultat, mais bien un tableau
 ```
 
@@ -1759,14 +1759,14 @@ C'est exactement ce dont vous aurez besoin dans dix minutes pour <code>getModels
 <div class="pt-2 text-sm op-75">Renvoie un nouveau tableau de <b>même longueur</b>, où chaque élément a été transformé.</div>
 
 ```ts
-models.map((m) => m.name)
-// [ "Mistral-7B", "whisper-large-v3", "opus-mt-en-fr", "Devstral-Small" ]
+datasets.map((d) => d.name)
+// [ "fineweb", "common_voice", "squad", "fineweb-edu" ]
 
-models.map((m) => m.downloads / 1_000_000)
+datasets.map((d) => d.downloads / 1_000_000)
 // [ 1.42, 4.1, 1.25, 0.31 ]
 
-models.map((m) => ({ nom: m.name, éditeur: m.org }))
-// [ { nom: "Mistral-7B", éditeur: "mistralai" }, … ]
+datasets.map((d) => ({ nom: d.name, éditeur: d.org }))
+// [ { nom: "fineweb", éditeur: "HuggingFaceFW" }, … ]
 ```
 
 <v-click>
@@ -1784,24 +1784,24 @@ models.map((m) => ({ nom: m.name, éditeur: m.org }))
 <div class="pt-2 text-sm op-75">Chaque méthode renvoie un tableau, donc on peut appeler la suivante dessus.</div>
 
 ```ts {1-2|4-6|8-11|all}
-models.filter((m) => m.org === "mistralai")
-// [ { name: "Mistral-7B", … }, { name: "Devstral-Small", … } ]
+datasets.filter((d) => d.org === "HuggingFaceFW")
+// [ { name: "fineweb", … }, { name: "fineweb-edu", … } ]
 
-models.filter((m) => m.org === "mistralai")
-     .map((m) => m.name)
-// [ "Mistral-7B", "Devstral-Small" ]
+datasets.filter((d) => d.org === "HuggingFaceFW")
+        .map((d) => d.name)
+// [ "fineweb", "fineweb-edu" ]
 
-models.filter((m) => m.org === "mistralai")
-     .map((m) => m.name)
-     .join(", ")
-// "Mistral-7B, Devstral-Small"       ← .join() produit une chaîne
+datasets.filter((d) => d.org === "HuggingFaceFW")
+        .map((d) => d.name)
+        .join(", ")
+// "fineweb, fineweb-edu"       ← .join() produit une chaîne
 ```
 
 <v-click>
 
 <div class="pt-4">
 
-Ça se lit comme une phrase : **garde ceux de mistralai, prends leur nom, colle-les avec des virgules.**
+Ça se lit comme une phrase : **garde ceux de HuggingFaceFW, prends leur nom, colle-les avec des virgules.**
 La même chose en boucle `for` prendrait dix lignes et une variable temporaire.
 
 </div>
@@ -1823,16 +1823,16 @@ C'est là que le style fonctionnel prend son sens pour eux.
 
 ```ts {1-4|6-11|all}
 // Un accumulateur, une valeur de départ, et on replie
-models.reduce((total, m) => total + m.downloads, 0)
-//             ↑ accumulé  ↑ élément courant     ↑ départ
+datasets.reduce((total, d) => total + d.downloads, 0)
+//               ↑ accumulé  ↑ élément courant     ↑ départ
 // 7_080_000
 
 // L'accumulateur peut être une Map : ici, un total par organisation
-models.reduce((parOrg, m) => {
-  const total = parOrg.get(m.org) ?? 0;   // ?? : valeur par défaut si undefined
-  return parOrg.set(m.org, total + m.downloads);
+datasets.reduce((parOrg, d) => {
+  const total = parOrg.get(d.org) ?? 0;   // ?? : valeur par défaut si undefined
+  return parOrg.set(d.org, total + d.downloads);
 }, new Map<string, number>())
-// Map { "mistralai" => 1_730_000, "openai" => 4_100_000, "Helsinki" => 1_250_000 }
+// Map { "HuggingFaceFW" => 1_730_000, "mozilla" => 4_100_000, "stanfordnlp" => 1_250_000 }
 ```
 
 <v-click>
@@ -1853,8 +1853,8 @@ Si <code>reduce</code> vous paraît obscur au début, c'est normal. Commencez pa
 ### Il existe…
 
 ```ts
-models.forEach((m) => {
-  console.log(m.name);
+datasets.forEach((d) => {
+  console.log(d.name);
 });
 ```
 
@@ -1867,11 +1867,11 @@ Il applique la fonction à chaque élément et **ne renvoie rien**.
 
 ```ts
 // ❌ ne marche pas : forEach ne renvoie rien
-const noms = models.forEach((m) => m.name);
+const noms = datasets.forEach((d) => d.name);
 // noms === undefined
 
 // ✅
-const noms = models.map((m) => m.name);
+const noms = datasets.map((d) => d.name);
 ```
 
 </div>
@@ -1892,15 +1892,15 @@ La règle : si vous <b>voulez un résultat</b>, utilisez <code>map</code>, <code
 <div class="text-sm op-75 mb-2">Le code est exécutable ici : modifiez-le et relancez.</div>
 
 ```ts {monaco-run}
-const models = [
-  { name: "Mistral-7B", org: "mistralai", downloads: 1420000 },
-  { name: "whisper-large-v3", org: "openai", downloads: 4100000 },
-  { name: "Devstral-Small", org: "mistralai", downloads: 310000 },
+const datasets = [
+  { name: "fineweb", org: "HuggingFaceFW", downloads: 1420000 },
+  { name: "common_voice", org: "mozilla", downloads: 4100000 },
+  { name: "fineweb-edu", org: "HuggingFaceFW", downloads: 310000 },
 ];
 
-console.log(models.filter((m) => m.org === "mistralai").map((m) => m.name));
-console.log(models.reduce((total, m) => total + m.downloads, 0));
-console.log(models.find((m) => m.downloads > 4000000)?.name);
+console.log(datasets.filter((d) => d.org === "HuggingFaceFW").map((d) => d.name));
+console.log(datasets.reduce((total, d) => total + d.downloads, 0));
+console.log(datasets.find((d) => d.downloads > 4000000)?.name);
 ```
 
 <div class="pt-2 text-sm op-75">
@@ -1921,17 +1921,17 @@ ne rien trouver.
 <div>
 
 ```ts
-// model.ts
-export interface Model { … }
-export type Task = …
+// dataset.ts
+export interface Dataset { … }
+export type Licence = …
 ```
 
 ```ts
-// model-zoo.ts
-import type { Model, Task }
-  from "./model.js";
+// catalog.ts
+import type { Dataset, Licence }
+  from "./dataset.js";
 
-export class ModelZoo { … }
+export class DatasetCatalog { … }
 ```
 
 </div>
@@ -2051,11 +2051,12 @@ Rien n'est fourni à part les tests : c'est volontaire, et c'est l'exercice.
 Lire une spec et en déduire les types, c'est exactement le travail de la
 séance 2 avec les tests e2e.
 
-NE PAS réécrire Model ni Task au tableau : la slide « Le jeu de données »
-et le README en donnent déjà assez. Les laisser déduire les champs exacts
-des tests : c'est là que la séance se joue. Le README rappelle les 4 valeurs
-de Task (les tests n'en utilisent que 3) et le contrat des 6 méthodes, pour
-ceux qui calent.
+NE PAS écrire Model ni Task au tableau : les slides du cours ne les
+montrent jamais, exprès, elles travaillent sur des datasets. Tout est à
+transposer, rien à coller. Les laisser déduire les champs exacts des
+fixtures du test : c'est là que la séance se joue. Le README rappelle
+les 4 valeurs de Task (les tests n'en utilisent que 3) et le contrat des
+6 méthodes, pour ceux qui calent.
 
 Circuler beaucoup pendant les 10 premières minutes. Le blocage typique :
 ils écrivent `task: string` au lieu d'une union. Ne pas corriger tout de
