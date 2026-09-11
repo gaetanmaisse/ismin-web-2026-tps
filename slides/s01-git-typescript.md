@@ -504,13 +504,15 @@ Vous venez du C++ : une branche est <b>littéralement un pointeur</b>. Commiter 
 
 # Les quatre espaces de Git
 
-```mermaid {scale: 0.72}
+<div class="flex items-center justify-center h-full pb-20">
+
+```mermaid {scale: 0.85}
 %%{init: {'theme':'base','themeVariables':{'fontFamily':'Roboto, ui-sans-serif, sans-serif','fontSize':'15px','lineColor':'#94a3b8','primaryTextColor':'#0f172a'}}}%%
 flowchart LR
-  WS["📝 Workspace<br/>vos fichiers"]
-  ST["📋 Staging<br/>ce qui ira dans le commit"]
-  LR["📦 Dépôt local<br/>votre historique"]
-  RR["☁️ Dépôt distant<br/>GitHub"]
+  WS["Workspace<br/>📝 vos fichiers"]
+  ST["Staging<br/>📋 ce qui ira dans le commit"]
+  LR["Dépôt local<br/>📦 votre historique"]
+  RR["Dépôt distant<br/>☁️ GitHub"]
 
   WS -->|git add| ST
   ST -->|git commit| LR
@@ -527,16 +529,22 @@ flowchart LR
   class RR re
 ```
 
-<v-click>
-
-<div class="pt-6">
-
-La différence avec ce que vous connaissez : **commiter n'envoie rien à personne.**
-Votre historique est local tant que vous ne poussez pas.
-
 </div>
 
-</v-click>
+<!--
+Slide sans texte : c'est le schéma qu'on commente, pas qu'on lit.
+
+LA phrase à dire, celle qui les surprend : « commiter n'envoie rien à
+personne ». Votre historique reste local tant que vous ne poussez pas.
+Ils viennent de Git vu comme une sauvegarde en ligne, c'est le
+contresens à casser tout de suite.
+
+Parcourir le cycle à voix haute en pointant : j'édite, j'ajoute au
+staging, je commite, je pousse. Puis la flèche du retour, git pull.
+
+Le staging est l'espace qui n'existe nulle part ailleurs : insister
+sur « ce qui ira dans le commit », pas « ce que j'ai modifié ».
+-->
 
 ---
 
