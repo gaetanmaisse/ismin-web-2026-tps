@@ -43,8 +43,8 @@ mdc: true
   +46  L'architecture, brique par brique
   +66  TP partie 1 : GET /models
   +90  PAUSE (15 min)
-  +105 Cycle de vie + service synchrone → asynchrone
-  +115 Asynchronisme
+  +105 Asynchronisme : service synchrone → asynchrone, promesses
+  +122 Cycle de vie
   +130 Validation des entrées
   +138 TP partie 2
   +158 Correction
@@ -52,15 +52,14 @@ mdc: true
 
 ⚠️ SÉANCE DENSE EN CM : c'est la nature de la séance framework.
 SI EN RETARD, coupez dans cet ordre :
-  1. « Les codes de statut » (annexe, ils l'ont en référence)
-  2. « Dépendances et types TypeScript »
+  1. « Un projet Nest, fichier par fichier » (le README a le même arbre)
+  2. « Les codes de statut » (les cinq codes du TP sont dans le README)
   3. « Un contrôleur, plusieurs routes »
   4. Le bonus Hugging Face du TP
 Ne coupez JAMAIS : le module, main.ts, le cycle de vie, la validation.
 
 Ctrl+Shift+R pour remettre le relevé à zéro MAINTENANT.
 -->
-
 
 ---
 layout: center
@@ -71,7 +70,7 @@ layout: center
 ```ts
 const zoo = new ModelZoo();
 zoo.addModel(mistral);
-zoo.getModelsOf("mistralai");
+zoo.getModelsOf('mistralai');
 ```
 
 <v-click>
@@ -94,8 +93,9 @@ un navigateur, un téléphone, une autre application.
 </v-click>
 
 <!--
-Reprendre le fil. 3 minutes. Rappeler que tp02 contient un point de
-départ qui marche : personne n'est bloqué par le TP d'hier.
+Reprendre le fil. 3 minutes. Rappeler que tp02 embarque le corrigé du
+TP1 comme base : ceux qui ont fini le remplacent par leurs fichiers,
+les autres le gardent. Personne n'est bloqué par le TP d'hier.
 -->
 
 ---
@@ -140,10 +140,6 @@ L'analogie qui marche : le serveur est une <b>fonction distante</b>. Vous l'appe
 
 </v-click>
 
-<!--
-Le détail d'une requête HTTP brute est en annexe si quelqu'un demande.
--->
-
 ---
 
 # JSON
@@ -156,7 +152,7 @@ Le format d'échange du web. C'est juste du texte.
   "name": "Mistral-7B-Instruct-v0.3",
   "parameters": 7.2,
   "task": "text-generation",
-  "open": true
+  "downloads": 1420000
 }
 ```
 
@@ -171,7 +167,7 @@ Le format d'échange du web. C'est juste du texte.
 <v-click>
 
 <div class="pt-4 p-3 bg-amber-500 bg-opacity-10 rounded text-sm">
-⚠️ Ce qui sort de <code>JSON.parse</code> est de type <code>unknown</code> pour une bonne raison : c'est du texte venu de l'extérieur, rien ne garantit sa forme. <b>On y revient en fin de séance.</b>
+⚠️ TypeScript type ce qui sort de <code>JSON.parse</code> en <code>any</code> : c'est du texte venu de l'extérieur, rien ne garantit sa forme. Traitez-le comme un <code>unknown</code>. <b>On y revient en fin de séance.</b>
 </div>
 
 </v-click>
@@ -255,8 +251,8 @@ Un `500` dans vos logs est toujours un bug à corriger.
 </div>
 
 <!--
-Sacrifiable si retard : ils l'ont en annexe. Le message qui compte
-est le 4xx/5xx.
+Sacrifiable si retard : les cinq codes du TP sont dans le README.
+Le message qui compte est le 4xx/5xx.
 -->
 
 ---
@@ -265,7 +261,7 @@ layout: section
 
 # 3. Node et npm
 
-<div class="op-75 pt-2">Vous venez du C/C++ : il n'y a pas d'équivalent</div>
+<div class="op-75 pt-2">L'outillage du projet</div>
 
 ---
 
@@ -347,7 +343,7 @@ layout: center
 
 ```sh
 # Une seule fois : déclarer mon dépôt comme source des TPs
-git remote add upstream git@github.com:gaetanmaisse/ismin-web-2026-tps.git
+git remote add upstream https://github.com/gaetanmaisse/ismin-web-2026-tps.git
 
 # À chaque séance : récupérer le TP du jour
 git pull upstream main
@@ -400,13 +396,13 @@ layout: section
 **Node tout nu**
 
 ```ts
-import http from "node:http";
+import http from 'node:http';
 
 http.createServer((req, res) => {
-  if (req.url === "/models"
-      && req.method === "GET") {
+  if (req.url === '/models'
+      && req.method === 'GET') {
     res.writeHead(200, {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json'
     });
     res.end(JSON.stringify(models));
   }
@@ -420,11 +416,11 @@ http.createServer((req, res) => {
 **Avec NestJS**
 
 ```ts
-@Controller("models")
+@Controller('models')
 export class ModelsController {
   @Get()
   findAll(): Model[] {
-    return this.service.findAll();
+    return this.modelsService.findAll();
   }
 }
 ```
@@ -449,24 +445,28 @@ Et pourquoi pas Express seul ? Parce qu'à cinq routes on s'en sort, à cinquant
 
 ---
 
-# Ce que génère `nest new`
+# Un projet Nest, fichier par fichier
 
 <div class="grid grid-cols-2 gap-6 pt-2">
 <div>
 
 ```
+tp02/
 ├── package.json
 ├── nest-cli.json
 ├── tsconfig.json
 ├── src
 │   ├── main.ts
 │   ├── app.module.ts
-│   ├── app.controller.ts
-│   ├── app.service.ts
-│   └── app.controller.spec.ts
+│   └── models
+│       ├── model.ts
+│       ├── model-zoo.ts
+│       ├── models.module.ts
+│       ├── models.controller.ts
+│       ├── models.service.ts
+│       └── dto/create-model.dto.ts
 └── test
-    ├── app.e2e-spec.ts
-    └── jest-e2e.json
+    └── models.e2e-spec.ts
 ```
 
 </div>
@@ -480,7 +480,8 @@ Et pourquoi pas Express seul ? Parce qu'à cinq routes on s'en sort, à cinquant
 - **`*.module.ts`** : les boîtes qui déclarent ce qui va ensemble
 - **`*.controller.ts`** : les routes HTTP
 - **`*.service.ts`** : la logique métier
-- **`*.spec.ts`** : les tests, à côté du code testé
+- **`dto/`** : la forme attendue des entrées
+- **`test/*.e2e-spec.ts`** : les tests, qui appellent l'API de bout en bout
 
 </v-clicks>
 
@@ -491,8 +492,8 @@ Et pourquoi pas Express seul ? Parce qu'à cinq routes on s'en sort, à cinquant
 
 <v-click>
 
-<div class="pt-6 text-sm op-75">
-Une convention forte : <b>un fichier = une responsabilité</b>, et le nom du fichier dit laquelle. Vous retrouverez cette structure dans tous les projets Nest.
+<div class="pt-4 text-sm op-75">
+Une convention forte : <b>un fichier = une responsabilité</b>, et le nom du fichier dit laquelle. <code>nest new</code> génère la même structure, vous la retrouverez dans tous les projets Nest.
 </div>
 
 </v-click>
@@ -530,7 +531,7 @@ flowchart LR
 
 <div class="pt-4">
 
-Cinq pièces. On va les prendre **une par une**, dans l'ordre où on les écrit.
+Cinq pièces. On va les prendre **une par une**, dans l'ordre où on les écrit. Le DTO, la forme attendue d'une entrée, attend la section 7.
 
 </div>
 
@@ -539,6 +540,39 @@ Cinq pièces. On va les prendre **une par une**, dans l'ordre où on les écrit.
 C'est le fil conducteur de la section : ils doivent toujours savoir
 « où on est ».
 -->
+
+---
+
+# Les décorateurs : la syntaxe à connaître
+
+Tout ce qui suit est parsemé de `@`. C'est une **annotation** qui attache des métadonnées à une classe, une méthode ou un paramètre.
+
+```ts
+@Controller('models')   // this class handles the /models routes
+@Get(':id')             // this method answers GET /models/:id
+@Param('id')            // inject the :id segment of the URL here
+@Query('org')           // inject the ?org= query parameter here
+@Body()                 // inject the JSON request body here
+```
+
+<v-click>
+
+<div class="pt-6">
+
+Au démarrage, NestJS lit ces métadonnées et construit la table de routage.
+Vous **décrivez** ce que vous voulez, le framework **câble**.
+
+</div>
+
+</v-click>
+
+<v-click>
+
+<div class="pt-4 text-sm op-75">
+Rien de magique : ce sont des fonctions ordinaires fournies par Nest, <code>import { Controller, Get } from '@nestjs/common'</code>.
+</div>
+
+</v-click>
 
 ---
 
@@ -572,18 +606,21 @@ flowchart LR
 ```
 
 ```ts
-export type Task = "text-generation" | "translation" | "speech-to-text";
+export type Task = 'text-generation' | 'translation' | 'image-classification' | 'speech-to-text';
 
 export interface Model {
-  id: string;
+  id: string;           // slug, unique dans le catalogue
   name: string;
+  org: string;
   task: Task;
-  parameters: number;
+  parameters: number;   // en milliards
+  downloads: number;
+  license?: string;
 }
 ```
 
 <div class="pt-3 text-sm op-75">
-Rien de spécifique à Nest ici : ce sont les interfaces et types de la séance 1. Vos données se modélisent en TypeScript pur.
+Rien de spécifique à Nest ici : ce sont <b>vos types d'hier</b>, copiés tels quels dans <code>src/models/</code>. Vos données se modélisent en TypeScript pur.
 </div>
 
 ---
@@ -643,7 +680,7 @@ Ce qu'on n'y met <b>jamais</b> : quoi que ce soit qui parle d'HTTP. Un service n
 import { Injectable } from '@nestjs/common';
 import { ModelZoo } from './model-zoo';
 
-@Injectable()                       // ← "Nest may provide this class"
+@Injectable()                       // ← 'Nest may provide this class'
 export class ModelsService {
   private zoo = new ModelZoo();     // ← your TP1 class, untouched
 
@@ -661,14 +698,6 @@ export class ModelsService {
 <div class="pt-3 text-sm op-75">
 <code>@Injectable()</code> ne fait rien de magique : il marque la classe comme <i>fournissable</i> par l'injection de dépendances. Sans lui, Nest refusera de la construire.
 </div>
-
-<v-click>
-
-<div class="pt-2 text-sm op-75">
-💡 Pour signaler une erreur, un service ou un contrôleur <b>lève une exception</b> : <code>NotFoundException</code> devient un 404, <code>BadRequestException</code> un 400. Nest se charge de la traduction.
-</div>
-
-</v-click>
 
 ---
 
@@ -702,7 +731,7 @@ flowchart LR
 ```
 
 ```ts {1-3|5-8|all}
-@Controller("models")           // every route starts with /models
+@Controller('models')           // every route starts with /models
 export class ModelsController {
   constructor(private readonly modelsService: ModelsService) {}
 
@@ -721,20 +750,20 @@ Un objet retourné devient du <b>JSON automatiquement</b>, avec un <code>200</co
 
 # ③ Un contrôleur, plusieurs routes
 
-```ts {1-6|8-9|all}
-@Controller("models")
+```ts {1-7|9-14|all}
+@Controller('models')
 export class ModelsController {
   @Get()          findAll()  { … }    // GET    /models
   @Post()         create()   { … }    // POST   /models   ← même chemin
-  @Get(":id")     findOne()  { … }    // GET    /models/:id
-  @Delete(":id")  remove()   { … }    // DELETE /models/:id  ← même chemin
+  @Get(':id')     findOne()  { … }    // GET    /models/:id
+  @Delete(':id')  remove()   { … }    // DELETE /models/:id  ← même chemin
 }
 
-// Récupérer le paramètre d'URL, et signaler une erreur
-findOne(@Param("id") id: string): Model {
+// Récupérer le paramètre d'URL
+findOne(@Param('id') id: string): Model {
   const model = this.modelsService.findOne(id);
-  if (!model) throw new NotFoundException(`Model ${id} not found`);
-  return model;
+  // model peut être undefined : à vous de renvoyer un 404 (README, étape 3)
+  …
 }
 ```
 
@@ -744,39 +773,6 @@ findOne(@Param("id") id: string): Model {
 - `NotFoundException` devient un **404**, `BadRequestException` un **400** : Nest traduit vos exceptions en réponses HTTP
 
 </v-clicks>
-
----
-
-# ③ Les décorateurs
-
-Le `@` vous intrigue ? C'est une **annotation** qui attache des métadonnées.
-
-```ts
-@Controller("models")   // this class handles the /models routes
-@Get(":id")             // this method answers GET /models/:id
-@Param("id")            // inject the :id segment of the URL here
-@Query("org")           // inject the ?org= query parameter here
-@Body()                 // inject the JSON request body here
-```
-
-<v-click>
-
-<div class="pt-6">
-
-Au démarrage, NestJS lit ces métadonnées et construit la table de routage.
-Vous **décrivez** ce que vous voulez, le framework **câble**.
-
-</div>
-
-</v-click>
-
-<v-click>
-
-<div class="pt-4 text-sm op-75">
-Si vous avez fait du C++ moderne, c'est l'esprit des attributs <code>[[nodiscard]]</code> : une information pour l'outillage, attachée au code.
-</div>
-
-</v-click>
 
 ---
 
@@ -881,7 +877,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);   // the root module
   await app.listen(process.env.PORT ?? 3000);        // the port to listen on
 }
-void bootstrap();
+void bootstrap();                                    // void : on lance, sans attendre
 ```
 
 <div class="pt-3 text-sm op-75">
@@ -895,8 +891,9 @@ C'est ici qu'on branchera la <b>validation globale</b> en fin de séance, et c'e
 ```sh
 npm run start          # démarre l'application
 npm run start:dev      # démarre + redémarre à chaque modification  ← celui du TP
-npm run start:debug    # idem, avec un débogueur attachable
-npm run test           # lance les tests
+npm run test           # lance les tests une fois
+npm run test:watch     # les relance à chaque modification            ← celui du TP
+npm run typecheck      # vérifie les types sans rien produire
 npm run build          # compile vers dist/
 ```
 
@@ -942,9 +939,11 @@ tp02/bruno/
 ├── environments/
 │   └── local.bru
 ├── 01-list-models.bru
-├── 02-get-one-model.bru
-├── 03-create-model.bru
-└── 06-filter-by-org.bru
+├── 02-create-model.bru
+├── 03-get-one-model.bru
+├── 04-filter-by-org.bru
+├── 05-rejects-invalid-input.bru
+└── 06-delete-model.bru
 ```
 
 <div class="pt-4 text-sm op-75">
@@ -959,7 +958,7 @@ Alternative sans rien installer : l'extension <b>REST Client</b> de VS Code, ou 
 sélectionner l'environnement local, lancer « 01-list-models ».
 Montrer la réponse, le code de statut, le temps de réponse.
 
-Puis modifier le corps de « 03-create-model » et relancer.
+Puis modifier le corps de « 02-create-model » et relancer.
 -->
 
 ---
@@ -973,7 +972,7 @@ layout: section
 <div class="pt-8 text-sm inline-block text-left">
 
 0. Copier votre `ModelZoo` du TP1 dans `src/models/`, ou garder le corrigé fourni
-1. Lire le projet : où est le contrôleur, où est le service ?
+1. Lire le projet, puis câbler le module : il est livré vide
 2. `GET /models`
 3. `GET /models/:id`, avec un 404 si le modèle est inconnu
 
@@ -994,8 +993,10 @@ dans le service (une délégation au zoo) puis la route dans le contrôleur.
 Puis ils continuent seuls.
 
 Blocages classiques :
-- contrôleur absent de `controllers` → 404 muet (la slide du module le dit)
-- @Get(':id') qui ne capture pas le « / » de l'identifiant
+- module pas câblé : la suite de tests ne démarre pas, « Nest could not
+  find ModelsService element » ; contrôleur déclaré sans son service :
+  « Nest can't resolve dependencies » ; contrôleur oublié : 404 muet
+- l'exception HTTP levée dans le service : c'est le contrôleur qui traduit
 -->
 
 ---
@@ -1015,41 +1016,7 @@ class: text-center
 layout: section
 ---
 
-# 5. Le cycle de vie
-
----
-
-# Nest vous prévient aux moments clés
-
-```mermaid {scale: 0.62}
-flowchart LR
-  A["Modules<br/>instanciés"] --> B["onModuleInit"]
-  B --> C["onApplicationBootstrap"]
-  C --> D["🟢 L'app écoute"]
-  D --> E["onModuleDestroy"]
-  E --> F["onApplicationShutdown"]
-```
-
-```ts {1|3-8|all}
-import { Injectable, OnModuleInit } from '@nestjs/common';
-
-@Injectable()
-export class ModelsService implements OnModuleInit {
-  async onModuleInit(): Promise<void> {
-    // The right moment to load data, open a connection…
-    await this.loadCatalogue();
-  }
-}
-```
-
-<div class="pt-3 text-sm op-75">
-Pourquoi pas dans le constructeur ? Parce qu'un constructeur ne peut pas être <code>async</code>. <code>onModuleInit</code>, si, et Nest l'attend avant de démarrer le serveur.
-</div>
-
-<!--
-Indispensable : le bonus A du TP repose entièrement là-dessus.
-On s'en resservira en séance 3 pour la connexion à la base.
--->
+# 5. L'asynchronisme
 
 ---
 
@@ -1113,12 +1080,6 @@ D'où la question suivante : c'est quoi, au juste, une opération asynchrone ?
 </v-click>
 
 ---
-layout: section
----
-
-# 6. L'asynchronisme
-
----
 
 # Node exécute votre code sur un seul thread
 
@@ -1149,13 +1110,13 @@ Conséquence directe : une fonction qui fait des entrées/sorties ne renvoie pas
 ````md magic-move
 ```ts
 // ① Callbacks : l'enfer de l'imbrication
-readFile("models.json", (err, data) => {
+readFile('models.json', (err, data) => {
   if (err) return handle(err);
   parse(data, (err, models) => {
     if (err) return handle(err);
     save(models, (err) => {
       if (err) return handle(err);
-      console.log("done");
+      console.log('done');
     });
   });
 });
@@ -1163,20 +1124,20 @@ readFile("models.json", (err, data) => {
 
 ```ts
 // ② Promises : on aplatit
-readFile("models.json")
+readFile('models.json')
   .then((data) => parse(data))
   .then((models) => save(models))
-  .then(() => console.log("done"))
+  .then(() => console.log('done'))
   .catch(handle);
 ```
 
 ```ts
 // ③ async/await : on lit comme du synchrone
 try {
-  const data = await readFile("models.json");
+  const data = await readFile('models.json');
   const models = await parse(data);
   await save(models);
-  console.log("done");
+  console.log('done');
 } catch (err) {
   handle(err);
 }
@@ -1192,24 +1153,27 @@ C'est exactement la progression du bonus A du TP.
 
 # `async` / `await` en pratique
 
-```ts {1-5|7-11|13-17|all}
+```ts {1-5|7-9,18-20|11-15|all}
 // async devant une fonction : elle renvoie TOUJOURS une Promise
 async function loadModels(): Promise<Model[]> {
-  const raw = await readFile("models.json", "utf8");
-  return JSON.parse(raw) as Model[];
+  const raw = await readFile('models.json', 'utf8');
+  return JSON.parse(raw);        // un fichier à nous : on lui fait confiance
 }
 
 // await ne s'utilise QUE dans une fonction async
-const models = await loadModels();        // ✅ dans un async
-function nope() {
-  const models = await loadModels();      // ❌ erreur de compilation
+async function main() {
+  const models = await loadModels();              // ✅
+
+  // Plusieurs appels en parallèle : Promise.all
+  const [locaux, distants] = await Promise.all([
+    loadModels(),
+    fetchFromHuggingFace(),
+  ]);
 }
 
-// Plusieurs appels en parallèle : Promise.all
-const [locaux, distants] = await Promise.all([
-  loadModels(),
-  fetchFromHuggingFace(),
-]);
+function nope() {
+  const models = await loadModels();              // ❌ erreur de compilation
+}
 ```
 
 <div class="pt-2 text-sm op-75">
@@ -1222,12 +1186,12 @@ const [locaux, distants] = await Promise.all([
 
 ```ts {monaco-run}
 async function getModel(): Promise<string> {
-  return "Mistral-7B";
+  return 'Mistral-7B';
 }
 
-console.log("avant");
+console.log('avant');
 getModel().then((name) => console.log(name));
-console.log("après");
+console.log('après');
 ```
 
 <!--
@@ -1235,6 +1199,47 @@ Faire voter AVANT d'exécuter. Réponse : avant / après / Mistral-7B.
 
 C'est LE moment de comprendre que `then` ne bloque pas. Modifier en
 direct pour tester leurs hypothèses.
+-->
+
+---
+layout: section
+---
+
+# 6. Le cycle de vie
+
+---
+
+# Nest vous prévient aux moments clés
+
+```mermaid {scale: 0.62}
+flowchart LR
+  A["Modules<br/>instanciés"] --> B["onModuleInit"]
+  B --> C["onApplicationBootstrap"]
+  C --> D["🟢 L'app écoute"]
+  D --> E["onModuleDestroy"]
+  E --> F["onApplicationShutdown"]
+```
+
+```ts {1|3-10|all}
+import { Injectable, OnModuleInit } from '@nestjs/common';
+
+@Injectable()
+// implements : « je fournis cette méthode », et Nest l'appelle au bon moment
+export class ModelsService implements OnModuleInit {
+  async onModuleInit(): Promise<void> {
+    // The right moment to load data, open a connection…
+    await this.loadCatalogue();
+  }
+}
+```
+
+<div class="pt-3 text-sm op-75">
+Pourquoi pas dans le constructeur ? Parce qu'un constructeur ne peut pas être <code>async</code>. <code>onModuleInit</code>, si, et Nest l'attend avant de démarrer le serveur.
+</div>
+
+<!--
+Indispensable : le bonus A du TP repose entièrement là-dessus.
+On s'en resservira en séance 3 pour la connexion à la base.
 -->
 
 ---
@@ -1284,21 +1289,20 @@ Pour l'imposer, il faut du code qui s'exécute.
 
 # La solution : un DTO validé
 
-<div class="text-sm op-75 mb-2">DTO = <i>Data Transfer Object</i> : la forme attendue d'une entrée.</div>
+<div class="text-sm op-75 mb-2">DTO = <i>Data Transfer Object</i> : la forme attendue d'une entrée. Ici pour les datasets du cours ; celui des modèles, c'est l'étape 5 du TP.</div>
 
-```ts {1-13|15-18|all}
-export class CreateModelDto {
-  @IsString()
-  @Matches(/^[a-z0-9]+(-[a-z0-9]+)*$/, { message: "id must be a slug" })
-  id!: string;
-
+```ts {1-12|14-17|all}
+export class CreateDatasetDto {
   @IsString()
   @IsNotEmpty()
-  name!: string;
+  name!: string;          // le ! : « rempli par Nest, pas par moi »
 
-  @IsNumber()
+  @IsInt()
   @Min(0)
-  parameters!: number;
+  rows!: number;
+
+  @IsIn(['cc0-1.0', 'cc-by-sa-4.0', 'odc-by'])
+  licence!: string;
 }
 
 // In main.ts, once for the whole application
@@ -1311,7 +1315,7 @@ app.useGlobalPipes(
 
 <div class="pt-3 text-sm op-75">
 Une entrée invalide ne parvient jamais à votre service : Nest répond <b>400</b> avec le détail des erreurs.<br/>
-<code>whitelist</code> supprime les champs non déclarés : un client ne peut pas glisser de propriété surprise.
+<code>whitelist</code> retire les champs non déclarés, <code>forbidNonWhitelisted</code> va plus loin et refuse la requête : un client ne peut pas glisser de propriété surprise.
 </div>
 
 </v-click>
@@ -1352,10 +1356,10 @@ sur la correction, et les bonus sur la maison.
 
 ```ts
 @Get()
-findAll(@Query("org") org?: string) {
-  const all = this.service.findAll();
+findAll(@Query('org') org?: string) {
+  const all = this.modelsService.findAll();
   if (org) {
-    return all.filter(m => m.org === org);
+    return all.filter((m) => m.org === org);
   }
   return all;
 }
@@ -1370,8 +1374,8 @@ Le contrôleur fait du métier.
 
 ```ts
 @Get()
-findAll(@Query("org") org?: string) {
-  return this.service.findAll({ org });
+findAll(@Query('org') org?: string) {
+  return this.modelsService.findAll({ org });
 }
 ```
 
@@ -1437,42 +1441,6 @@ layout: section
 
 ---
 
-# Annexe · Une requête HTTP en détail
-
-<div class="grid grid-cols-2 gap-6 pt-2">
-<div>
-
-**Ce que le client envoie**
-
-```http
-GET /models?task=translation HTTP/1.1
-Host: api.exemple.fr
-Accept: application/json
-```
-
-</div>
-<div>
-
-**Ce que le serveur répond**
-
-```http
-HTTP/1.1 200 OK
-Content-Type: application/json
-
-[
-  { "id": "…", "name": "…" }
-]
-```
-
-</div>
-</div>
-
-<div class="pt-8 text-sm op-75">
-Une <b>ligne de requête</b> (méthode, chemin, version), des <b>en-têtes</b> (métadonnées), une ligne vide, puis le <b>corps</b> : présent seulement sur <code>POST</code>, <code>PUT</code> et <code>PATCH</code>.
-</div>
-
----
-
 # Annexe · Décorateurs NestJS courants
 
 | Décorateur | Rôle | Exemple |
@@ -1499,8 +1467,8 @@ Exceptions prêtes à l'emploi : <code>NotFoundException</code> (404), <code>Bad
 @IsNotEmpty()                    // chaîne non vide
 @IsOptional()                    // le champ peut être absent
 @Min(0)  @Max(100)               // bornes numériques
-@IsIn(["text-generation", "translation"])   // valeurs autorisées
-@Matches(/^[\w-]+\/[\w.-]+$/)    // expression régulière
+@IsIn(['text-generation', 'translation'])   // valeurs autorisées
+@Matches(/^v\d+\.\d+$/)          // expression régulière, ici un numéro de version
 @IsArray()  @ValidateNested()    // objets imbriqués
 ```
 
@@ -1522,9 +1490,11 @@ curl localhost:3000/models
 
 curl -X POST localhost:3000/models \
   -H "Content-Type: application/json" \
-  -d '{"id":"a/b","name":"B","parameters":7}'
+  -d '{"id":"gemma-2-9b","name":"Gemma 2 9B",
+       "org":"google","task":"text-generation",
+       "parameters":9.2,"downloads":800000}'
 
-curl -X DELETE localhost:3000/models/a%2Fb
+curl -X DELETE localhost:3000/models/gemma-2-9b
 ```
 
 </div>
@@ -1542,7 +1512,9 @@ GET http://localhost:3000/models
 POST http://localhost:3000/models
 Content-Type: application/json
 
-{ "id": "a/b", "name": "B", "parameters": 7 }
+{ "id": "gemma-2-9b", "name": "Gemma 2 9B",
+  "org": "google", "task": "text-generation",
+  "parameters": 9.2, "downloads": 800000 }
 ```
 
 </div>
@@ -1550,40 +1522,4 @@ Content-Type: application/json
 
 <div class="pt-6 text-sm op-75">
 💡 Nos identifiants sont des <b>slugs</b> sans caractère spécial, donc rien à encoder. Sachez tout de même que Hugging Face utilise réellement <code>organisation/nom</code> dans ses URLs : ce qui impose côté serveur un paramètre attrape-tout (<code>@Get('*id')</code>). C'est un cas particulier, pas la règle.
-</div>
-
----
-
-# Annexe · Dépendances et types TypeScript
-
-Trois cas de figure quand vous installez un paquet :
-
-<v-clicks>
-
-<div>
-
-**1. Les types sont livrés avec le paquet** : le cas le plus courant aujourd'hui (NestJS, Prisma, class-validator). Rien à faire.
-
-</div>
-
-<div>
-
-**2. Les types sont dans un paquet séparé** : convention `@types/…` :
-
-```sh
-npm install -D @types/node @types/supertest
-```
-
-</div>
-
-<div>
-
-**3. Il n'existe pas de types** : la bibliothèque est en JavaScript pur. Vous les écrivez vous-même dans un fichier `typings.d.ts`, ou vous acceptez le `any` en l'isolant.
-
-</div>
-
-</v-clicks>
-
-<div class="pt-6 text-sm op-75">
-C'est pour ça que <code>@types/node</code> figure dans les <code>devDependencies</code> du TP : il décrit à TypeScript ce que Node fournit (<code>process</code>, <code>fs</code>…), sans rien ajouter à l'exécution.
 </div>
