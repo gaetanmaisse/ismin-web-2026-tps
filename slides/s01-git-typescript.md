@@ -1003,32 +1003,12 @@ Aucune bibliothèque supplémentaire, aucun surcoût à l'exécution.
 
 # À quoi ça ressemble
 
-<div class="grid grid-cols-2 gap-6 pt-2">
-<div>
-
-**C++**
-
-```cpp
-int parameters = 7;
-std::string org = "mistralai";
-
-std::string show(Model m);
-```
-
-</div>
-<div>
-
-**TypeScript**
-
 ```ts
 const parameters: number = 7;
 const org: string = "mistralai";
 
 function show(m: Model): string { … }
 ```
-
-</div>
-</div>
 
 <v-clicks>
 
@@ -1472,8 +1452,6 @@ const isLarge = (m: Model) => {
 models.filter((m) => m.org === "mistralai");
 ```
 
-La lambda de C++, en plus court.
-
 </div>
 </div>
 
@@ -1547,36 +1525,18 @@ L'éditeur vous les propose en autocomplétion, et le compilateur refuse tout le
 
 ---
 
-# Génériques : vos templates
-
-<div class="grid grid-cols-2 gap-6 pt-2">
-<div>
-
-**C++**
-
-```cpp
-std::vector<Model> models;
-std::map<std::string, Model> zoo;
-```
-
-</div>
-<div>
-
-**TypeScript**
+# Génériques : le type entre chevrons
 
 ```ts
 const models: Array<Model> = [];
 const zoo: Map<string, Model> = new Map();
 ```
 
-</div>
-</div>
-
 <v-click>
 
-<div class="pt-8">
+<div class="pt-6">
 
-Même idée, même syntaxe. `Array<Model>` s'écrit aussi `Model[]`, c'est identique.
+Le type entre chevrons dit **ce que contient** le tableau ou la `Map`. `Array<Model>` s'écrit aussi `Model[]`, c'est identique.
 
 </div>
 
@@ -1586,7 +1546,7 @@ Même idée, même syntaxe. `Array<Model>` s'écrit aussi `Model[]`, c'est ident
 
 <div class="pt-6">
 
-### `Map` : le dictionnaire, comme `std::map`
+### `Map` : le dictionnaire
 
 ```ts
 const zoo = new Map<string, Model>();
@@ -1602,30 +1562,7 @@ Array.from(zoo.values());     // toutes les valeurs, dans un tableau
 
 ---
 
-# Les classes, version TypeScript
-
-<div class="grid grid-cols-2 gap-4 pt-2">
-<div>
-
-**C++**
-
-```cpp
-class ModelZoo {
- private:
-  std::vector<Model> models;
-
- public:
-  void addModel(Model m);
-  int getTotalNumberOfModels() const;
-};
-```
-
-Déclaration et implémentation séparées.
-
-</div>
-<div>
-
-**TypeScript**
+# Les classes
 
 ```ts
 class ModelZoo {
@@ -1641,9 +1578,10 @@ class ModelZoo {
 }
 ```
 
-Un seul fichier, `this` explicite.
+<div class="pt-2">
 
-</div>
+Déclaration et implémentation au même endroit, et `this` toujours explicite.
+
 </div>
 
 <v-click>
@@ -2001,7 +1939,6 @@ export class ModelZoo { … }
 
 - `export` rend une déclaration visible depuis un autre fichier
 - `import` va chercher ce dont on a besoin, **et rien d'autre**
-- Pas de `#include`, pas de fichier d'en-tête : le fichier **est** l'unité
 
 </div>
 </div>
