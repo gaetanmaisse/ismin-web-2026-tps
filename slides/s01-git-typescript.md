@@ -838,7 +838,7 @@ C'est ce qui rend possible un cours full-stack en quatre semaines.
 
 ---
 
-# À vous : ouvrez la console de votre navigateur
+# À vous : qu'est-ce que ça affiche ?
 
 <div class="text-sm op-75 mb-2">
 Annoncez le résultat <b>avant</b> de lancer. Bouton ▶ sur chaque bloc.
