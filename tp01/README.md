@@ -26,13 +26,14 @@ git remote -v
 > 💡 From session 2 on, you will add a second remote pointing at the course
 > repository, to pull each new lab. We will set that up together when you need it.
 
-Then create a branch for your work:
+Then create a branch for your work, and publish it on your fork right away:
 
 ```sh
 git switch -c tp01-modelzoo
+git push -u origin tp01-modelzoo
 ```
 
-At the end of the lab you will push this branch to your fork. Later, on the final project, you will work in pairs and propose your changes through **pull requests** — that is when code review starts to mean something.
+Pushing works even before your first commit: it creates the branch on your fork, so your work has somewhere to go at the end of the lab. Later, on the final project, you will work in pairs and propose your changes through **pull requests** — that is when code review starts to mean something.
 
 ## 🚀 Step 2 — Get started
 
@@ -80,7 +81,8 @@ Create `src/model.ts` and declare two types in it:
   `id` is a URL-safe slug, unique in the catalogue.
 
 > 💡 Use `interface` for `Model` and `type` for `Task`. Both keywords work for
-> both; the course appendix explains when each one is the idiomatic choice.
+> both; the course rule is `interface` for the shape of an object, `type` for
+> everything else (unions, aliases).
 
 ## 📝 Step 4 — Implement the class
 
@@ -111,7 +113,7 @@ once.
 
 ## 🤖 Using AI during this lab
 
-You may use [Le Chat](https://chat.mistral.ai) — and you are encouraged to, in order to **understand**, not to produce.
+You may use an AI assistant, [Le Chat](https://chat.mistral.ai) or any other — and you are encouraged to, in order to **understand**, not to produce.
 
 Today's exercise: when the TypeScript compiler returns an error you do not understand, ask it to explain, **then verify its answer** against the [official documentation](https://www.typescriptlang.org/docs/). You will be surprised how often a plausible explanation turns out to be wrong.
 
@@ -132,7 +134,7 @@ If you finish early. None of these has an obvious solution — write the test be
    Constraints: **a single pass** over the array, and **no `any`** in the signature.
 
 4. **⭐ The generic catalogue.** Turn `ModelZoo` into a `Catalogue<T>` reusable for any entity,
-   not just models. What must you **require** of `T` for `getById` to still work?
+   not just models. What must you **require** of `T` for `getModel` to still work?
 
 ## ✅ Wrapping up
 
@@ -140,7 +142,7 @@ If you finish early. None of these has an obvious solution — write the test be
 git diff                    # read what you are about to commit
 git add .
 git commit -m "feat(tp01): implement ModelZoo"
-git push -u origin tp01-modelzoo
+git push                    # the branch already exists on your fork since step 1
 ```
 
 Reading your own diff before committing is a habit worth building.

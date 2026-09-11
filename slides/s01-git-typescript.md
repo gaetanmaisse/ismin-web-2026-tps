@@ -39,7 +39,7 @@ mdc: true
   +07  ▶ Terminal ouvert : on vérifie les machines
   +12  Cadrage : les 4 semaines et la règle d'or
   +25  Git : le modèle (photo, pointeur, 4 espaces), la pratique, la démo
-  +43  TP Git (fork, clone, branche, commit, push)
+  +43  TP Git (fork, clone, branche, premier push)
   +68  CM TypeScript
   +88  PAUSE (15 min)
   +103 CM boîte à outils (dont les méthodes de tableau)
@@ -51,7 +51,7 @@ mdc: true
 ⚠️ SI VOUS ÊTES EN RETARD, coupez dans cet ordre :
   1. « Deux conséquences qui surprennent »
   2. « Le raccourci de constructeur »
-  3. « Interfaces : décrire une forme »
+  3. « `.some()` et `.every()` : répondre par oui ou non »
 Ne coupez JAMAIS le TP ModelZoo.
 
 Les 3 dernières slides sont des ANNEXES : ne pas les présenter,
@@ -488,7 +488,7 @@ flowchart RL
 
 - Une branche, c'est **un nom qui pointe vers un commit**. Rien d'autre, 40 octets sur le disque.
 - La créer ne copie aucun fichier : c'est pour ça que c'est instantané
-- `HEAD` dit sur quelle branche vous êtes. `git switch` ne fait que le déplacer.
+- `HEAD` dit sur quelle branche vous êtes. Changer de branche, `git switch`, ne fait que le déplacer.
 
 </v-clicks>
 
@@ -554,12 +554,12 @@ sur « ce qui ira dans le commit », pas « ce que j'ai modifié ».
 %%{init: {'theme':'base','themeVariables':{'fontFamily':'Roboto, ui-sans-serif, sans-serif','fontSize':'13px','git0':'#2563eb','git1':'#7c3aed','gitBranchLabel0':'#ffffff','gitBranchLabel1':'#ffffff','commitLabelColor':'#0f172a','commitLabelBackground':'#f1f5f9','commitLabelFontSize':'12px','tagLabelColor':'#ffffff','tagLabelBackground':'#16a34a'}}}%%
 gitGraph
   commit id: "init"
-  branch feat/model-zoo
-  checkout feat/model-zoo
+  branch tp01-modelzoo
+  checkout tp01-modelzoo
   commit id: "feat: Model"
   commit id: "feat: ModelZoo"
   checkout main
-  merge feat/model-zoo id: "fusion"
+  merge tp01-modelzoo id: "fusion"
   commit id: "suite..."
 ```
 
@@ -614,10 +614,10 @@ truc
 ```
 
 ```
-feat(zoo): add getModelsByTask
-fix(zoo): handle duplicate ids
+feat(tp01): add getModelsByTask
+fix(tp01): handle duplicate ids
 docs: update README
-test(zoo): cover empty catalog
+test(tp01): cover empty catalog
 ```
 
 </div>
@@ -733,16 +733,17 @@ layout: center
 ```sh
 # 1. Forker le dépôt du cours (sur GitHub, un bouton)
 # 2. Récupérer ma copie
-git clone git@github.com:MOI/ismin-web-2026-tps.git
+git clone https://github.com/MOI/ismin-web-2026-tps.git
 cd ismin-web-2026-tps
 
-# 3. Travailler sur une branche
+# 3. Travailler sur une branche, et la publier tout de suite
 git switch -c tp01-modelzoo
+git push -u origin tp01-modelzoo
 
 # 4. Relire ce qu'on s'apprête à enregistrer, PUIS enregistrer
 git diff
 git add . && git commit -m "feat(tp01): implement ModelZoo"
-git push -u origin tp01-modelzoo
+git push
 ```
 
 </div>
@@ -750,8 +751,12 @@ git push -u origin tp01-modelzoo
 <!--
 🔴 DÉMONSTRATION EN DIRECT, pas une slide qu'on lit.
 
-Faire les 5 étapes au vidéoprojecteur, en commentant. Ils regardent,
+Faire les 4 étapes au vidéoprojecteur, en commentant. Ils regardent,
 ils ne tapent pas encore : ils referont tout seuls juste après.
+
+Le push de l'étape 3 marche sans aucun commit : il crée la branche sur
+le fork. Du coup le push final de l'étape 4 n'a plus besoin d'option,
+et les problèmes d'authentification GitHub sortent MAINTENANT, pas à 17 h.
 
 Git se REGARDE, il ne se lit pas. 6 minutes suffisent.
 Taper `git status` entre CHAQUE étape, sans commenter : c'est le
@@ -774,7 +779,8 @@ layout: section
 1. **Forkez** le dépôt du cours sur GitHub
 2. **Clonez** votre fork
 3. Créez la branche `tp01-modelzoo`
-4. Vérifiez votre environnement : `node --version` → doit afficher `v26.x`
+4. **Poussez-la** tout de suite : `git push -u origin tp01-modelzoo`
+5. Vérifiez votre environnement : `node --version` → doit afficher `v26.x`
 
 </div>
 
@@ -783,8 +789,11 @@ layout: section
 </div>
 
 <!--
-⏱ On doit être à +43. Si on déborde ici, c'est le CM types utiles
+⏱ On doit être à +43. Si on déborde ici, c'est le CM boîte à outils
 (après la pause) qu'on raccourcit, pas le TP ModelZoo.
+
+L'étape 4 est le filet : à 17 h, même ceux qui n'auront pas fini ont une
+branche sur leur fork, et l'authentification GitHub est réglée tôt.
 
 Circuler. Les blocages classiques : Git non configuré (user.name/user.email),
 authentification GitHub (token vs mot de passe), et ceux qui clonent
@@ -994,6 +1003,70 @@ Aucune bibliothèque supplémentaire, aucun surcoût à l'exécution.
 </v-click>
 
 ---
+
+# À quoi ça ressemble
+
+<div class="grid grid-cols-2 gap-6 pt-2">
+<div>
+
+**C++**
+
+```cpp
+int parameters = 7;
+std::string org = "mistralai";
+
+std::string show(Model m);
+```
+
+</div>
+<div>
+
+**TypeScript**
+
+```ts
+const parameters: number = 7;
+const org: string = "mistralai";
+
+function show(m: Model): string { … }
+```
+
+</div>
+</div>
+
+<v-clicks>
+
+<div class="pt-4">
+
+Le type s'écrit **après** le nom, séparé par `:`. Le type de retour, **après** la parenthèse.
+
+</div>
+
+<div class="pt-2">
+
+Pour un objet, on nomme sa forme avec `interface`, puis on l'utilise comme un type :
+
+```ts
+interface Model {
+  name: string;
+  parameters: number;
+}
+```
+
+</div>
+
+</v-clicks>
+
+<div class="pt-3 text-sm op-75">
+C'est tout ce qu'il faut pour lire les slides qui suivent. On revient sur chaque mot-clé en détail après la pause.
+</div>
+
+<!--
+Slide de vocabulaire, 1 minute : elle sert uniquement à ce que les trois
+slides suivantes se lisent. Le renversement « type après le nom » est ce
+qui bloque un public C++ ; le dire une fois ici évite de le redire trois fois.
+-->
+
+---
 layout: two-cols
 layoutClass: gap-4
 ---
@@ -1092,7 +1165,7 @@ const m = load();
 
 <div class="mt-6 p-4 bg-amber-500 bg-opacity-10 rounded border-l-4 border-amber-500">
 
-`tsc` ne compile pas vers du binaire : il **transpile** vers du JavaScript et **efface les types**.
+`tsc`, le compilateur TypeScript, ne compile pas vers du binaire : il **transpile** vers du JavaScript et **efface les types**.
 Ils n'existent qu'au moment de la compilation. À l'exécution, il n'en reste rien.
 
 </div>
@@ -1132,7 +1205,7 @@ model.ts   model.js     # ← le fichier est bien là
 ```
 
 Contrairement à un compilateur C++, une erreur de type n'empêche pas la production du résultat.
-C'est un **avertissement**, pas un veto. (On peut l'interdire avec `noEmitOnError`.)
+C'est un **avertissement**, pas un veto.
 
 </div>
 
@@ -1199,7 +1272,11 @@ npx tsc
 
 ### `strict: true`, non négociable
 
-Sans ce réglage, TypeScript accepte `null` partout et laisse passer des `any` implicites : autant écrire du JavaScript. **Tous les projets du cours l'activent.**
+Sans ce réglage, TypeScript accepte `null` partout et se tait quand il ne connaît pas le type d'une variable : autant écrire du JavaScript. **Tous les projets du cours l'activent.**
+
+<div class="pt-3 text-sm op-75">
+Et pour transformer l'avertissement de la slide précédente en veto : <code>"noEmitOnError": true</code>.
+</div>
 
 </div>
 
@@ -1273,8 +1350,8 @@ if (true) {
 // total vaut toujours 0
 
 // const : interdit la réaffectation…
-const name = "Mistral-7B";
-name = "autre";        // ❌ erreur
+const model = "Mistral-7B";
+model = "autre";       // ❌ erreur
 // … mais PAS la mutation
 const models = [];
 models.push(model);    // ✅ parfaitement légal
@@ -1320,17 +1397,39 @@ any         // à proscrire
 unknown     // le any prudent
 void        // ne renvoie rien
 never       // ne revient jamais
-
-Readonly<T> // T, en lecture seule
-Partial<T>  // T, tout optionnel
 ```
 
 <div class="text-sm op-75 pt-2">
-<code>Readonly</code> et <code>Partial</code> transforment un type existant. On en reparlera.
+<code>any</code> et <code>unknown</code> méritent une slide à eux : c'est la suivante.
 </div>
 
 </div>
 </div>
+
+---
+
+# `unknown` plutôt que `any`
+
+```ts
+// any : « fais-moi confiance » : le compilateur se tait, les bugs passent
+const data: any = JSON.parse(raw);
+data.whatever.deeply.nested;   // compile. Explose à l'exécution.
+
+// unknown : « je ne sais pas encore » : il faut vérifier avant d'utiliser
+const payload: unknown = JSON.parse(raw);
+payload.name;                   // ❌ refusé, et c'est heureux
+```
+
+<v-click>
+
+<div class="pt-6 p-4 bg-blue-500 bg-opacity-10 rounded">
+
+Chaque `any` que vous écrivez est un morceau de code où vous renoncez au bénéfice de TypeScript.
+Dans ce cours, considérez-le comme interdit.
+
+</div>
+
+</v-click>
 
 ---
 
@@ -1359,21 +1458,24 @@ Avec des **backticks**, pas des guillemets.
 </div>
 <div>
 
-### Modules
+### Fonctions fléchées
 
 ```ts
-// model.ts
-export interface Model { … }
-export type Task = …
+// Une expression : pas de return
+const double = (n: number) => n * 2;
+double(7);                        // 14
 
-// model-zoo.ts
-import type { Model, Task }
-  from "./model.js";
+// Plusieurs lignes : accolades, et return
+const isLarge = (m: Model) => {
+  const threshold = 10;
+  return m.parameters > threshold;
+};
 
-export class ModelZoo { … }
+// Le cas courant : passée à une méthode
+models.filter((m) => m.org === "mistralai");
 ```
 
-Un fichier = un module. On importe ce dont on a besoin.
+La lambda de C++, en plus court.
 
 </div>
 </div>
@@ -1381,14 +1483,15 @@ Un fichier = un module. On importe ce dont on a besoin.
 <v-click>
 
 <div class="pt-6 text-sm op-75">
-⚠️ Deux surprises dans les imports du TP : <code>import <b>type</b></code> précise qu'on n'importe qu'un type (il sera effacé à la compilation) et l'extension s'écrit <code>.js</code> même si le fichier est un <code>.ts</code>, parce qu'on désigne le fichier <i>produit</i>.
+Dans <code>(m) => …</code>, le paramètre n'a pas de type écrit : TypeScript le <b>déduit</b> du tableau sur lequel on appelle la méthode. Vous en écrirez une par méthode de tableau, un peu plus loin.
 </div>
 
 </v-click>
 
 <!--
-Les modules sont indispensables : le TP les utilise dès la première ligne.
-L'extension .js dans un import TS est LA question qui revient toujours.
+Les fléchées sont indispensables : chaque méthode de tableau en prend une,
+et le fichier de test en est rempli. Insister sur le paramètre sans type :
+un public C++ s'attend à devoir l'écrire.
 -->
 
 ---
@@ -1412,7 +1515,8 @@ describe({ id: "…", name: "Mistral-7B", parameters: 7.2 });   // ✅
 ```
 
 <div class="pt-4 text-sm op-75">
-<code>interface</code> décrit la <b>forme</b> d'un objet. Le mot-clé <code>type</code> fait à peu près la même chose, avec en plus les unions : c'est la slide suivante.
+<code>interface</code> décrit la <b>forme</b> d'un objet. Le mot-clé <code>type</code> fait à peu près la même chose, avec en plus les unions : c'est la slide suivante.<br/>
+<b>Règle du cours</b> : <code>interface</code> pour la forme d'un objet, <code>type</code> pour tout le reste.
 </div>
 
 ---
@@ -1443,143 +1547,6 @@ L'éditeur vous les propose en autocomplétion, et le compilateur refuse tout le
 </div>
 
 </v-click>
-
----
-
-# `unknown` plutôt que `any`
-
-```ts
-// any : « fais-moi confiance » : le compilateur se tait, les bugs passent
-let data: any = JSON.parse(raw);
-data.whatever.deeply.nested;   // compile. Explose à l'exécution.
-
-// unknown : « je ne sais pas encore » : il faut vérifier avant d'utiliser
-let data: unknown = JSON.parse(raw);
-data.name;                      // ❌ refusé, et c'est heureux
-```
-
-<v-click>
-
-<div class="pt-6 p-4 bg-blue-500 bg-opacity-10 rounded">
-
-Chaque `any` que vous écrivez est un morceau de code où vous renoncez au bénéfice de TypeScript.
-Dans ce cours, considérez-le comme interdit.
-
-</div>
-
-</v-click>
-
----
-
-# Les classes, version TypeScript
-
-<div class="grid grid-cols-2 gap-4 pt-2">
-<div>
-
-**C++**
-
-```cpp
-class ModelZoo {
- private:
-  std::map<std::string, Model> models;
-
- public:
-  void addModel(Model m);
-  int getTotal() const;
-};
-```
-
-Déclaration et implémentation séparées.
-
-</div>
-<div>
-
-**TypeScript**
-
-```ts
-class ModelZoo {
-  private readonly models = new Map<string, Model>();
-
-  addModel(model: Model): void {
-    this.models.set(model.id, model);
-  }
-
-  getTotal(): number {
-    return this.models.size;
-  }
-}
-```
-
-Un seul fichier, `this` explicite.
-
-</div>
-</div>
-
-<v-click>
-
-<div class="pt-4 text-sm op-75">
-Pas de fichier d'en-tête, pas de destructeur, pas de gestion mémoire. <code>private</code> et <code>readonly</code> sont vérifiés à la compilation… et effacés à l'exécution.
-</div>
-
-</v-click>
-
----
-
-# Le raccourci de constructeur
-
-<div class="grid grid-cols-2 gap-4 pt-2">
-<div>
-
-**Ce que vous écririez naturellement**
-
-```ts
-class Model {
-  id: string;
-  name: string;
-
-  constructor(id: string, name: string) {
-    this.id = id;
-    this.name = name;
-  }
-}
-```
-
-</div>
-<div>
-
-**Le raccourci TypeScript**
-
-```ts
-class Model {
-  constructor(
-    public readonly id: string,
-    public readonly name: string,
-  ) {}
-}
-```
-
-Strictement équivalent.
-
-</div>
-</div>
-
-<v-click>
-
-<div class="pt-8">
-
-Un modificateur (`public`, `private`, `readonly`) devant un paramètre de constructeur **déclare et initialise** l'attribut d'un coup.
-
-Vous le retrouverez partout dès demain : c'est ainsi que NestJS reçoit ses dépendances.
-
-</div>
-
-</v-click>
-
-<!--
-Sucre syntaxique spécifique à TypeScript (ça n'existe pas en JS).
-Ils vont le voir dans TOUS les services NestJS en séance 2, autant
-qu'ils le reconnaissent.
--->
 
 ---
 
@@ -1622,19 +1589,131 @@ Même idée, même syntaxe. `Array<Model>` s'écrit aussi `Model[]`, c'est ident
 
 <div class="pt-6">
 
-### `Map`, dont vous aurez besoin
+### `Map` : le dictionnaire, comme `std::map`
 
 ```ts
 const zoo = new Map<string, Model>();
 zoo.set(model.id, model);     // ajouter ou remplacer
 zoo.get("mistralai/…");       // Model | undefined
 zoo.size;                     // nombre d'entrées
-[...zoo.values()];            // toutes les valeurs, dans un tableau
+Array.from(zoo.values());     // toutes les valeurs, dans un tableau
 ```
 
 </div>
 
 </v-click>
+
+---
+
+# Les classes, version TypeScript
+
+<div class="grid grid-cols-2 gap-4 pt-2">
+<div>
+
+**C++**
+
+```cpp
+class ModelZoo {
+ private:
+  std::vector<Model> models;
+
+ public:
+  void addModel(Model m);
+  int getTotalNumberOfModels() const;
+};
+```
+
+Déclaration et implémentation séparées.
+
+</div>
+<div>
+
+**TypeScript**
+
+```ts
+class ModelZoo {
+  private readonly models: Model[] = [];
+
+  addModel(model: Model): void {
+    this.models.push(model);
+  }
+
+  getTotalNumberOfModels(): number {
+    return this.models.length;
+  }
+}
+```
+
+Un seul fichier, `this` explicite.
+
+</div>
+</div>
+
+<v-click>
+
+<div class="pt-4 text-sm op-75">
+Pas de fichier d'en-tête, pas de destructeur, pas de gestion mémoire. <code>private</code> et <code>readonly</code> sont vérifiés à la compilation… et effacés à l'exécution.
+</div>
+
+</v-click>
+
+---
+
+# Le raccourci de constructeur
+
+<div class="grid grid-cols-2 gap-4 pt-2">
+<div>
+
+**Ce que vous écririez naturellement**
+
+```ts
+class Organisation {
+  id: string;
+  name: string;
+
+  constructor(id: string, name: string) {
+    this.id = id;
+    this.name = name;
+  }
+}
+```
+
+</div>
+<div>
+
+**Le raccourci TypeScript**
+
+```ts
+class Organisation {
+  constructor(
+    public readonly id: string,
+    public readonly name: string,
+  ) {}
+}
+```
+
+Strictement équivalent.
+
+</div>
+</div>
+
+<v-click>
+
+<div class="pt-8">
+
+Un modificateur (`public`, `private`, `readonly`) devant un paramètre de constructeur **déclare et initialise** l'attribut d'un coup.
+
+Vous le retrouverez partout dès demain : c'est ainsi que NestJS reçoit ses dépendances.
+
+</div>
+
+</v-click>
+
+<!--
+Sucre syntaxique spécifique à TypeScript (ça n'existe pas en JS).
+Ils vont le voir dans TOUS les services NestJS en séance 2, autant
+qu'ils le reconnaissent.
+-->
 
 ---
 
@@ -1651,7 +1730,7 @@ En JavaScript, on ne parcourt pas un tableau avec une boucle `for` : **on encha�
 </div>
 
 <div class="pt-8 text-sm op-75">
-Chacune prend une <b>fonction</b> en paramètre et l'applique à chaque élément. Aucune ne modifie le tableau d'origine : elles en <b>renvoient un nouveau</b>.
+Chacune prend une <b>fonction fléchée</b> en paramètre et l'applique à chaque élément. Aucune ne modifie le tableau d'origine : elles <b>renvoient un résultat neuf</b>, tableau, booléen ou chaîne selon la méthode.
 </div>
 
 <!--
@@ -1805,20 +1884,20 @@ C'est là que le style fonctionnel prend son sens pour eux.
 
 # `.reduce()` : tout replier en une seule valeur
 
-<div class="pt-2 text-sm op-75">La plus puissante, et la seule qui ne renvoie pas forcément un tableau.</div>
+<div class="pt-2 text-sm op-75">La plus puissante : elle renvoie ce que vous voulez, un nombre, une chaîne, un objet.</div>
 
-```ts {1-5|7-13|all}
+```ts {1-4|6-11|all}
 // Un accumulateur, une valeur de départ, et on replie
 models.reduce((total, m) => total + m.downloads, 0)
 //             ↑ accumulé  ↑ élément courant     ↑ départ
 // 7_080_000
 
-// Le résultat peut être un objet : ici, un total par organisation
-models.reduce((parOrg, m) => ({
-  ...parOrg,
-  [m.org]: (parOrg[m.org] ?? 0) + m.downloads,
-}), {} as Record<string, number>)
-// { mistralai: 1_730_000, openai: 4_100_000, Helsinki: 1_250_000 }
+// L'accumulateur peut être une Map : ici, un total par organisation
+models.reduce((parOrg, m) => {
+  const total = parOrg.get(m.org) ?? 0;   // ?? : valeur par défaut si undefined
+  return parOrg.set(m.org, total + m.downloads);
+}, new Map<string, number>())
+// Map { "mistralai" => 1_730_000, "openai" => 4_100_000, "Helsinki" => 1_250_000 }
 ```
 
 <v-click>
@@ -1890,7 +1969,7 @@ console.log(models.find((m) => m.downloads > 4000000)?.name);
 ```
 
 <div class="pt-2 text-sm op-75">
-<code>.find()</code> est le cousin de <code>.filter()</code> : il renvoie <b>le premier</b> élément trouvé, ou <code>undefined</code>.
+<code>.find()</code> est le cousin de <code>.filter()</code> : il renvoie <b>le premier</b> élément trouvé, ou <code>undefined</code>. D'où le <code>?.</code> : on ne lit <code>.name</code> que s'il a trouvé quelque chose.
 </div>
 
 <!--
@@ -1901,9 +1980,57 @@ ne rien trouver.
 
 ---
 
+# Modules : un fichier, un module
+
+<div class="grid grid-cols-2 gap-6 pt-2">
+<div>
+
+```ts
+// model.ts
+export interface Model { … }
+export type Task = …
+```
+
+```ts
+// model-zoo.ts
+import type { Model, Task }
+  from "./model.js";
+
+export class ModelZoo { … }
+```
+
+</div>
+<div class="pt-2">
+
+- `export` rend une déclaration visible depuis un autre fichier
+- `import` va chercher ce dont on a besoin, **et rien d'autre**
+- Pas de `#include`, pas de fichier d'en-tête : le fichier **est** l'unité
+
+</div>
+</div>
+
+<v-click>
+
+<div class="pt-6 text-sm op-75">
+⚠️ Deux surprises dans les imports du TP : <code>import <b>type</b></code> précise qu'on n'importe qu'un type (il sera effacé à la compilation) et l'extension s'écrit <code>.js</code> même si le fichier est un <code>.ts</code>, parce qu'on désigne le fichier <i>produit</i>.
+</div>
+
+</v-click>
+
+<!--
+Les modules sont indispensables : le TP les utilise dès la première ligne,
+et la slide suivante montre le fichier de test qui les importe.
+L'extension .js dans un import TS est LA question qui revient toujours.
+-->
+
+---
+
 # Lire un test : parce que c'est votre énoncé
 
 ```ts
+import { describe, it, expect, beforeEach } from "vitest";
+import { ModelZoo } from "./model-zoo.js";   // votre classe
+
 describe("ModelZoo", () => {           // un groupe de tests
   let zoo: ModelZoo;
 
@@ -1990,9 +2117,11 @@ Rien n'est fourni à part les tests : c'est volontaire, et c'est l'exercice.
 Lire une spec et en déduire les types, c'est exactement le travail de la
 séance 2 avec les tests e2e.
 
-NE PAS écrire Model ni Task au tableau. Les laisser chercher : c'est là
-que la séance se joue. Le README rappelle les 4 valeurs de Task (les tests
-n'en utilisent que 3) et le contrat des 6 méthodes, pour ceux qui calent.
+NE PAS réécrire Model ni Task au tableau : la slide « Le jeu de données »
+et le README en donnent déjà assez. Les laisser déduire les champs exacts
+des tests : c'est là que la séance se joue. Le README rappelle les 4 valeurs
+de Task (les tests n'en utilisent que 3) et le contrat des 6 méthodes, pour
+ceux qui calent.
 
 Circuler beaucoup pendant les 10 premières minutes. Le blocage typique :
 ils écrivent `task: string` au lieu d'une union. Ne pas corriger tout de
@@ -2017,7 +2146,7 @@ Quand le compilateur vous renvoie une erreur que vous ne comprenez pas :
 <div class="p-4 border border-gray-500 border-opacity-30 rounded">
 <div class="font-mono text-xs op-60">1</div>
 <div class="font-bold pt-1">Demandez</div>
-<div class="pt-2 op-75">Collez l'erreur dans Le Chat, demandez une explication.</div>
+<div class="pt-2 op-75">Collez l'erreur dans votre assistant, demandez une explication.</div>
 </div>
 
 <div class="p-4 border border-gray-500 border-opacity-30 rounded">
@@ -2076,7 +2205,7 @@ Contraintes : **un seul parcours** du tableau, et **aucun `any`** dans la signat
 <div class="text-sm">
 
 **4. ⭐ Le catalogue générique.** Transformez `ModelZoo` en un `Catalogue<T>` réutilisable pour n'importe quelle entité, pas seulement des modèles.
-Que devez-vous **exiger** de `T` pour que `getById` fonctionne encore ?
+Que devez-vous **exiger** de `T` pour que `getModel` fonctionne encore ?
 
 </div>
 
@@ -2093,7 +2222,7 @@ Repères si quelqu'un cale :
      renvoie la structure interne elle-même, soit il en renvoie une copie
      mais les OBJETS restent partagés (zoo.getAllModels()[0].downloads = -1).
      La seconde est la plus intéressante, et la plus dure à voir.
-  3. reduce, avec un objet comme accumulateur
+  3. reduce, avec une Map comme accumulateur : le second exemple de la slide reduce
   4. une contrainte de type générique — c'est la marche la plus haute,
      personne n'est censé la finir en séance
 -->
@@ -2110,7 +2239,7 @@ class: text-center
 ```sh
 git add .
 git commit -m "feat(tp01): implement ModelZoo"
-git push -u origin tp01-modelzoo
+git push
 ```
 
 </div>
@@ -2131,6 +2260,8 @@ est sauvegardé, et ceux qui montreront leur code au vidéoprojecteur
 pourront le faire depuis leur dépôt.
 
 2 minutes, circuler pour vérifier que les push passent.
+Erreur « no upstream branch » : ils ont sauté l'étape 4 du TP Git,
+git push -u origin tp01-modelzoo règle ça.
 -->
 
 ---
@@ -2186,6 +2317,7 @@ pas avec une correction recopiée.
 
 Demander aussi : « qui a pris son IA en flagrant délit ? » : récolter pour le RETEX.
 -->
+
 ---
 layout: center
 class: text-center
@@ -2233,12 +2365,6 @@ coûte 30 secondes et se rentabilise le lendemain.
   3. ./publier-tp.sh corrige 01 && ./publier-tp.sh sujet 02
 -->
 
-<!--
-⏱ Fin prévue à +165.
-
-AVANT DE PARTIR : Ctrl+Shift+T pour télécharger le CSV de minutage,
-puis remplir RETEX-seance-01.md dans la demi-heure.
--->
 ---
 layout: section
 ---
@@ -2323,4 +2449,3 @@ Le Playground est le meilleur endroit pour vérifier une réponse de l'IA en dix
 <div class="pt-8 text-sm op-75">
 Avant d'ajouter une dépendance : regardez sa date de dernière publication, son nombre de mainteneurs et sa taille. Chaque dépendance est une dette.
 </div>
-
