@@ -1030,12 +1030,14 @@ interface Model {
   name: string;
 }
 
-const anything = {
-  name: "Mistral-7B",
-  parameters: 7.2,
-};
+interface Dataset {   // mêmes champs…
+  name: string;
+}
 
-const m: Model = anything; // ✅ accepté
+function show(m: Model) {}
+
+const d: Dataset = { name: "SQuAD" };
+show(d);  // ✅ accepté
 ```
 
 Un objet **est** d'un type parce qu'il en a la **forme**.
