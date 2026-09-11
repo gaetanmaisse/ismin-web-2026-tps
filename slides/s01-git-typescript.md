@@ -2112,7 +2112,11 @@ on ne fait pas GÉNÉRER. Ramasser les cas intéressants pour le RETEX.
 
 # Si vous terminez en avance
 
-<div class="text-sm op-75 mb-3">Aucune n'a de solution évidente. Écrivez le test avant l'implémentation.</div>
+<div class="text-sm op-75 mb-2">Écrivez le test avant l'implémentation, dans un nouveau fichier.</div>
+
+<div class="text-sm mb-3 p-2 rounded bg-blue-500 bg-opacity-10">
+<b>Échauffement</b>, dans le README : un total avec <code>reduce</code>, des noms par tâche en une chaîne <code>filter</code> puis <code>map</code>, les organisations sans doublon.
+</div>
 
 <v-clicks>
 
@@ -2152,6 +2156,8 @@ Aucune ne donne sa réponse : elles posent un objectif et une contrainte
 vérifiable.
 
 Repères si quelqu'un cale :
+  0. échauffement : reduce avec 0 au départ, getModelsByTask puis map,
+     un Set pour les doublons
   1. les template literal types savent décrire une forme de chaîne
   2. deux failles possibles, selon leur implémentation : soit getAllModels
      renvoie la structure interne elle-même, soit il en renvoie une copie
@@ -2174,6 +2180,7 @@ class: text-center
 ```sh
 git add .
 git commit -m "feat(tp01): implement ModelZoo"
+git log --oneline   # les types, puis la classe
 git push
 ```
 

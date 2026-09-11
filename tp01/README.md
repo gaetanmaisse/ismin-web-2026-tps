@@ -78,11 +78,23 @@ Create `src/model.ts` and declare two types in it:
 
 - **`Model`** — a model in the catalogue. The test file builds three of them at
   the top: every field you need is there, and their values tell you the types.
-  `id` is a URL-safe slug, unique in the catalogue.
+  Read all three: they do not carry exactly the same fields, and the type must
+  accept every one of them. `id` is a URL-safe slug, unique in the catalogue.
 
 > 💡 Use `interface` for `Model` and `type` for `Task`. Both keywords work for
 > both; the course rule is `interface` for the shape of an object, `type` for
 > everything else (unions, aliases).
+
+Both types must be `export`ed: the test imports them with
+`import type { Model } from "./model.js"`. Yes, `.js`, even though your file is
+`model.ts`: the import names the file that will exist *after* compilation.
+
+Once `npm run typecheck` only complains about `./model-zoo.js`, commit:
+
+```sh
+git add src/model.ts
+git commit -m "feat(tp01): add Model and Task types"
+```
 
 ## 📝 Step 4 — Implement the class
 
@@ -102,14 +114,23 @@ class ModelZoo {
 Your first real decision: **how do you store the models inside the class?**
 An array? A `Map` keyed by `id`? Both make the tests pass, but one makes
 `getModel` a direct lookup and the other a scan. Choose deliberately — you
-will be asked to justify it.
+will be asked to justify it. Whatever you pick, declare it `private readonly`:
+nobody outside the class has any business touching it.
 
-Work **test by test, top to bottom**. Each `describe` block maps to one method:
-make the first one pass, then move on. Do not try to write the whole class at
+Work **test by test, top to bottom**. The first block, "an empty catalogue",
+needs three trivial methods; after that, each `describe` block maps to one
+method. Make a block pass, then move on. Do not try to write the whole class at
 once.
 
 > 💡 The compiler is your first reviewer. Run `npm run typecheck` regularly — it
 > catches things the tests do not.
+
+When the eleven tests are green, commit again:
+
+```sh
+git add src/model-zoo.ts
+git commit -m "feat(tp01): implement ModelZoo"
+```
 
 ## 🤖 Using AI during this lab
 
@@ -121,7 +142,16 @@ Today's exercise: when the TypeScript compiler returns an error you do not under
 
 ## 🛰 Going further
 
-If you finish early. None of these has an obvious solution — write the test before the implementation.
+If you finish early. Write the test before the implementation, in a new file
+(`src/extras.test.ts`, for instance): the given test file stays untouched.
+
+**Warm-up** — three more methods, each with a constraint:
+
+- `getTotalDownloads()` — the sum of every model's downloads. A single `reduce`, no loop.
+- `getModelNamesByTask(task)` — the *names* of the models able to perform a task. One chain, `filter` then `map`, no intermediate variable.
+- `getOrganisations()` — every organisation present in the catalogue, **each one once**. No loop either.
+
+**Then** — none of these has an obvious solution:
 
 1. **The typed URL.** Write `huggingFaceUrl(model)`, returning the address of the model's page.
    Constraint: its **return type** must make it impossible to return `"https://example.com"`.
@@ -139,9 +169,8 @@ If you finish early. None of these has an obvious solution — write the test be
 ## ✅ Wrapping up
 
 ```sh
-git diff                    # read what you are about to commit
-git add .
-git commit -m "feat(tp01): implement ModelZoo"
+git status                  # uncommitted work left? git diff, git add, git commit
+git log --oneline           # at least two commits: the types, then the class
 git push                    # the branch already exists on your fork since step 1
 ```
 

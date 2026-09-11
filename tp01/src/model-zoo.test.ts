@@ -16,6 +16,7 @@ const mistral: Model = {
   task: "text-generation",
   parameters: 7.2,
   downloads: 1_420_000,
+  license: "apache-2.0",
 };
 
 const devstral: Model = {
@@ -34,6 +35,7 @@ const whisper: Model = {
   task: "speech-to-text",
   parameters: 1.55,
   downloads: 4_100_000,
+  license: "apache-2.0",
 };
 
 describe("ModelZoo", () => {
@@ -72,6 +74,7 @@ describe("ModelZoo", () => {
 
     it("replaces an existing model instead of duplicating it", () => {
       zoo.addModel(mistral);
+      // "..." copies every field of mistral, then downloads overrides one of them
       zoo.addModel({ ...mistral, downloads: 9_999_999 });
 
       expect(zoo.getTotalNumberOfModels()).toBe(1);
@@ -105,6 +108,7 @@ describe("ModelZoo", () => {
       const models = zoo.getModelsOf("mistralai");
 
       expect(models).toHaveLength(2);
+      // the same elements, in any order
       expect(models).toEqual(expect.arrayContaining([mistral, devstral]));
     });
 

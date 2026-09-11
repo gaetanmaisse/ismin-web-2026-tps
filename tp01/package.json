@@ -2,7 +2,7 @@
   "name": "tp01-modelzoo",
   "version": "1.0.0",
   "private": true,
-  "description": "TP1 — Introduction à TypeScript. Cours Ingénierie Logicielle, ISMIN 3A.",
+  "description": "TP1 — Introduction to TypeScript. Web Development, ISMIN 3A.",
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
