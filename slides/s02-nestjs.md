@@ -639,20 +639,21 @@ Ce qu'on n'y met <b>jamais</b> : quoi que ce soit qui parle d'HTTP. Un service n
 
 # ② Le service : le code
 
-```ts {3-4|5|7-10|12-14|all}
+```ts {4-5|6|8-11|13-15|all}
 import { Injectable } from '@nestjs/common';
+import { ModelZoo } from './model-zoo';
 
 @Injectable()                       // ← "Nest may provide this class"
 export class ModelsService {
-  private readonly models = new Map<string, Model>();
+  private zoo = new ModelZoo();     // ← your TP1 class, untouched
 
   create(model: Model): Model {
-    this.models.set(model.id, model);
+    this.zoo.addModel(model);
     return model;
   }
 
   findAll(): Model[] {
-    return [...this.models.values()];
+    return this.zoo.getAllModels();
   }
 }
 ```
@@ -967,10 +968,11 @@ layout: section
 
 # TP · partie 1
 
-<div class="op-75 pt-2"><code>tp02/README.md</code>, étapes 1 à 3</div>
+<div class="op-75 pt-2"><code>tp02/README.md</code>, étapes 0 à 3</div>
 
 <div class="pt-8 text-sm inline-block text-left">
 
+0. Copier votre `ModelZoo` du TP1 dans `src/models/`, ou garder le corrigé fourni
 1. Lire le projet : où est le contrôleur, où est le service ?
 2. `GET /models`
 3. `GET /models/:id`, avec un 404 si le modèle est inconnu
@@ -984,8 +986,12 @@ layout: section
 <!--
 ⏱ +66.
 
+Étape 0 : ceux qui n'ont pas fini le TP1 gardent les deux fichiers fournis,
+identiques au corrigé publié hier soir. Les autres écrasent avec les leurs.
+
 Amorçage en Randori (8 min) : lire le projet ensemble, écrire findAll
-dans le service puis la route dans le contrôleur. Puis ils continuent seuls.
+dans le service (une délégation au zoo) puis la route dans le contrôleur.
+Puis ils continuent seuls.
 
 Blocages classiques :
 - contrôleur absent de `controllers` → 404 muet (la slide du module le dit)
