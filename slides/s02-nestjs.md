@@ -26,7 +26,7 @@ mdc: true
 
 ## API REST & asynchronisme
 
-<div class="pt-4 op-75">Séance 2 : Sprint 1, Fondations & serveur</div>
+<div class="pt-4 op-75">Séance 2&nbsp;: Sprint 1, Fondations & serveur</div>
 
 <div class="pt-10 text-sm op-75">
 📱 <b>gaetanmaisse.github.io/ismin-web-2026-tps</b>
@@ -53,7 +53,7 @@ mdc: true
 ⚠️ SÉANCE DENSE EN CM : c'est la nature de la séance framework.
 SI EN RETARD, coupez dans cet ordre :
   1. « Un projet Nest, fichier par fichier » (le README a le même arbre)
-  2. « Les codes de statut » (les cinq codes du TP sont dans le README)
+  2. « 4xx, la faute du client. 5xx, la vôtre » (les cinq codes du TP sont dans le README)
   3. « Un contrôleur, plusieurs routes »
   4. Le bonus Hugging Face du TP
 Ne coupez JAMAIS : le module, main.ts, le cycle de vie, la validation.
@@ -77,7 +77,7 @@ zoo.getModelsOf('mistralai');
 
 <div class="pt-8 text-lg">
 
-Le problème : **ça ne vit que dans votre terminal.**
+Le problème&nbsp;: **ça ne vit que dans votre terminal.**
 
 </div>
 
@@ -86,7 +86,7 @@ Le problème : **ça ne vit que dans votre terminal.**
 <v-click>
 
 <div class="pt-6 op-75">
-Aujourd'hui, on rend ce catalogue interrogeable depuis n'importe où :<br/>
+Aujourd’hui, on rend ce catalogue interrogeable depuis n’importe où&nbsp;:<br/>
 un navigateur, un téléphone, une autre application.
 </div>
 
@@ -102,15 +102,15 @@ les autres le gardent. Personne n'est bloqué par le TP d'hier.
 layout: section
 ---
 
-# 1. Le web, en dix minutes
+# 1. Le web&nbsp;: JSON et REST
 
 <div class="op-75 pt-2">On ne suppose rien</div>
 
 ---
 
-# JSON
+# JSON&nbsp;: du texte, rien d’autre
 
-Le format d'échange du web. C'est juste du texte.
+Le format d’échange du web.
 
 ```json
 {
@@ -124,39 +124,33 @@ Le format d'échange du web. C'est juste du texte.
 
 <v-clicks>
 
-- Types disponibles : chaîne, nombre, booléen, `null`, tableau, objet. **C'est tout.**
+- Types disponibles&nbsp;: chaîne, nombre, booléen, `null`, tableau, objet. **C’est tout.**
 - Pas de date, pas de commentaire, pas de `undefined`
-- En JavaScript : `JSON.parse(texte)` pour lire, `JSON.stringify(objet)` pour écrire
+- En JavaScript&nbsp;: `JSON.parse(texte)` pour lire, `JSON.stringify(objet)` pour écrire
 
 </v-clicks>
 
 <v-click>
 
 <div class="pt-4 p-3 bg-amber-500 bg-opacity-10 rounded text-sm">
-⚠️ TypeScript type ce qui sort de <code>JSON.parse</code> en <code>any</code> : c'est du texte venu de l'extérieur, rien ne garantit sa forme. Traitez-le comme un <code>unknown</code>. <b>On y revient en fin de séance.</b>
+⚠️ <code>JSON.parse</code> renvoie <code>any</code>&nbsp;: du texte venu de l’extérieur, sans garantie de forme. Traitez-le comme un <code>unknown</code>. <b>On y revient en fin de séance.</b>
 </div>
 
 </v-click>
 
 ---
-layout: section
----
 
-# 2. REST
-
----
-
-# Une convention : des ressources, des verbes
+# Une convention&nbsp;: des ressources, des verbes
 
 Des **noms au pluriel**, manipulés par des **verbes** HTTP.
 
 <div class="pt-2">
 
-| Verbe | Chemin | Ce que ça fait |
+| Verbe | Chemin | Effet |
 |---|---|---|
 | `GET` | `/models` | Lister les modèles |
-| `GET` | `/models/:id` | Récupérer un modèle précis |
-| `POST` | `/models` | Créer un modèle (corps de requête) |
+| `GET` | `/models/:id` | Lire un modèle |
+| `POST` | `/models` | Créer un modèle, à partir du corps |
 | `PUT` / `PATCH` | `/models/:id` | Remplacer / modifier |
 | `DELETE` | `/models/:id` | Supprimer |
 
@@ -165,20 +159,20 @@ Des **noms au pluriel**, manipulés par des **verbes** HTTP.
 <v-click>
 
 <div class="pt-4 text-sm op-75">
-On filtre avec des paramètres de requête : <code>GET /models<b>?org=mistralai&task=translation</b></code><br/>
-Jamais de verbe dans l'URL : <code>/getModels</code> ou <code>/models/delete</code> ne sont pas du REST.
+On filtre avec des paramètres de requête&nbsp;: <code>GET /models<b>?org=mistralai&task=translation</b></code><br/>
+Jamais de verbe dans l’URL&nbsp;: <code>/getModels</code> ou <code>/models/delete</code> ne sont pas du REST.
 </div>
 
 </v-click>
 
 ---
 
-# Les codes de statut
+# 4xx, la faute du client. 5xx, la vôtre
 
 <div class="grid grid-cols-2 gap-6 pt-2 text-sm">
 <div>
 
-### ✅ Ça s'est bien passé
+### ✅ Ça s’est bien passé
 
 | | |
 |---|---|
@@ -186,7 +180,7 @@ Jamais de verbe dans l'URL : <code>/getModels</code> ou <code>/models/delete</co
 | `201` | Créé (après un `POST`) |
 | `204` | OK, rien à renvoyer (`DELETE`) |
 
-### 🤷 Le client s'est trompé
+### 🤷 Le client s’est trompé
 
 | | |
 |---|---|
@@ -198,7 +192,7 @@ Jamais de verbe dans l'URL : <code>/getModels</code> ou <code>/models/delete</co
 </div>
 <div>
 
-### 💥 Le serveur s'est trompé
+### 💥 Le serveur s’est trompé
 
 | | |
 |---|---|
@@ -207,9 +201,7 @@ Jamais de verbe dans l'URL : <code>/getModels</code> ou <code>/models/delete</co
 
 <div class="pt-6 op-75">
 
-La règle : **4xx, c'est la faute du client. 5xx, c'est la vôtre.**
-
-Un `500` dans vos logs est toujours un bug à corriger.
+Un `500` dans vos logs est toujours un bug à corriger. Un `4xx`, jamais.
 
 </div>
 
@@ -225,13 +217,13 @@ Le message qui compte est le 4xx/5xx.
 layout: section
 ---
 
-# 3. Node et npm
+# 2. Node et npm
 
-<div class="op-75 pt-2">L'outillage du projet</div>
+<div class="op-75 pt-2">L’outillage du projet</div>
 
 ---
 
-# npm : le gestionnaire de paquets
+# npm&nbsp;: le gestionnaire de paquets
 
 <div class="grid grid-cols-2 gap-6 pt-2">
 <div>
@@ -251,9 +243,9 @@ npm run test
 
 <div class="text-sm">
 
-**`dependencies`** : nécessaires pour que l'application **tourne** (NestJS, class-validator…)
+**`dependencies`**&nbsp;: nécessaires pour que l’application **tourne** (NestJS, class-validator…)
 
-**`devDependencies`** : nécessaires seulement pour **développer** : tests, compilateur, linter. Absentes en production.
+**`devDependencies`**&nbsp;: nécessaires seulement pour **développer**&nbsp;: tests, compilateur, linter. Absentes en production.
 
 </div>
 
@@ -262,14 +254,14 @@ npm run test
 
 <v-clicks>
 
-- `node_modules/` contient les paquets téléchargés. **Il ne se commite jamais** : il se reconstruit avec `npm install`.
-- `package-lock.json`, lui, **se commite** : il fige les versions exactes, pour que votre machine et celle du serveur installent rigoureusement la même chose.
+- `node_modules/` contient les paquets téléchargés. **Il ne se commite jamais**&nbsp;: il se reconstruit avec `npm install`.
+- `package-lock.json`, lui, **se commite**&nbsp;: il fige les versions exactes, pour que votre machine et le serveur installent exactement la même chose.
 
 </v-clicks>
 
 ---
 
-# `package.json` : la carte d'identité du projet
+# `package.json`&nbsp;: la carte d’identité du projet
 
 ```json {2-4|6-11|13-20|all}
 {
@@ -296,7 +288,7 @@ npm run test
 ```
 
 <div class="pt-2 text-sm op-75">
-Les <b>scripts</b> sont des raccourcis : plutôt que de retenir une commande longue, on tape <code>npm run test</code>.
+Les <b>scripts</b> sont des raccourcis&nbsp;: plutôt que de retenir une commande longue, on tape <code>npm run test</code>.
 </div>
 
 ---
@@ -308,7 +300,7 @@ layout: center
 <div class="pt-4 text-left max-w-3xl mx-auto">
 
 ```sh
-# Une seule fois : déclarer mon dépôt comme source des TPs
+# Une seule fois : déclarer le dépôt du cours comme source des TP
 git remote add upstream https://github.com/gaetanmaisse/ismin-web-2026-tps.git
 
 # À chaque séance : récupérer le TP du jour
@@ -329,7 +321,7 @@ Puis ouvrez **http://localhost:3000/models** dans votre navigateur.
 <v-click>
 
 <div class="pt-6 op-75">
-Une erreur ? C'est normal : la route n'existe pas encore.<br/>
+Une erreur&nbsp;? C’est normal&nbsp;: la route n’existe pas encore.<br/>
 Mais le serveur, lui, <b>tourne</b>.
 </div>
 
@@ -350,11 +342,13 @@ Circuler pendant l'installation. Repérer les mains levées.
 layout: section
 ---
 
-# 4. NestJS
+# 3. NestJS
+
+<div class="op-75 pt-2">Cinq pièces et un fil</div>
 
 ---
 
-# Pourquoi un framework ?
+# Pourquoi un framework&nbsp;?
 
 <div class="grid grid-cols-2 gap-6 pt-2">
 <div>
@@ -396,7 +390,7 @@ export class ModelsController {
 
 <v-clicks>
 
-- Nest s'appuie sur **Express** et lui ajoute : structure, injection de dépendances, validation, gestion des erreurs
+- Nest s’appuie sur **Express** et lui ajoute&nbsp;: structure, injection de dépendances, validation, gestion des erreurs
 - Vous écrivez **la logique métier**, pas la plomberie
 
 </v-clicks>
@@ -404,7 +398,7 @@ export class ModelsController {
 <v-click>
 
 <div class="pt-4 text-sm op-75">
-Et pourquoi pas Express seul ? Parce qu'à cinq routes on s'en sort, à cinquante on réinvente mal ce que Nest fournit. Le coût, c'est d'apprendre ses conventions.
+Et pourquoi pas Express seul&nbsp;? Parce qu’à cinq routes on s’en sort, à cinquante on réinvente mal ce que Nest fournit. Le coût, c’est d’apprendre ses conventions.
 </div>
 
 </v-click>
@@ -442,12 +436,12 @@ tp02/
 
 <v-clicks>
 
-- **`src/main.ts`** : le point d'entrée, qui démarre le serveur
-- **`*.module.ts`** : les boîtes qui déclarent ce qui va ensemble
-- **`*.controller.ts`** : les routes HTTP
-- **`*.service.ts`** : la logique métier
-- **`dto/`** : la forme attendue des entrées
-- **`test/*.e2e-spec.ts`** : les tests, qui appellent l'API de bout en bout
+- **`src/main.ts`**&nbsp;: le point d’entrée, qui démarre le serveur
+- **`*.module.ts`**&nbsp;: les boîtes qui déclarent ce qui va ensemble
+- **`*.controller.ts`**&nbsp;: les routes HTTP
+- **`*.service.ts`**&nbsp;: la logique métier
+- **`dto/`**&nbsp;: la forme attendue des entrées
+- **`test/*.e2e-spec.ts`**&nbsp;: les tests, qui appellent l’API de bout en bout
 
 </v-clicks>
 
@@ -459,14 +453,14 @@ tp02/
 <v-click>
 
 <div class="pt-4 text-sm op-75">
-Une convention forte : <b>un fichier = une responsabilité</b>, et le nom du fichier dit laquelle. <code>nest new</code> génère la même structure, vous la retrouverez dans tous les projets Nest.
+Une convention forte&nbsp;: <b>un fichier = une responsabilité</b>, et le nom du fichier dit laquelle. <code>nest new</code> génère la même structure, vous la retrouverez dans tous les projets Nest.
 </div>
 
 </v-click>
 
 ---
 
-# L'architecture, vue d'ensemble
+# L’architecture, vue d’ensemble
 
 ```mermaid {scale: 0.8}
 %%{init: {'theme':'base','themeVariables':{'fontFamily':'ui-sans-serif, -apple-system, Segoe UI, sans-serif','fontSize':'16px','lineColor':'#94a3b8','primaryTextColor':'#0f172a','clusterBkg':'#f8fafc','clusterBorder':'#cbd5e1'}}}%%
@@ -501,36 +495,36 @@ flowchart LR
 
 <div class="pt-4">
 
-Cinq pièces. On va les prendre **une par une**, dans l'ordre où on les écrit. Le DTO, la forme attendue d'une entrée, attend la section 7.
+Cinq pièces, **une par une**, dans l’ordre où on les écrit. Le DTO, la forme attendue d’une entrée, viendra en section 6.
 
 </div>
 
 <!--
 🔴 Ce schéma revient en pleine page avant chaque pièce, celle du moment
-allumée, les autres grisées : six fois en tout, DTO compris en section 7.
+allumée, les autres grisées : six fois en tout, DTO compris en section 6.
 C'est le fil conducteur : ils doivent toujours savoir « où on est ».
 Trois secondes par transition, pas plus.
 -->
 
 ---
 
-# Les décorateurs : la syntaxe à connaître
+# Les décorateurs&nbsp;: la syntaxe à connaître
 
-Tout ce qui suit est parsemé de `@`. C'est une **annotation** qui attache des métadonnées à une classe, une méthode ou un paramètre.
+Tout ce qui suit est parsemé de `@`. C’est une **annotation** qui attache des métadonnées à une classe, une méthode ou un paramètre.
 
 ```ts
-@Controller('models')   // this class handles the /models routes
-@Get(':id')             // this method answers GET /models/:id
-@Param('id')            // inject the :id segment of the URL here
-@Query('org')           // inject the ?org= query parameter here
-@Body()                 // inject the JSON request body here
+@Controller('models')   // cette classe répond aux routes /models
+@Get(':id')             // cette méthode répond à GET /models/:id
+@Param('id')            // injecte ici le segment :id de l'URL
+@Query('org')           // injecte ici le paramètre ?org=
+@Body()                 // injecte ici le corps JSON de la requête
 ```
 
 <v-click>
 
 <div class="pt-6">
 
-Au démarrage, NestJS lit ces métadonnées et construit la table de routage.
+Au démarrage, Nest lit ces métadonnées et construit la table de routage.
 Vous **décrivez** ce que vous voulez, le framework **câble**.
 
 </div>
@@ -540,7 +534,7 @@ Vous **décrivez** ce que vous voulez, le framework **câble**.
 <v-click>
 
 <div class="pt-4 text-sm op-75">
-Rien de magique : ce sont des fonctions ordinaires fournies par Nest, <code>import { Controller, Get } from '@nestjs/common'</code>.
+Rien de magique&nbsp;: ce sont des fonctions ordinaires fournies par Nest, <code>import { Controller, Get } from '@nestjs/common'</code>.
 </div>
 
 </v-click>
@@ -588,7 +582,7 @@ flowchart LR
 
 ---
 
-# ① Les types : du TypeScript ordinaire
+# ① Les types&nbsp;: du TypeScript ordinaire
 
 ```ts
 export type Task = 'text-generation' | 'translation' | 'image-classification' | 'speech-to-text';
@@ -605,7 +599,7 @@ export interface Model {
 ```
 
 <div class="pt-3 text-sm op-75">
-Rien de spécifique à Nest ici : ce sont <b>vos types d'hier</b>, copiés tels quels dans <code>src/models/</code>. Vos données se modélisent en TypeScript pur.
+Rien de spécifique à Nest ici&nbsp;: ce sont <b>vos types d’hier</b>, copiés tels quels dans <code>src/models/</code>. Vos données se modélisent en TypeScript pur.
 </div>
 
 ---
@@ -651,37 +645,37 @@ flowchart LR
 
 ---
 
-# ② Le service : la logique métier
+# ② Le service&nbsp;: la logique métier
 
-**Ce qu'on met dans un service :**
+**Ce qu’on met dans un service&nbsp;:**
 
 <v-clicks>
 
-- la **logique métier** : calculs, règles, filtrage, tri
-- la **gestion du stockage** : lecture et écriture des données
-- les **appels à des services externes** : autres API, envoi de mails
+- la **logique métier**&nbsp;: calculs, règles, filtrage, tri
+- la **gestion du stockage**&nbsp;: lecture et écriture des données
+- les **appels à des services externes**&nbsp;: autres API, envoi de mails
 
 </v-clicks>
 
 <v-click>
 
 <div class="pt-3 p-3 bg-blue-500 bg-opacity-10 rounded text-sm">
-Ce qu'on n'y met <b>jamais</b> : quoi que ce soit qui parle d'HTTP. Un service ne connaît ni requête, ni code de statut. Il doit être testable sans serveur.
+Ce qu’on n’y met <b>jamais</b>&nbsp;: tout ce qui parle HTTP. Un service ne connaît ni requête, ni code de statut. Il doit être testable sans serveur.
 </div>
 
 </v-click>
 
 ---
 
-# ② Le service : le code
+# ② Le service, ligne par ligne
 
 ```ts {4-5|6|8-11|13-15|all}
 import { Injectable } from '@nestjs/common';
 import { ModelZoo } from './model-zoo';
 
-@Injectable()                       // ← 'Nest may provide this class'
+@Injectable()                       // ← « Nest peut fournir cette classe »
 export class ModelsService {
-  private zoo = new ModelZoo();     // ← your TP1 class, untouched
+  private zoo = new ModelZoo();     // ← votre classe du TP1, intacte
 
   create(model: Model): Model {
     this.zoo.addModel(model);
@@ -695,7 +689,7 @@ export class ModelsService {
 ```
 
 <div class="pt-3 text-sm op-75">
-<code>@Injectable()</code> ne fait rien de magique : il marque la classe comme <i>fournissable</i> par l'injection de dépendances. Sans lui, Nest refusera de la construire.
+<code>@Injectable()</code> dit à Nest qu’il peut construire et fournir cette classe. Sans lui, Nest refuse.
 </div>
 
 ---
@@ -741,10 +735,10 @@ flowchart LR
 
 ---
 
-# ③ Le contrôleur : traduire HTTP ↔ métier
+# ③ Le contrôleur&nbsp;: traduire HTTP ↔ métier
 
 ```ts {1-3|5-8|all}
-@Controller('models')           // every route starts with /models
+@Controller('models')           // toutes les routes commencent par /models
 export class ModelsController {
   constructor(private readonly modelsService: ModelsService) {}
 
@@ -782,27 +776,27 @@ findOne(@Param('id') id: string): Model {
 
 <v-clicks>
 
-- C'est le couple **(verbe, chemin)** qui détermine la méthode appelée, pas le chemin seul
-- `NotFoundException` devient un **404**, `BadRequestException` un **400** : Nest traduit vos exceptions en réponses HTTP
+- C’est le couple **(verbe, chemin)** qui détermine la méthode appelée, pas le chemin seul
+- `NotFoundException` devient un **404**, `BadRequestException` un **400**&nbsp;: Nest traduit vos exceptions en réponses HTTP
 
 </v-clicks>
 
 ---
 
-# ③ L'injection de dépendances
+# ③ Vous n’écrivez jamais `new`
 
 ```ts {2|all}
 export class ModelsController {
   constructor(private readonly modelsService: ModelsService) {}
-  //           ↑ you NEVER write `new ModelsService()`
+  //           ↑ vous n'écrivez JAMAIS new ModelsService()
 }
 ```
 
 <v-clicks>
 
-- Vous **déclarez** ce dont vous avez besoin, Nest vous le **fournit**
+- C’est l’injection de dépendances&nbsp;: vous **déclarez** ce dont vous avez besoin, Nest vous le **fournit**
 - Fonctionne pour les contrôleurs **et** pour les services entre eux
-- Une seule instance de `ModelsService` est partagée par toute l'application
+- Une seule instance de `ModelsService` est partagée par toute l’application
 - En test, on peut fournir un faux service à la place, sans changer une ligne du contrôleur
 
 </v-clicks>
@@ -810,7 +804,7 @@ export class ModelsController {
 <v-click>
 
 <div class="pt-4 p-3 bg-blue-500 bg-opacity-10 rounded text-sm">
-C'est le raccourci de constructeur vu hier : <code>private readonly</code> devant un paramètre <b>déclare et initialise</b> l'attribut. Vous le verrez dans tous les fichiers Nest.
+C’est le raccourci de constructeur vu hier&nbsp;: <code>private readonly</code> devant un paramètre <b>déclare et initialise</b> l’attribut. Vous le verrez dans tous les fichiers Nest.
 </div>
 
 </v-click>
@@ -859,21 +853,21 @@ flowchart LR
 
 ---
 
-# ④ Le module : ce qui relie tout
+# ④ Le module&nbsp;: ce qui relie tout
 
 ```ts
 import { Module } from '@nestjs/common';
 
 @Module({
-  controllers: [ModelsController],   // this module's routes
-  providers: [ModelsService],        // its injectable classes
-  exports: [ModelsService],          // what other modules may reuse
+  controllers: [ModelsController],   // les routes de ce module
+  providers: [ModelsService],        // ses fournisseurs (providers), les classes injectables
+  exports: [ModelsService],          // ce que d'autres modules peuvent réutiliser
 })
-export class ModelsModule {}         // empty class: everything is in the decorator
+export class ModelsModule {}         // classe vide : tout est dans le décorateur
 ```
 
 <div class="pt-3 p-3 bg-amber-500 bg-opacity-10 rounded text-sm">
-⚠️ <b>Le piège n°1 du TP</b> : un contrôleur oublié dans <code>controllers</code> ne sera <b>jamais</b> appelé. Vos routes répondront 404 sans le moindre message d'erreur. Si une route reste introuvable, vérifiez le module avant tout le reste.
+⚠️ <b>Le piège nº 1 du TP</b>&nbsp;: un contrôleur oublié dans <code>controllers</code> ne sera <b>jamais</b> appelé. Vos routes répondront 404 sans le moindre message d’erreur. Si une route reste introuvable, vérifiez le module avant tout le reste.
 </div>
 
 ---
@@ -915,30 +909,30 @@ flowchart LR
 
 </div>
 
-<div class="pt-2 text-2xl font-bold">⑤ main.ts</div>
+<div class="pt-2 text-2xl font-bold">⑤ Le démarrage</div>
 
 ---
 
-# ⑤ `main.ts` : le démarrage
+# ⑤ `main.ts`&nbsp;: le démarrage
 
 ```ts
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);   // the root module
-  await app.listen(process.env.PORT ?? 3000);        // the port to listen on
+  const app = await NestFactory.create(AppModule);   // le module racine
+  await app.listen(process.env.PORT ?? 3000);        // le port d'écoute
 }
 void bootstrap();                                    // void : on lance, sans attendre
 ```
 
 <div class="pt-3 text-sm op-75">
-C'est ici qu'on branchera la <b>validation globale</b> en fin de séance, et c'est ici que le port viendra d'une variable d'environnement quand on déploiera (séance 12).
+Deux rendez-vous ici&nbsp;: la <b>validation globale</b>, en fin de séance&nbsp;; le port lu dans une variable d’environnement, au déploiement (séance 12).
 </div>
 
 ---
 
-# Lancer l'application
+# Deux terminaux, tout le TP
 
 ```sh
 npm run start          # démarre l'application
@@ -953,7 +947,7 @@ npm run build          # compile vers dist/
 
 <div class="pt-8">
 
-Gardez **deux terminaux ouverts** pendant tout le TP : un pour `start:dev`, un pour `test:watch`.
+Gardez **deux terminaux ouverts** pendant tout le TP&nbsp;: un pour `start:dev`, un pour `test:watch`.
 Vous verrez vos erreurs apparaître sans jamais avoir à relancer quoi que ce soit.
 
 </div>
@@ -962,7 +956,7 @@ Vous verrez vos erreurs apparaître sans jamais avoir à relancer quoi que ce so
 
 ---
 
-# Interroger son API : Bruno
+# Interroger son API&nbsp;: Bruno
 
 <div class="grid grid-cols-2 gap-6 pt-2">
 <div>
@@ -979,7 +973,7 @@ Un client HTTP libre, hors ligne, sans compte.
 </div>
 
 <div class="pt-4 p-3 bg-blue-500 bg-opacity-10 rounded text-sm">
-Ses collections sont de <b>simples fichiers texte</b> : elles se versionnent avec le code. Une collection prête à l'emploi est fournie dans <code>tp02/bruno/</code>.
+Ses collections sont de <b>simples fichiers texte</b>&nbsp;: elles se versionnent avec le code. Une collection prête à l’emploi est fournie dans <code>tp02/bruno/</code>.
 </div>
 
 </div>
@@ -999,7 +993,7 @@ tp02/bruno/
 ```
 
 <div class="pt-4 text-sm op-75">
-Alternative sans rien installer : l'extension <b>REST Client</b> de VS Code, ou <code>curl</code> en ligne de commande (voir les annexes).
+Alternative sans rien installer&nbsp;: l’extension <b>REST Client</b> de VS Code, ou <code>curl</code> en ligne de commande (voir les annexes).
 </div>
 
 </div>
@@ -1024,14 +1018,14 @@ layout: section
 <div class="pt-8 text-sm inline-block text-left">
 
 0. Copier votre `ModelZoo` du TP1 dans `src/models/`, ou garder le corrigé fourni
-1. Lire le projet, puis câbler le module : il est livré vide
+1. Lire le projet, puis câbler le module&nbsp;: il est livré vide
 2. `GET /models`
 3. `GET /models/:id`, avec un 404 si le modèle est inconnu
 
 </div>
 
 <div class="pt-8 text-sm op-75">
-🖐 Bloqué ? Levez la main.
+🖐 Bloqué&nbsp;? Levez la main.
 </div>
 
 <!--
@@ -1068,7 +1062,9 @@ class: text-center
 layout: section
 ---
 
-# 5. L'asynchronisme
+# 4. L’asynchronisme
+
+<div class="op-75 pt-2">Préviens-moi quand tu l’as</div>
 
 ---
 
@@ -1077,7 +1073,7 @@ layout: section
 <div class="grid grid-cols-2 gap-4 pt-2">
 <div>
 
-**Aujourd'hui : tout en mémoire**
+**Aujourd’hui&nbsp;: tout en mémoire**
 
 ```ts
 export class ModelsService {
@@ -1123,9 +1119,9 @@ export class ModelsService {
 
 <div class="pt-6">
 
-Dès qu'une seule opération devient asynchrone, **tout ce qui l'appelle le devient aussi**. C'est contagieux, et ça remonte jusqu'au contrôleur.
+Dès qu’une seule opération devient asynchrone, **tout ce qui l’appelle le devient aussi**. C’est contagieux, et ça remonte jusqu’au contrôleur.
 
-D'où la question suivante : c'est quoi, au juste, une opération asynchrone ?
+D’où la question suivante&nbsp;: c’est quoi, au juste, une opération asynchrone&nbsp;?
 
 </div>
 
@@ -1136,28 +1132,28 @@ D'où la question suivante : c'est quoi, au juste, une opération asynchrone ?
 # Node exécute votre code sur un seul thread
 
 <div class="text-sm op-75 mb-4">
-Pas de <code>pthread_create</code> ici. Une seule file d'exécution, donc <b>on ne bloque jamais</b>.
+Pas de <code>pthread_create</code> ici. Une seule file d’exécution, donc <b>on ne bloque jamais</b>.
 </div>
 
 <v-clicks>
 
-- Lire un fichier, appeler une API, interroger une base : tout cela **prend du temps**
+- Lire un fichier, appeler une API, interroger une base&nbsp;: tout cela **prend du temps**
 - Pendant ce temps, le thread doit rester libre pour traiter les autres requêtes
-- Donc : on ne dit pas « attends le résultat », on dit **« préviens-moi quand tu l'as »**
+- Donc&nbsp;: on ne dit pas « attends le résultat », on dit **« préviens-moi quand tu l’as »**
 
 </v-clicks>
 
 <v-click>
 
 <div class="pt-8 p-4 bg-blue-500 bg-opacity-10 rounded">
-Conséquence directe : une fonction qui fait des entrées/sorties ne renvoie pas un résultat, elle renvoie une <b>promesse</b> de résultat.
+Conséquence directe&nbsp;: une fonction qui fait des entrées/sorties ne renvoie pas un résultat, elle renvoie une <b>promesse</b> de résultat.
 </div>
 
 </v-click>
 
 ---
 
-# Trois façons d'écrire la même chose
+# Trois façons d’écrire la même chose
 
 ````md magic-move
 ```ts
@@ -1234,7 +1230,7 @@ function nope() {
 
 ---
 
-# À vous : dans quel ordre ?
+# À vous&nbsp;: dans quel ordre&nbsp;?
 
 ```ts {monaco-run}
 async function getModel(): Promise<string> {
@@ -1257,7 +1253,9 @@ direct pour tester leurs hypothèses.
 layout: section
 ---
 
-# 6. Le cycle de vie
+# 5. Le cycle de vie
+
+<div class="op-75 pt-2">Le bon moment pour charger</div>
 
 ---
 
@@ -1279,14 +1277,14 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 // implements : « je fournis cette méthode », et Nest l'appelle au bon moment
 export class ModelsService implements OnModuleInit {
   async onModuleInit(): Promise<void> {
-    // The right moment to load data, open a connection…
+    // le bon moment pour charger des données, ouvrir une connexion…
     await this.loadCatalogue();
   }
 }
 ```
 
 <div class="pt-3 text-sm op-75">
-Pourquoi pas dans le constructeur ? Parce qu'un constructeur ne peut pas être <code>async</code>. <code>onModuleInit</code>, si, et Nest l'attend avant de démarrer le serveur.
+Pourquoi pas dans le constructeur&nbsp;? Parce qu’un constructeur ne peut pas être <code>async</code>. <code>onModuleInit</code>, si, et Nest l’attend avant de démarrer le serveur.
 </div>
 
 <!--
@@ -1298,7 +1296,9 @@ On s'en resservira en séance 3 pour la connexion à la base.
 layout: section
 ---
 
-# 7. Valider ce qui vient de l'extérieur
+# 6. Valider ce qui vient de l’extérieur
+
+<div class="op-75 pt-2">Parce qu’un type n’impose rien</div>
 
 ---
 layout: center
@@ -1339,15 +1339,15 @@ flowchart LR
 
 </div>
 
-<div class="pt-2 text-2xl font-bold">Le DTO : la pièce qui manquait</div>
+<div class="pt-2 text-2xl font-bold">Le DTO&nbsp;: la pièce qui manquait</div>
 
 ---
 
-# Le problème
+# Un type n’impose rien
 
 <div class="pt-2">
 
-Souvenez-vous d'hier : **les types de TypeScript sont effacés à la compilation.**
+Souvenez-vous d’hier&nbsp;: **les types de TypeScript sont effacés à la compilation.**
 
 </div>
 
@@ -1362,7 +1362,7 @@ create(@Body() model: Model): Model {
 
 <div class="pt-4 p-4 bg-amber-500 bg-opacity-10 rounded">
 
-Ce `: Model` ne vérifie **rien** à l'exécution. Si un client envoie
+Ce `: Model` ne vérifie **rien** à l’exécution. Si un client envoie
 `{"name": 42, "parameters": "beaucoup"}`, ça passe. Et ça casse plus loin, ailleurs, sans rapport apparent.
 
 </div>
@@ -1372,17 +1372,17 @@ Ce `: Model` ne vérifie **rien** à l'exécution. Si un client envoie
 <v-click>
 
 <div class="pt-6">
-Le type dit ce que vous <i>espérez</i> recevoir. Il ne l'impose pas.
-Pour l'imposer, il faut du code qui s'exécute.
+Le type dit ce que vous <i>espérez</i> recevoir. Il ne l’impose pas.
+Pour l’imposer, il faut du code qui s’exécute.
 </div>
 
 </v-click>
 
 ---
 
-# La solution : un DTO validé
+# La solution&nbsp;: un DTO validé
 
-<div class="text-sm op-75 mb-2">DTO = <i>Data Transfer Object</i> : la forme attendue d'une entrée. Ici pour les datasets du cours ; celui des modèles, c'est l'étape 5 du TP.</div>
+<div class="text-sm op-75 mb-2">DTO = <i>Data Transfer Object</i>&nbsp;: la forme attendue d’une entrée. Ici pour les datasets du cours&nbsp;; celui des modèles, c’est l’étape 5 du TP.</div>
 
 ```ts {1-12|14-17|all}
 export class CreateDatasetDto {
@@ -1398,7 +1398,7 @@ export class CreateDatasetDto {
   licence!: string;
 }
 
-// In main.ts, once for the whole application
+// Dans main.ts, une fois pour toute l'application
 app.useGlobalPipes(
   new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }),
 );
@@ -1407,8 +1407,8 @@ app.useGlobalPipes(
 <v-click>
 
 <div class="pt-3 text-sm op-75">
-Une entrée invalide ne parvient jamais à votre service : Nest répond <b>400</b> avec le détail des erreurs.<br/>
-<code>whitelist</code> retire les champs non déclarés, <code>forbidNonWhitelisted</code> va plus loin et refuse la requête : un client ne peut pas glisser de propriété surprise.
+Une entrée invalide ne parvient jamais à votre service&nbsp;: Nest répond <b>400</b> avec le détail des erreurs.<br/>
+<code>whitelist</code> retire les champs non déclarés, <code>forbidNonWhitelisted</code> va plus loin et refuse la requête&nbsp;: un client ne peut pas glisser de propriété surprise.
 </div>
 
 </v-click>
@@ -1430,7 +1430,7 @@ layout: section
 </div>
 
 <div class="pt-6 text-sm op-75">
-Bonus : charger le catalogue au démarrage (<code>OnModuleInit</code>), puis depuis l'API de Hugging Face
+Bonus&nbsp;: charger le catalogue au démarrage (<code>OnModuleInit</code>), puis depuis l’API de Hugging Face
 </div>
 
 <!--
@@ -1440,7 +1440,7 @@ sur la correction, et les bonus sur la maison.
 
 ---
 
-# Correction : où avez-vous mis quoi ?
+# Correction&nbsp;: où avez-vous mis quoi&nbsp;?
 
 <div class="grid grid-cols-2 gap-6 pt-4">
 <div>
@@ -1481,7 +1481,7 @@ Le contrôleur traduit, le service décide.
 
 <div class="pt-8">
 
-**Pourquoi ça compte :** demain, le service passe sur une base de données. Si le filtrage est dans le contrôleur, il faudra le réécrire, et il ne profitera jamais d'un index.
+**Pourquoi ça compte&nbsp;:** demain, le service passe sur une base de données. Si le filtrage est dans le contrôleur, il faudra le réécrire, et il ne profitera jamais d’un index.
 
 </div>
 
@@ -1499,19 +1499,19 @@ class: text-center
 
 # Demain
 
-## Séance 3 : La persistance
+## Séance 3&nbsp;: La persistance
 
 <div class="pt-6 op-75">
-Redémarrez votre API maintenant : <b>tout a disparu.</b>
+Redémarrez votre API maintenant&nbsp;: <b>tout a disparu.</b>
 </div>
 
 <div class="pt-6">
-Demain, les données survivent : une vraie base, des migrations,<br/>
+Demain, les données survivent&nbsp;: une vraie base, des migrations,<br/>
 et un client typé de bout en bout.
 </div>
 
 <div class="pt-10 text-sm op-60">
-Slides : gaetanmaisse.github.io/ismin-web-2026-tps
+Slides&nbsp;: gaetanmaisse.github.io/ismin-web-2026-tps
 </div>
 
 <!--
@@ -1536,19 +1536,23 @@ layout: section
 
 # Annexe · Décorateurs NestJS courants
 
+<div class="text-sm">
+
 | Décorateur | Rôle | Exemple |
 |---|---|---|
-| `@Controller("models")` | Préfixe de routes | `/models` |
-| `@Get()` `@Post()` `@Delete()` | Verbe HTTP | `@Get(":id")` |
-| `@Param("id")` | Segment d'URL | `/models/**mistral-7b**` |
-| `@Query("org")` | Paramètre de requête | `/models?**org=mistralai**` |
+| `@Controller('models')` | Préfixe de routes | `/models` |
+| `@Get()` `@Post()` `@Delete()` | Verbe HTTP | `@Get(':id')` |
+| `@Param('id')` | Segment d’URL | `/models/mistral-7b` |
+| `@Query('org')` | Paramètre de requête | `/models?org=mistralai` |
 | `@Body()` | Corps JSON de la requête | `POST` avec un DTO |
 | `@HttpCode(204)` | Forcer le code de statut | après un `DELETE` |
-| `@Injectable()` | Classe fournie par l'injection | sur les services |
-| `@Module({...})` | Déclare contrôleurs et fournisseurs | |
+| `@Injectable()` | Fournisseur, construit et injecté par Nest | sur les services |
+| `@Module({...})` | Déclare les contrôleurs et les fournisseurs | |
+
+</div>
 
 <div class="pt-4 text-sm op-75">
-Exceptions prêtes à l'emploi : <code>NotFoundException</code> (404), <code>BadRequestException</code> (400), <code>ConflictException</code> (409).
+Exceptions prêtes à l’emploi&nbsp;: <code>NotFoundException</code> (404), <code>BadRequestException</code> (400), <code>ConflictException</code> (409).
 </div>
 
 ---
@@ -1566,12 +1570,12 @@ Exceptions prêtes à l'emploi : <code>NotFoundException</code> (404), <code>Bad
 ```
 
 <div class="pt-6 text-sm op-75">
-Tous viennent de <code>class-validator</code>. La liste complète : <b>github.com/typestack/class-validator</b>
+Tous viennent de <code>class-validator</code>. La liste complète&nbsp;: <b>github.com/typestack/class-validator</b>
 </div>
 
 ---
 
-# Annexe · Interroger l'API sans Bruno
+# Annexe · Interroger l’API sans Bruno
 
 <div class="grid grid-cols-2 gap-6 pt-2 text-sm">
 <div>
@@ -1593,9 +1597,9 @@ curl -X DELETE localhost:3000/models/gemma-2-9b
 </div>
 <div>
 
-**Dans l'éditeur**
+**Dans l’éditeur**
 
-Extension **REST Client** (VS Code) : un fichier `.http`
+Extension **REST Client** (VS Code)&nbsp;: un fichier `.http`
 
 ```http
 GET http://localhost:3000/models
@@ -1614,5 +1618,5 @@ Content-Type: application/json
 </div>
 
 <div class="pt-6 text-sm op-75">
-💡 Nos identifiants sont des <b>slugs</b> sans caractère spécial, donc rien à encoder. Sachez tout de même que Hugging Face utilise réellement <code>organisation/nom</code> dans ses URLs : ce qui impose côté serveur un paramètre attrape-tout (<code>@Get('*id')</code>). C'est un cas particulier, pas la règle.
+💡 Nos identifiants sont des <b>slugs</b> sans caractère spécial, donc rien à encoder. Sachez tout de même que Hugging Face utilise réellement <code>organisation/nom</code> dans ses URL, ce qui impose côté serveur un paramètre attrape-tout (<code>@Get('*id')</code>). C’est un cas particulier, pas la règle.
 </div>
