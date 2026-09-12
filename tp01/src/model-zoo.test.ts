@@ -14,8 +14,8 @@ const mistral: Model = {
   name: "Mistral-7B-Instruct-v0.3",
   org: "mistralai",
   task: "text-generation",
-  parameters: 7.2,
-  downloads: 1_420_000,
+  parameters: 7.2,        // in billions, as on the Hugging Face model card
+  downloads: 1_420_000,   // over the last month
   license: "apache-2.0",
 };
 

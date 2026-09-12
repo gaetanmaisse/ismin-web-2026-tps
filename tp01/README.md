@@ -77,9 +77,10 @@ Create `src/model.ts` and declare two types in it:
   any test runs.
 
 - **`Model`** — a model in the catalogue. The test file builds three of them at
-  the top: every field you need is there, and their values tell you the types.
-  Read all three: they do not carry exactly the same fields, and the type must
-  accept every one of them. `id` is a URL-safe slug, unique in the catalogue.
+  the top: every field you need is there, their values tell you the types, and
+  the comments tell you the units. Read all three: they do not carry exactly the
+  same fields, and the type must accept every one of them. `id` is a URL-safe
+  slug, unique in the catalogue.
 
 > 💡 Use `interface` for `Model` and `type` for `Task`. Both keywords work for
 > both; the course rule is `interface` for the shape of an object, `type` for
