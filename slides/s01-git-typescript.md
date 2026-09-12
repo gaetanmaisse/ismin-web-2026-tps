@@ -28,7 +28,7 @@ mdc: true
 <div class="pt-4 op-75">Séance 1: Git &amp; TypeScript</div>
 
 <div class="pt-14 text-sm op-80">
-📱 Les slides sont en ligne, suivez sur votre écran :<br/>
+📱 Les slides sont en ligne, suivez sur votre écran&nbsp;:<br/>
 <b class="text-base">gaetanmaisse.github.io/ismin-web-2026-tps</b>
 </div>
 
@@ -63,21 +63,21 @@ layout: center
 class: text-center
 ---
 
-# Vous connaissez ça ?
+# Vous connaissez ça&nbsp;?
 
 <div class="text-6xl pt-2">🤗</div>
 
 ## huggingface.co
 
 <div class="pt-4 op-75">
-Le catalogue où le monde entier publie ses modèles d'IA.<br/>
+Le catalogue où le monde entier publie ses modèles d’IA.<br/>
 Plus de <b>3 millions de modèles</b>, partagés par <b>18 millions de développeurs</b>.
 </div>
 
 <v-click>
 
 <div class="pt-6 mx-auto max-w-2xl p-4 rounded bg-amber-500 bg-opacity-10 border-l-4 border-amber-500 text-left">
-📰 <b>3 septembre 2026</b> : Nvidia annonce son rachat pour <b>12,9 milliards de dollars</b>.
+📰 <b>3 septembre 2026</b>&nbsp;: Nvidia annonce son rachat pour <b>12,9 milliards de dollars</b>.
 <span class="text-sm op-75">Clôture attendue en 2027, sous réserve des autorisations réglementaires.</span>
 </div>
 
@@ -124,7 +124,7 @@ layoutClass: gap-12
 <div class="pt-6 text-sm op-75">
 <b>@gaetanmaisse</b><br/>
 GitHub · LinkedIn<br/>
-<span class="op-75">Écrivez-moi si vous êtes bloqués, c'est fait pour ça.</span>
+<span class="op-75">Écrivez-moi si vous êtes bloqués, c’est fait pour ça.</span>
 </div>
 
 ::right::
@@ -133,7 +133,7 @@ GitHub · LinkedIn<br/>
 
 <div>
 <div class="font-bold">🎓 Mines Saint-Étienne, EI11</div>
-<div class="op-75 text-sm">J'étais assis où vous êtes</div>
+<div class="op-75 text-sm">J’étais assis où vous êtes</div>
 </div>
 
 <div>
@@ -143,7 +143,7 @@ GitHub · LinkedIn<br/>
 
 <div>
 <div class="font-bold">📚 Ex core team de Storybook</div>
-<div class="op-75 text-sm">Open source utilisé par des dizaines de milliers de projets. Avant : Gravitee</div>
+<div class="op-75 text-sm">Open source utilisé par des dizaines de milliers de projets. Avant&nbsp;: Gravitee</div>
 </div>
 
 <div>
@@ -174,17 +174,17 @@ La dernière ligne est là pour vous rendre abordable, pas pour meubler.
 layout: center
 ---
 
-# 🧑‍🎓 Et vous ?
+# 🧑‍🎓 Et vous&nbsp;?
 
 <div class="pt-4 text-xl">
 
 <v-clicks>
 
-- Qui a déjà écrit du **JavaScript** ?
-- Du **HTML / CSS** ?
-- Qui a déjà fait tourner un **serveur** ?
-- Qui a déjà utilisé **Git** en équipe ?
-- Qui code déjà avec une **IA** ? Laquelle ?
+- Qui a déjà écrit du **JavaScript**&nbsp;?
+- Du **HTML / CSS**&nbsp;?
+- Qui a déjà fait tourner un **serveur**&nbsp;?
+- Qui a déjà utilisé **Git** en équipe&nbsp;?
+- Qui code déjà avec une **IA**&nbsp;? Laquelle&nbsp;?
 
 </v-clicks>
 
@@ -193,7 +193,7 @@ layout: center
 <v-click>
 
 <div class="mt-10 p-4 rounded bg-blue-500 bg-opacity-10">
-Aucune de ces réponses n'est un prérequis. <b>Le cours part de zéro sur le web.</b>
+Aucune de ces réponses n’est un prérequis. <b>Le cours part de zéro sur le web.</b>
 </div>
 
 </v-click>
@@ -215,7 +215,7 @@ Noter les chiffres dans le RETEX, et annoncer à voix haute ce qu'on en fait :
 layout: center
 ---
 
-# Avant tout : ouvrez votre terminal
+# Avant tout&nbsp;: ouvrez votre terminal
 
 <div class="pt-6 text-left max-w-md mx-auto">
 
@@ -230,7 +230,7 @@ git --version
 
 ✅ `v26.` quelque chose et un numéro pour Git → parfait
 
-🔴 Une erreur, ou pas la 26 ? **Levez la main maintenant.**
+🔴 Une erreur, ou pas la 26&nbsp;? **Levez la main maintenant.**
 
 </div>
 
@@ -256,9 +256,9 @@ Compter combien : ça va dans le RETEX.
 
 ### En séance
 
-- Posez des questions **dès** que ce n'est pas clair
-- Il n'y a pas de question bête
-- On alterne : un peu de cours, puis on code
+- Posez des questions **dès** que ce n’est pas clair
+- Il n’y a pas de question bête
+- On alterne&nbsp;: un peu de cours, puis on code
 
 </div>
 <div>
@@ -267,19 +267,19 @@ Compter combien : ça va dans le RETEX.
 
 - Rien à rendre, rien à réviser
 - Trois séances par semaine, lundi / mardi / mercredi
-- Ce qu'on écrit un jour sert le lendemain
+- Ce qu’on écrit un jour sert le lendemain
 
 </div>
 </div>
 
 <div class="mt-8 p-4 bg-blue-500 bg-opacity-10 rounded text-sm">
-💡 Ne vous fatiguez pas les yeux sur votre écran quand je présente : les slides sont en ligne, vous les relirez.
+💡 Ne vous fatiguez pas les yeux sur votre écran quand je présente&nbsp;: les slides sont en ligne, vous les relirez.
 </div>
 
 <v-click>
 
 <div class="mt-4 p-4 rounded border-l-4 border-blue-500 bg-blue-500 bg-opacity-5">
-<b>À 16 h 30 aujourd'hui</b>, vous aurez un dépôt Git à votre nom avec une branche poussée,
+<b>À 16 h 30 aujourd’hui</b>, vous aurez un dépôt Git à votre nom avec une branche poussée,
 et une classe TypeScript qui fait passer onze tests.
 </div>
 
@@ -320,7 +320,7 @@ layout: center
 </div>
 
 <div class="pt-10 text-center op-75">
-Chaque semaine se termine par une <b>revue</b> : on montre ce qui tourne.
+Chaque semaine se termine par une <b>revue</b>&nbsp;: on montre ce qui tourne.
 </div>
 
 <!--
@@ -330,26 +330,26 @@ c'est UNE application qu'on fait grandir.
 
 ---
 
-# L'IA dans ce cours
+# L’IA dans ce cours
 
-Vous avez le droit (et même l'obligation) d'utiliser un assistant.
+Vous avez le droit (et même l’obligation) d’utiliser un assistant.
 
 <v-clicks>
 
 <div class="pt-4">
 
-**Aujourd'hui** : celui que vous voulez, dans le navigateur. Rien à installer.
-Vous n'aurez pas tous le même, et c'est tant mieux : on comparera leurs réponses.
+**Aujourd’hui**&nbsp;: celui que vous voulez, dans le navigateur. Rien à installer.
+Vous n’aurez pas tous le même, et c’est tant mieux&nbsp;: on comparera leurs réponses.
 
-**Plus tard** : intégré à l'éditeur, puis un agent en ligne de commande sur les séances DevOps.
+**Plus tard**&nbsp;: intégré à l’éditeur, puis un agent en ligne de commande sur les séances DevOps.
 
 </div>
 
 <div class="mt-8 p-5 bg-amber-500 bg-opacity-10 rounded border-l-4 border-amber-500">
 
-### ⚠️ La règle d'or
+### ⚠️ La règle d’or
 
-Pendant les TP, **je passe et je vous demande d'expliquer votre code**.
+Pendant les TP, **je passe et je vous demande d’expliquer votre code**.
 
 Si vous ne savez pas expliquer une partie, **je la supprime**.
 
@@ -360,7 +360,7 @@ Si vous ne savez pas expliquer une partie, **je la supprime**.
 <v-click>
 
 <div class="pt-6 text-sm op-75">
-Ce n'est pas une menace, c'est le métier : en entreprise, c'est vous qui passez en revue le code, qui le corrigez à 3 h du matin, et qui en répondez.
+Ce n’est pas une menace, c’est le métier&nbsp;: en entreprise, c’est vous qui passez en revue le code, qui le corrigez à 3 h du matin, et qui en répondez.
 </div>
 
 </v-click>
@@ -390,7 +390,7 @@ layout: section
 
 <div class="pt-2">
 
-Vous ne poussez pas sur mon dépôt : vous travaillez sur **votre copie**.
+Vous ne poussez pas sur mon dépôt&nbsp;: vous travaillez sur **votre copie**.
 
 </div>
 
@@ -415,8 +415,8 @@ flowchart LR
 ```
 
 <div class="pt-4 text-sm op-75">
-<b>Aujourd'hui</b> : forkez, clonez, committez, poussez. Tout se passe chez vous.<br/>
-<b>Dès demain</b> : une commande de plus pour récupérer le TP du jour depuis mon dépôt.
+<b>Aujourd’hui</b>&nbsp;: forkez, clonez, committez, poussez. Tout se passe chez vous.<br/>
+<b>Dès demain</b>&nbsp;: une commande de plus pour récupérer le TP du jour depuis mon dépôt.
 </div>
 
 <!--
@@ -442,8 +442,8 @@ flowchart RL
 
 <v-clicks>
 
-- Chaque commit enregistre **l'état complet** du projet, pas les lignes modifiées
-- Il porte une empreinte (`c3f9a1`) et **pointe vers son parent**. L'historique est une chaîne.
+- Chaque commit enregistre **l’état complet** du projet, pas les lignes modifiées
+- Il porte une empreinte (`c3f9a1`) et **pointe vers son parent**. L’historique est une chaîne.
 - Git vous *affiche* des différences, mais il ne les *stocke* pas
 
 </v-clicks>
@@ -451,7 +451,7 @@ flowchart RL
 <v-click>
 
 <div class="pt-4 text-sm op-75">
-C'est ce qui rend le changement de branche instantané : Git ne rejoue rien, il restaure une photo.
+C’est ce qui rend le changement de branche instantané&nbsp;: Git ne rejoue rien, il restaure une photo.
 </div>
 
 </v-click>
@@ -463,7 +463,7 @@ Insister : photo, pas diff. Tout le reste en découle.
 
 ---
 
-# Une branche n'est qu'un pointeur
+# Une branche n’est qu’un pointeur
 
 ```mermaid {scale: 0.68}
 %%{init: {'theme':'base','themeVariables':{'fontFamily':'Roboto, ui-sans-serif, sans-serif','fontSize':'14px','lineColor':'#94a3b8','primaryTextColor':'#0f172a'}}}%%
@@ -483,8 +483,8 @@ flowchart RL
 
 <v-clicks>
 
-- Une branche, c'est **un nom qui pointe vers un commit**. Rien d'autre, 40 octets sur le disque.
-- La créer ne copie aucun fichier : c'est pour ça que c'est instantané
+- Une branche, c’est **un nom qui pointe vers un commit**. Rien d’autre, 40 octets sur le disque.
+- La créer ne copie aucun fichier&nbsp;: c’est pour ça que c’est instantané
 - `HEAD` dit sur quelle branche vous êtes. Changer de branche, `git switch`, ne fait que le déplacer.
 
 </v-clicks>
@@ -492,7 +492,7 @@ flowchart RL
 <v-click>
 
 <div class="pt-4 p-3 bg-blue-500 bg-opacity-10 rounded text-sm">
-Vous venez du C++ : une branche est <b>littéralement un pointeur</b>. Commiter fait avancer le pointeur d'un cran.
+Vous venez du C++&nbsp;: une branche est <b>littéralement un pointeur</b>. Commiter fait avancer le pointeur d’un cran.
 </div>
 
 </v-click>
@@ -562,7 +562,7 @@ gitGraph
 
 <v-clicks>
 
-- Une **branche** par fonctionnalité : on ne travaille jamais directement sur `main`
+- Une **branche** par fonctionnalité&nbsp;: on ne travaille jamais directement sur `main`
 - On y travaille tranquillement, puis on la **fusionne** dans `main`
 - `main` doit **toujours** rester dans un état qui fonctionne
 
@@ -571,7 +571,7 @@ gitGraph
 <v-click>
 
 <div class="pt-6 text-sm op-75">
-En équipe, cette fusion se demande par une <b>pull request</b>, et c'est là qu'on relit le code d'un collègue. Vous en ferez sur le projet final, en binôme.
+En équipe, cette fusion se demande par une <b>pull request</b>, et c’est là qu’on relit le code d’un collègue. Vous en ferez sur le projet final, en binôme.
 </div>
 
 </v-click>
@@ -591,7 +591,7 @@ Le réflexe utile en solo, c'est `git diff` avant de commiter.
 <div class="grid grid-cols-2 gap-6 pt-2">
 <div>
 
-### ❌ Ce qu'on voit trop
+### ❌ Ce qu’on voit trop
 
 ```
 update
@@ -624,9 +624,9 @@ test(tp01): cover empty catalog
 
 <div class="pt-8 text-sm">
 
-Types courants : `feat` (fonctionnalité), `fix` (correction), `docs`, `test`, `refactor`, `chore`.
+Types courants&nbsp;: `feat` (fonctionnalité), `fix` (correction), `docs`, `test`, `refactor`, `chore`.
 
-**Pourquoi c'est noté** : dans six mois, votre historique est la seule documentation qui reste vraie.
+**Pourquoi c’est noté**&nbsp;: dans six mois, votre historique est la seule documentation qui reste vraie.
 
 </div>
 
@@ -669,7 +669,7 @@ $ git log --oneline --graph --all
 ```
 
 <div class="text-sm op-75 pt-2">
-<code>--graph --all</code> dessine la forme réelle de l'historique : le schéma des pointeurs, en vrai.
+<code>--graph --all</code> dessine la forme réelle de l’historique&nbsp;: le schéma des pointeurs, en vrai.
 </div>
 
 </div>
@@ -685,16 +685,16 @@ Ces deux commandes ne modifient <b>jamais</b> rien. Tapez-les sans crainte, auss
 
 ---
 
-# Au secours, j'ai fait une bêtise
+# Au secours, j’ai fait une bêtise
 
 | La situation | La commande |
 |---|---|
-| J'ai modifié un fichier et je veux revenir en arrière | `git restore <fichier>` |
-| J'ai fait `git add` par erreur | `git restore --staged <fichier>` |
+| J’ai modifié un fichier et je veux revenir en arrière | `git restore <fichier>` |
+| J’ai fait `git add` par erreur | `git restore --staged <fichier>` |
 | Mon message de commit est raté | `git commit --amend` |
-| J'ai commité trop tôt, je veux garder mes modifications | `git reset --soft HEAD~1` |
-| Je veux voir ce que j'ai modifié | `git diff` |
-| Je ne sais plus où j'en suis | `git status`, puis `git log --oneline` |
+| J’ai commité trop tôt, je veux garder mes modifications | `git reset --soft HEAD~1` |
+| Je veux voir ce que j’ai modifié | `git diff` |
+| Je ne sais plus où j’en suis | `git status`, puis `git log --oneline` |
 
 <v-click>
 
@@ -707,7 +707,7 @@ Ces deux commandes ne modifient <b>jamais</b> rien. Tapez-les sans crainte, auss
 <v-click>
 
 <div class="pt-3 text-sm op-75">
-Bonne nouvelle : tant que vous avez <b>commité</b>, presque rien n'est irrécupérable. C'est la meilleure raison de commiter souvent.
+Bonne nouvelle&nbsp;: tant que vous avez <b>commité</b>, presque rien n’est irrécupérable. C’est la meilleure raison de commiter souvent.
 </div>
 
 </v-click>
@@ -776,13 +776,13 @@ layout: section
 1. **Forkez** le dépôt du cours sur GitHub
 2. **Clonez** votre fork
 3. Créez la branche `tp01-modelzoo`
-4. **Poussez-la** tout de suite : `git push -u origin tp01-modelzoo`
-5. Vérifiez votre environnement : `node --version` → doit afficher `v26.x`
+4. **Poussez-la** tout de suite&nbsp;: `git push -u origin tp01-modelzoo`
+5. Vérifiez votre environnement&nbsp;: `node --version` → doit afficher `v26.x`
 
 </div>
 
 <div class="pt-8 text-sm op-75">
-🖐 Bloqué ? Levez la main.
+🖐 Bloqué&nbsp;? Levez la main.
 </div>
 
 <!--
@@ -820,7 +820,7 @@ layout: section
 <div class="p-4 border border-gray-500 border-opacity-30 rounded">
 <div class="text-3xl">🟩</div>
 <div class="font-bold pt-2">Node.js</div>
-<div class="pt-2 text-sm op-75">Le moteur JavaScript de Chrome, sorti du navigateur. Permet d'écrire des serveurs.</div>
+<div class="pt-2 text-sm op-75">Le moteur JavaScript de Chrome, sorti du navigateur. Permet d’écrire des serveurs.</div>
 </div>
 
 <div class="p-4 border border-gray-500 border-opacity-30 rounded">
@@ -836,7 +836,7 @@ layout: section
 <div class="pt-10 text-center">
 
 **Le même langage sur le serveur et dans le navigateur.**
-C'est ce qui rend possible un cours full-stack en quatre semaines.
+C’est ce qui rend possible un cours full-stack en quatre semaines.
 
 </div>
 
@@ -844,7 +844,7 @@ C'est ce qui rend possible un cours full-stack en quatre semaines.
 
 ---
 
-# À vous : qu'est-ce que ça affiche ?
+# À vous&nbsp;: qu’est-ce que ça affiche&nbsp;?
 
 <div class="text-sm op-75 mb-2">
 Annoncez le résultat <b>avant</b> de lancer. Bouton ▶ sur chaque bloc.
@@ -884,8 +884,8 @@ console.log(model.paramaters * 2)
 
 <div class="pt-2 p-3 bg-amber-500 bg-opacity-10 rounded text-sm">
 
-`true`, `true`, **`false`** : l'égalité n'est même pas transitive.
-`1 < 3 < 2` est `true`… et le reste pour n'importe quelles valeurs.
+`true`, `true`, **`false`**&nbsp;: l’égalité n’est même pas transitive.
+`1 < 3 < 2` est `true`… et le reste pour n’importe quelles valeurs.
 Et la faute de frappe sur `paramaters` donne `NaN`, **sans la moindre erreur**.
 
 </div>
@@ -909,7 +909,7 @@ juste avant la slide qui l'annonce.
 
 ---
 
-# Ce qu'on vient de voir
+# Ce qu’on vient de voir
 
 ```js
 ""  == 0            // true  😬
@@ -924,12 +924,12 @@ model.paramaters * 2;   // NaN : aucune erreur, aucun avertissement
 
 <v-clicks>
 
-- Rien de tout cela ne plante : le programme continue, avec des valeurs fausses
-- Sur trente lignes c'est agaçant. Sur cent mille, c'est une soirée perdue à chercher d'où vient un `NaN`
+- Rien de tout cela ne plante&nbsp;: le programme continue, avec des valeurs fausses
+- Sur trente lignes c’est agaçant. Sur cent mille, c’est une soirée perdue à chercher d’où vient un `NaN`
 
 <div class="p-3 bg-blue-500 bg-opacity-10 rounded">
 
-**Première règle de survie : toujours `===`, jamais `==`.**
+**Première règle de survie&nbsp;: toujours `===`, jamais `==`.**
 Le triple égal compare sans convertir. `"" === 0` vaut `false`, comme il se doit.
 
 </div>
@@ -961,7 +961,7 @@ model.paramaters;
 ```
 
 <div class="pt-4 text-sm op-75">
-Signalé <b>dans l'éditeur</b>, avant même d'enregistrer le fichier, et bien avant l'utilisateur.
+Signalé <b>dans l’éditeur</b>, avant même d’enregistrer le fichier, et bien avant l’utilisateur.
 </div>
 
 ---
@@ -977,7 +977,7 @@ Signalé <b>dans l'éditeur</b>, avant même d'enregistrer le fichier, et bien a
 
 <div class="p-4 border border-gray-500 border-opacity-30 rounded">
 <div class="font-bold">Types</div>
-<div class="pt-2 text-sm op-75">Une couche de règles sur ce qu'on a le droit de faire de chaque valeur. C'est le seul ajout.</div>
+<div class="pt-2 text-sm op-75">Une couche de règles sur ce qu’on a le droit de faire de chaque valeur. C’est le seul ajout.</div>
 </div>
 
 <div class="p-4 border border-gray-500 border-opacity-30 rounded">
@@ -991,9 +991,9 @@ Signalé <b>dans l'éditeur</b>, avant même d'enregistrer le fichier, et bien a
 
 <div class="mt-8 p-4 bg-blue-500 bg-opacity-10 rounded">
 
-Autrement dit : **TypeScript, c'est JavaScript plus un vérificateur qui travaille à la compilation.**
-Il n'a pas de moteur à lui : à l'exécution, c'est du JavaScript, dans le même moteur qu'avant.
-Aucune bibliothèque supplémentaire, aucun surcoût à l'exécution.
+Autrement dit&nbsp;: **TypeScript, c’est JavaScript plus un vérificateur qui travaille à la compilation.**
+Il n’a pas de moteur à lui&nbsp;: à l’exécution, c’est du JavaScript, dans le même moteur qu’avant.
+Aucune bibliothèque supplémentaire, aucun surcoût à l’exécution.
 
 </div>
 
@@ -1014,13 +1014,13 @@ function show(d: Dataset): string { … }
 
 <div class="pt-4">
 
-Le type s'écrit **après** le nom, séparé par `:`. Le type de retour, **après** la parenthèse.
+Le type s’écrit **après** le nom, séparé par `:`. Le type de retour, **après** la parenthèse.
 
 </div>
 
 <div class="pt-2">
 
-Pour un objet, on nomme sa forme avec `interface`, puis on l'utilise comme un type :
+Pour un objet, on nomme sa forme avec `interface`, puis on l’utilise comme un type&nbsp;:
 
 ```ts
 interface Dataset {
@@ -1034,7 +1034,7 @@ interface Dataset {
 </v-clicks>
 
 <div class="pt-3 text-sm op-75">
-C'est tout ce qu'il faut pour lire les slides qui suivent. On revient sur chaque mot-clé en détail après la pause.
+C’est tout ce qu’il faut pour lire les slides qui suivent. On revient sur chaque mot-clé en détail après la pause.
 </div>
 
 <!--
@@ -1050,7 +1050,7 @@ layoutClass: gap-4
 
 # Typage nominal vs structurel
 
-**C++ : nominal**
+**C++&nbsp;: nominal**
 
 ```cpp
 struct Dataset {
@@ -1067,13 +1067,13 @@ Benchmark b;
 show(b);  // ❌ refusé
 ```
 
-Un objet **est** d'un type parce qu'il le **déclare**.
+Un objet **est** d’un type parce qu’il le **déclare**.
 
 ::right::
 
 <div class="pt-13">
 
-**TypeScript : structurel**
+**TypeScript&nbsp;: structurel**
 
 ```ts
 interface Dataset {
@@ -1090,10 +1090,10 @@ const b: Benchmark = { name: "MMLU" };
 show(b);  // ✅ accepté
 ```
 
-Un objet **est** d'un type parce qu'il en a la **forme**.
+Un objet **est** d’un type parce qu’il en a la **forme**.
 
 <div class="pt-4 text-sm op-75">
-🦆 <b>Duck typing</b> : « if it looks like a duck and quacks like a duck, it's a duck »
+🦆 <b>Duck typing</b>&nbsp;: « if it looks like a duck and quacks like a duck, it’s a duck »
 </div>
 
 <!-- 🖼 Emplacement du canard 2025 : <img src="/medias/xxx.gif" class="rounded-lg pt-2" /> -->
@@ -1110,12 +1110,12 @@ Corollaire utile : pas besoin de déclarer qu'on implémente une interface.
 
 ---
 
-# Ce qui va vous surprendre : les types disparaissent
+# Ce qui va vous surprendre&nbsp;: les types disparaissent
 
 <div class="grid grid-cols-2 gap-6 pt-2">
 <div>
 
-**Ce que vous écrivez** : `dataset.ts`
+**Ce que vous écrivez**&nbsp;: `dataset.ts`
 
 ```ts
 interface Dataset {
@@ -1129,7 +1129,7 @@ const d: Dataset = load();
 </div>
 <div>
 
-**Ce qui s'exécute** : `dataset.js`
+**Ce qui s’exécute**&nbsp;: `dataset.js`
 
 ```js
 const d = load();
@@ -1142,8 +1142,8 @@ const d = load();
 
 <div class="mt-6 p-4 bg-amber-500 bg-opacity-10 rounded border-l-4 border-amber-500">
 
-`tsc`, le compilateur TypeScript, ne compile pas vers du binaire : il **transpile** vers du JavaScript et **efface les types**.
-Ils n'existent qu'au moment de la compilation. À l'exécution, il n'en reste rien.
+`tsc`, le compilateur TypeScript, ne compile pas vers du binaire&nbsp;: il **transpile** vers du JavaScript et **efface les types**.
+Ils n’existent qu’au moment de la compilation. À l’exécution, il n’en reste rien.
 
 </div>
 
@@ -1152,8 +1152,8 @@ Ils n'existent qu'au moment de la compilation. À l'exécution, il n'en reste ri
 <v-click>
 
 <div class="mt-4 text-sm op-75">
-👉 Conséquence : quand une donnée vient de <b>l'extérieur</b> (un fichier, le réseau, un formulaire) le type ne garantit <b>rien</b>.<br/>
-Il faudra la valider à l'exécution. On verra comment dès demain.
+👉 Conséquence&nbsp;: quand une donnée vient de <b>l’extérieur</b> (un fichier, le réseau, un formulaire) le type ne garantit <b>rien</b>.<br/>
+Il faudra la valider à l’exécution. On verra comment dès demain.
 </div>
 
 </v-click>
@@ -1171,7 +1171,7 @@ Slide clé. Un dev C++ s'attend à ce que les types soient « réels ».
 
 <div>
 
-### 1. `tsc` produit du JavaScript **même en cas d'erreur de type**
+### 1. `tsc` produit du JavaScript **même en cas d’erreur de type**
 
 ```sh
 $ npx tsc
@@ -1181,17 +1181,17 @@ $ ls
 essai.ts   essai.js     # ← le fichier est bien là
 ```
 
-Contrairement à un compilateur C++, une erreur de type n'empêche pas la production du résultat.
-C'est un **avertissement**, pas un veto.
+Contrairement à un compilateur C++, une erreur de type n’empêche pas la production du résultat.
+C’est un **avertissement**, pas un veto.
 
 </div>
 
 <div>
 
-### 2. Le programme s'exécute **exactement** de la même façon
+### 2. Le programme s’exécute **exactement** de la même façon
 
-TypeScript ne change jamais le comportement à l'exécution en fonction des types qu'il a déduits.
-`4 / []` vaut `Infinity` en JavaScript ; TypeScript refuse de le compiler, mais si vous forcez, ça vaut toujours `Infinity`.
+TypeScript ne change jamais le comportement à l’exécution en fonction des types qu’il a déduits.
+`4 / []` vaut `Infinity` en JavaScript&nbsp;; TypeScript refuse de le compiler, mais si vous forcez, ça vaut toujours `Infinity`.
 
 </div>
 
@@ -1200,7 +1200,7 @@ TypeScript ne change jamais le comportement à l'exécution en fonction des type
 <v-click>
 
 <div class="pt-4 text-sm op-75">
-Ces deux points font de TypeScript un outil qu'on peut adopter progressivement sur du code existant, sans rien casser.
+Ces deux points font de TypeScript un outil qu’on peut adopter progressivement sur du code existant, sans rien casser.
 </div>
 
 </v-click>
@@ -1249,10 +1249,10 @@ npx tsc
 
 ### `strict: true`, non négociable
 
-Sans ce réglage, TypeScript accepte `null` partout et se tait quand il ne connaît pas le type d'une variable : autant écrire du JavaScript. **Tous les projets du cours l'activent.**
+Sans ce réglage, TypeScript accepte `null` partout et se tait quand il ne connaît pas le type d’une variable&nbsp;: autant écrire du JavaScript. **Tous les projets du cours l’activent.**
 
 <div class="pt-3 text-sm op-75">
-Et pour transformer l'avertissement de la slide précédente en veto : <code>"noEmitOnError": true</code>.
+Et pour transformer l’avertissement de la slide précédente en veto&nbsp;: <code>"noEmitOnError": true</code>.
 </div>
 
 </div>
@@ -1293,7 +1293,7 @@ function varTest() {
 
 `71` … puis **`71`** à nouveau.
 
-La portée de `var` est la **fonction**, pas le bloc. Le second `x` n'est pas une nouvelle variable : c'est la même, écrasée.
+La portée de `var` est la **fonction**, pas le bloc. Le second `x` n’est pas une nouvelle variable&nbsp;: c’est la même, écrasée.
 
 </div>
 
@@ -1303,7 +1303,7 @@ La portée de `var` est la **fonction**, pas le bloc. Le second `x` n'est pas un
 
 <div class="pt-4 text-center text-lg">
 
-👉 **N'utilisez jamais `var`. Utilisez `let` et `const`.**
+👉 **N’utilisez jamais `var`. Utilisez `let` et `const`.**
 
 </div>
 
@@ -1316,7 +1316,7 @@ attendre une portée de bloc : la surprise est garantie.
 
 ---
 
-# `let`, `const`, et l'inférence
+# `let`, `const`, et l’inférence
 
 ```ts {1-6|8-13|15-17|all}
 // let : portée de bloc, comme en C++
@@ -1339,7 +1339,7 @@ const sizes = [7, 24];       // number[]
 ```
 
 <div class="pt-2 text-sm op-75">
-Par défaut : <code>const</code>. On passe à <code>let</code> seulement quand on a besoin de réaffecter.
+Par défaut&nbsp;: <code>const</code>. On passe à <code>let</code> seulement quand on a besoin de réaffecter.
 </div>
 
 ---
@@ -1377,7 +1377,7 @@ never       // ne revient jamais
 ```
 
 <div class="text-sm op-75 pt-2">
-<code>any</code> et <code>unknown</code> méritent une slide à eux : c'est la suivante.
+<code>any</code> et <code>unknown</code> méritent une slide à eux&nbsp;: c’est la suivante.
 </div>
 
 </div>
@@ -1458,7 +1458,7 @@ datasets.filter((d) => d.org === "mozilla");
 <v-click>
 
 <div class="pt-6 text-sm op-75">
-Dans <code>(d) => …</code>, le paramètre n'a pas de type écrit : TypeScript le <b>déduit</b> du tableau sur lequel on appelle la méthode. Vous en écrirez une par méthode de tableau, un peu plus loin.
+Dans <code>(d) => …</code>, le paramètre n’a pas de type écrit&nbsp;: TypeScript le <b>déduit</b> du tableau sur lequel on appelle la méthode. Vous en écrirez une par méthode de tableau, un peu plus loin.
 </div>
 
 </v-click>
@@ -1471,7 +1471,7 @@ un public C++ s'attend à devoir l'écrire.
 
 ---
 
-# Interfaces : décrire une forme
+# Interfaces&nbsp;: décrire une forme
 
 ```ts
 interface Dataset {
@@ -1490,13 +1490,13 @@ describe({ name: "squad", org: "stanfordnlp", rows: 98_169 });   // ✅
 ```
 
 <div class="pt-4 text-sm op-75">
-<code>interface</code> décrit la <b>forme</b> d'un objet. Le mot-clé <code>type</code> fait à peu près la même chose, avec en plus les unions : c'est la slide suivante.<br/>
-<b>Règle du cours</b> : <code>interface</code> pour la forme d'un objet, <code>type</code> pour tout le reste.
+<code>interface</code> décrit la <b>forme</b> d’un objet. Le mot-clé <code>type</code> fait à peu près la même chose, avec en plus les unions&nbsp;: c’est la slide suivante.<br/>
+<b>Règle du cours</b>&nbsp;: <code>interface</code> pour la forme d’un objet, <code>type</code> pour tout le reste.
 </div>
 
 ---
 
-# Unions : exactement ces valeurs-là
+# Unions&nbsp;: exactement ces valeurs-là
 
 ```ts
 type Licence =
@@ -1514,10 +1514,10 @@ const l3: Licence = "gpl-3.0";       // ❌ erreur à la compilation
 
 <div class="pt-6">
 
-Ni une énumération, ni une chaîne libre : **la liste exacte des valeurs autorisées**.
-L'éditeur vous les propose en autocomplétion, et le compilateur refuse tout le reste.
+Ni une énumération, ni une chaîne libre&nbsp;: **la liste exacte des valeurs autorisées**.
+L’éditeur vous les propose en autocomplétion, et le compilateur refuse tout le reste.
 
-**Au TP** : le champ `task` de vos modèles demande exactement ce type de déclaration.
+**Au TP**&nbsp;: le champ `task` de vos modèles demande exactement ce type de déclaration.
 
 </div>
 
@@ -1525,7 +1525,7 @@ L'éditeur vous les propose en autocomplétion, et le compilateur refuse tout le
 
 ---
 
-# Génériques : le type entre chevrons
+# Génériques&nbsp;: le type entre chevrons
 
 ```ts
 const datasets: Array<Dataset> = [];
@@ -1536,7 +1536,7 @@ const hub: Map<string, Dataset> = new Map();
 
 <div class="pt-6">
 
-Le type entre chevrons dit **ce que contient** le tableau ou la `Map`. `Array<Dataset>` s'écrit aussi `Dataset[]`, c'est identique.
+Le type entre chevrons dit **ce que contient** le tableau ou la `Map`. `Array<Dataset>` s’écrit aussi `Dataset[]`, c’est identique.
 
 </div>
 
@@ -1546,7 +1546,7 @@ Le type entre chevrons dit **ce que contient** le tableau ou la `Map`. `Array<Da
 
 <div class="pt-6">
 
-### `Map` : le dictionnaire
+### `Map`&nbsp;: le dictionnaire
 
 ```ts
 const hub = new Map<string, Dataset>();
@@ -1587,7 +1587,7 @@ Déclaration et implémentation au même endroit, et `this` toujours explicite.
 <v-click>
 
 <div class="pt-4 text-sm op-75">
-Pas de fichier d'en-tête, pas de destructeur, pas de gestion mémoire. <code>private</code> et <code>readonly</code> sont vérifiés à la compilation… et effacés à l'exécution.
+Pas de fichier d’en-tête, pas de destructeur, pas de gestion mémoire. <code>private</code> et <code>readonly</code> sont vérifiés à la compilation… et effacés à l’exécution.
 </div>
 
 </v-click>
@@ -1636,9 +1636,9 @@ Strictement équivalent.
 
 <div class="pt-8">
 
-Un modificateur (`public`, `private`, `readonly`) devant un paramètre de constructeur **déclare et initialise** l'attribut d'un coup.
+Un modificateur (`public`, `private`, `readonly`) devant un paramètre de constructeur **déclare et initialise** l’attribut d’un coup.
 
-Vous le retrouverez partout dès demain : c'est ainsi que NestJS reçoit ses dépendances.
+Vous le retrouverez partout dès demain&nbsp;: c’est ainsi que NestJS reçoit ses dépendances.
 
 </div>
 
@@ -1656,7 +1656,7 @@ qu'ils le reconnaissent.
 
 <div class="pt-4">
 
-En JavaScript, on ne parcourt pas un tableau avec une boucle `for` : **on enchaîne des méthodes**.
+En JavaScript, on ne parcourt pas un tableau avec une boucle `for`&nbsp;: **on enchaîne des méthodes**.
 
 </div>
 
@@ -1665,7 +1665,7 @@ En JavaScript, on ne parcourt pas un tableau avec une boucle `for` : **on encha�
 </div>
 
 <div class="pt-8 text-sm op-75">
-Chacune prend une <b>fonction fléchée</b> en paramètre et l'applique à chaque élément. Aucune ne modifie le tableau d'origine : elles <b>renvoient un résultat neuf</b>, tableau, booléen ou chaîne selon la méthode.
+Chacune prend une <b>fonction fléchée</b> en paramètre et l’applique à chaque élément. Aucune ne modifie le tableau d’origine&nbsp;: elles <b>renvoient un résultat neuf</b>, tableau, booléen ou chaîne selon la méthode.
 </div>
 
 <!--
@@ -1704,7 +1704,7 @@ On garde ce tableau pour les six slides qui suivent.
 
 ---
 
-# `.some()` et `.every()` : répondre par oui ou non
+# `.some()` et `.every()`&nbsp;: répondre par oui ou non
 
 <div class="pt-2 text-sm op-75">Les deux renvoient un <b>booléen</b>, jamais un tableau.</div>
 
@@ -1721,14 +1721,14 @@ datasets.every((d) => d.org === "HuggingFaceFW")   // false
 <v-click>
 
 <div class="pt-6 text-sm op-75">
-Utiles pour valider : « est-ce que tous les datasets ont un nom ? », « y en a-t-il au moins un sous licence cc0 ? »
+Utiles pour valider&nbsp;: « est-ce que tous les datasets ont un nom&nbsp;? », « y en a-t-il au moins un sous licence cc0&nbsp;? »
 </div>
 
 </v-click>
 
 ---
 
-# `.filter()` : garder certains éléments
+# `.filter()`&nbsp;: garder certains éléments
 
 <div class="pt-2 text-sm op-75">Renvoie un <b>nouveau tableau</b> avec les éléments pour lesquels la fonction renvoie <code>true</code>.</div>
 
@@ -1747,14 +1747,14 @@ datasets.filter((d) => d.licence === "propriétaire")
 <v-click>
 
 <div class="pt-4 p-3 bg-blue-500 bg-opacity-10 rounded text-sm">
-C'est exactement ce dont vous aurez besoin dans dix minutes pour <code>getModelsOf</code> et <code>getModelsByTask</code>.
+C’est exactement ce dont vous aurez besoin dans dix minutes pour <code>getModelsOf</code> et <code>getModelsByTask</code>.
 </div>
 
 </v-click>
 
 ---
 
-# `.map()` : transformer chaque élément
+# `.map()`&nbsp;: transformer chaque élément
 
 <div class="pt-2 text-sm op-75">Renvoie un nouveau tableau de <b>même longueur</b>, où chaque élément a été transformé.</div>
 
@@ -1772,7 +1772,7 @@ datasets.map((d) => ({ nom: d.name, éditeur: d.org }))
 <v-click>
 
 <div class="pt-4 text-sm op-75">
-⚠️ <code>filter</code> garde ou jette, <code>map</code> transforme. <code>map</code> ne réduit <b>jamais</b> le nombre d'éléments.
+⚠️ <code>filter</code> garde ou jette, <code>map</code> transforme. <code>map</code> ne réduit <b>jamais</b> le nombre d’éléments.
 </div>
 
 </v-click>
@@ -1801,7 +1801,7 @@ datasets.filter((d) => d.org === "HuggingFaceFW")
 
 <div class="pt-4">
 
-Ça se lit comme une phrase : **garde ceux de HuggingFaceFW, prends leur nom, colle-les avec des virgules.**
+Ça se lit comme une phrase&nbsp;: **garde ceux de HuggingFaceFW, prends leur nom, colle-les avec des virgules.**
 La même chose en boucle `for` prendrait dix lignes et une variable temporaire.
 
 </div>
@@ -1817,9 +1817,9 @@ C'est là que le style fonctionnel prend son sens pour eux.
 
 ---
 
-# `.reduce()` : tout replier en une seule valeur
+# `.reduce()`&nbsp;: tout replier en une seule valeur
 
-<div class="pt-2 text-sm op-75">La plus puissante : elle renvoie ce que vous voulez, un nombre, une chaîne, un objet.</div>
+<div class="pt-2 text-sm op-75">La plus puissante&nbsp;: elle renvoie ce que vous voulez, un nombre, une chaîne, un objet.</div>
 
 ```ts {1-4|6-11|all}
 // Un accumulateur, une valeur de départ, et on replie
@@ -1838,14 +1838,14 @@ datasets.reduce((parOrg, d) => {
 <v-click>
 
 <div class="pt-4 text-sm op-75">
-Si <code>reduce</code> vous paraît obscur au début, c'est normal. Commencez par la version « somme », le reste viendra.
+Si <code>reduce</code> vous paraît obscur au début, c’est normal. Commencez par la version « somme », le reste viendra.
 </div>
 
 </v-click>
 
 ---
 
-# Et `forEach` ?
+# Et `forEach`&nbsp;?
 
 <div class="grid grid-cols-2 gap-6 pt-4">
 <div>
@@ -1863,7 +1863,7 @@ Il applique la fonction à chaque élément et **ne renvoie rien**.
 </div>
 <div>
 
-### …mais il ne sert qu'aux effets de bord
+### …mais il ne sert qu’aux effets de bord
 
 ```ts
 // ❌ ne marche pas : forEach ne renvoie rien
@@ -1880,7 +1880,7 @@ const noms = datasets.map((d) => d.name);
 <v-click>
 
 <div class="pt-6 p-3 bg-amber-500 bg-opacity-10 rounded">
-La règle : si vous <b>voulez un résultat</b>, utilisez <code>map</code>, <code>filter</code> ou <code>reduce</code>. <code>forEach</code> ne sert qu'à afficher ou à déclencher quelque chose.
+La règle&nbsp;: si vous <b>voulez un résultat</b>, utilisez <code>map</code>, <code>filter</code> ou <code>reduce</code>. <code>forEach</code> ne sert qu’à afficher ou à déclencher quelque chose.
 </div>
 
 </v-click>
@@ -1889,7 +1889,7 @@ La règle : si vous <b>voulez un résultat</b>, utilisez <code>map</code>, <code
 
 # À vous
 
-<div class="text-sm op-75 mb-2">Le code est exécutable ici : modifiez-le et relancez.</div>
+<div class="text-sm op-75 mb-2">Le code est exécutable ici&nbsp;: modifiez-le et relancez.</div>
 
 ```ts {monaco-run}
 const datasets = [
@@ -1904,7 +1904,7 @@ console.log(datasets.find((d) => d.downloads > 4000000)?.name);
 ```
 
 <div class="pt-2 text-sm op-75">
-<code>.find()</code> est le cousin de <code>.filter()</code> : il renvoie <b>le premier</b> élément trouvé, ou <code>undefined</code>. D'où le <code>?.</code> : on ne lit <code>.name</code> que s'il a trouvé quelque chose.
+<code>.find()</code> est le cousin de <code>.filter()</code>&nbsp;: il renvoie <b>le premier</b> élément trouvé, ou <code>undefined</code>. D’où le <code>?.</code>&nbsp;: on ne lit <code>.name</code> que s’il a trouvé quelque chose.
 </div>
 
 <!--
@@ -1915,7 +1915,7 @@ ne rien trouver.
 
 ---
 
-# Modules : un fichier, un module
+# Modules&nbsp;: un fichier, un module
 
 <div class="grid grid-cols-2 gap-6 pt-2">
 <div>
@@ -1938,7 +1938,7 @@ export class DatasetCatalog { … }
 <div class="pt-2">
 
 - `export` rend une déclaration visible depuis un autre fichier
-- `import` va chercher ce dont on a besoin, **et rien d'autre**
+- `import` va chercher ce dont on a besoin, **et rien d’autre**
 
 </div>
 </div>
@@ -1946,7 +1946,7 @@ export class DatasetCatalog { … }
 <v-click>
 
 <div class="pt-6 text-sm op-75">
-⚠️ Deux surprises dans les imports du TP : <code>import <b>type</b></code> précise qu'on n'importe qu'un type (il sera effacé à la compilation) et l'extension s'écrit <code>.js</code> même si le fichier est un <code>.ts</code>, parce qu'on désigne le fichier <i>produit</i>.
+⚠️ Deux surprises dans les imports du TP&nbsp;: <code>import <b>type</b></code> précise qu’on n’importe qu’un type (il sera effacé à la compilation) et l’extension s’écrit <code>.js</code> même si le fichier est un <code>.ts</code>, parce qu’on désigne le fichier <i>produit</i>.
 </div>
 
 </v-click>
@@ -1959,7 +1959,7 @@ L'extension .js dans un import TS est LA question qui revient toujours.
 
 ---
 
-# Lire un test : parce que c'est votre énoncé
+# Lire un test&nbsp;: parce que c’est votre énoncé
 
 ```ts
 import { describe, it, expect, beforeEach } from "vitest";
@@ -1985,9 +1985,9 @@ describe("ModelZoo", () => {           // un groupe de tests
 
 <div class="pt-4">
 
-Les assertions les plus fréquentes : `toBe` (égalité stricte), `toEqual` (égalité en profondeur, pour les objets et tableaux), `toHaveLength`, `toBeUndefined`.
+Les assertions les plus fréquentes&nbsp;: `toBe` (égalité stricte), `toEqual` (égalité en profondeur, pour les objets et tableaux), `toHaveLength`, `toBeUndefined`.
 
-**Le nom du test dit ce qui est attendu.** Lisez-les avant de coder : ils sont la spécification.
+**Le nom du test dit ce qui est attendu.** Lisez-les avant de coder&nbsp;: ils sont la spécification.
 
 </div>
 
@@ -2008,11 +2008,11 @@ layout: section
 
 ---
 
-# On vous donne les tests. C'est tout.
+# On vous donne les tests. C’est tout.
 
 <div class="text-sm pt-2">
 
-`src/` contient **un seul fichier** : `model-zoo.test.ts`. Il importe deux fichiers qui n'existent pas.
+`src/` contient **un seul fichier**&nbsp;: `model-zoo.test.ts`. Il importe deux fichiers qui n’existent pas.
 
 </div>
 
@@ -2040,7 +2040,7 @@ La classe `ModelZoo`.
 
 <div class="pt-8">
 
-Tout ce qu'il vous faut est **dans les tests**. Lisez-les en entier avant d'écrire une ligne.
+Tout ce qu’il vous faut est **dans les tests**. Lisez-les en entier avant d’écrire une ligne.
 
 </div>
 
@@ -2068,11 +2068,11 @@ Ne pas donner la réponse non plus.
 
 ---
 
-# L'exercice IA du jour
+# L’exercice IA du jour
 
 <div class="pt-4">
 
-Quand le compilateur vous renvoie une erreur que vous ne comprenez pas :
+Quand le compilateur vous renvoie une erreur que vous ne comprenez pas&nbsp;:
 
 </div>
 
@@ -2081,7 +2081,7 @@ Quand le compilateur vous renvoie une erreur que vous ne comprenez pas :
 <div class="p-4 border border-gray-500 border-opacity-30 rounded">
 <div class="font-mono text-xs op-60">1</div>
 <div class="font-bold pt-1">Demandez</div>
-<div class="pt-2 op-75">Collez l'erreur dans votre assistant, demandez une explication.</div>
+<div class="pt-2 op-75">Collez l’erreur dans votre assistant, demandez une explication.</div>
 </div>
 
 <div class="p-4 border border-gray-500 border-opacity-30 rounded">
@@ -2093,14 +2093,14 @@ Quand le compilateur vous renvoie une erreur que vous ne comprenez pas :
 <div class="p-4 border border-gray-500 border-opacity-30 rounded">
 <div class="font-mono text-xs op-60">3</div>
 <div class="font-bold pt-1">Comparez</div>
-<div class="pt-2 op-75">L'explication tenait-elle ? Sur quoi a-t-elle dérapé ?</div>
+<div class="pt-2 op-75">L’explication tenait-elle&nbsp;? Sur quoi a-t-elle dérapé&nbsp;?</div>
 </div>
 
 </div>
 
 <div class="pt-8 text-center op-75">
-Vous n'avez pas tous le même assistant ? <b>Tant mieux.</b> Posez-lui la même question qu'à votre voisin et comparez.<br/>
-On en reparle en fin de séance : <b>qui a pris son IA en flagrant délit d'erreur ?</b>
+Vous n’avez pas tous le même assistant&nbsp;? <b>Tant mieux.</b> Posez-lui la même question qu’à votre voisin et comparez.<br/>
+On en reparle en fin de séance&nbsp;: <b>qui a pris son IA en flagrant délit d’erreur&nbsp;?</b>
 </div>
 
 <!--
@@ -2112,24 +2112,24 @@ on ne fait pas GÉNÉRER. Ramasser les cas intéressants pour le RETEX.
 
 # Si vous terminez en avance
 
-<div class="text-sm op-75 mb-2">Écrivez le test avant l'implémentation, dans un nouveau fichier.</div>
+<div class="text-sm op-75 mb-2">Écrivez le test avant l’implémentation, dans un nouveau fichier.</div>
 
 <div class="text-sm mb-3 p-2 rounded bg-blue-500 bg-opacity-10">
-<b>Échauffement</b>, dans le README : un total avec <code>reduce</code>, des noms par tâche en une chaîne <code>filter</code> puis <code>map</code>, les organisations sans doublon.
+<b>Échauffement</b>, dans le README&nbsp;: un total avec <code>reduce</code>, des noms par tâche en une chaîne <code>filter</code> puis <code>map</code>, les organisations sans doublon.
 </div>
 
 <v-clicks>
 
 <div class="text-sm">
 
-**1. L'URL typée.** Écrivez `huggingFaceUrl(model)`, qui renvoie l'adresse de la fiche du modèle.
-Contrainte : son **type de retour** doit rendre impossible de renvoyer `"https://example.com"`. Le compilateur doit refuser, pas un test.
+**1. L’URL typée.** Écrivez `huggingFaceUrl(model)`, qui renvoie l’adresse de la fiche du modèle.
+Contrainte&nbsp;: son **type de retour** doit rendre impossible de renvoyer `"https://example.com"`. Le compilateur doit refuser, pas un test.
 
 </div>
 
 <div class="text-sm">
 
-**2. Le catalogue inviolable.** Un appelant peut-il corrompre votre catalogue **depuis l'extérieur**, sans passer par `addModel` ?
+**2. Le catalogue inviolable.** Un appelant peut-il corrompre votre catalogue **depuis l’extérieur**, sans passer par `addModel`&nbsp;?
 Trouvez comment, écrivez le test qui le démontre, puis rendez-le impossible.
 
 </div>
@@ -2137,14 +2137,14 @@ Trouvez comment, écrivez le test qui le démontre, puis rendez-le impossible.
 <div class="text-sm">
 
 **3. Regrouper.** Ajoutez `groupByTask()` qui renvoie les modèles rangés par tâche.
-Contraintes : **un seul parcours** du tableau, et **aucun `any`** dans la signature.
+Contraintes&nbsp;: **un seul parcours** du tableau, et **aucun `any`** dans la signature.
 
 </div>
 
 <div class="text-sm">
 
-**4. ⭐ Le catalogue générique.** Transformez `ModelZoo` en un `Catalogue<T>` réutilisable pour n'importe quelle entité, pas seulement des modèles.
-Que devez-vous **exiger** de `T` pour que `getModel` fonctionne encore ?
+**4. ⭐ Le catalogue générique.** Transformez `ModelZoo` en un `Catalogue<T>` réutilisable pour n’importe quelle entité, pas seulement des modèles.
+Que devez-vous **exiger** de `T` pour que `getModel` fonctionne encore&nbsp;?
 
 </div>
 
@@ -2188,12 +2188,12 @@ git push
 
 <div class="pt-6 op-75">
 
-Avant de commiter, **relisez votre diff** : <code>git diff</code>.
+Avant de commiter, **relisez votre diff**&nbsp;: <code>git diff</code>.
 
 </div>
 
 <div class="pt-8 text-sm op-75">
-Relire son propre code avant de l'enregistrer : le réflexe qui vous distinguera.
+Relire son propre code avant de l’enregistrer&nbsp;: le réflexe qui vous distinguera.
 </div>
 
 <!--
@@ -2208,12 +2208,12 @@ git push -u origin tp01-modelzoo règle ça.
 
 ---
 
-# Correction : comparons vos solutions
+# Correction&nbsp;: comparons vos solutions
 
 <div class="grid grid-cols-2 gap-6 pt-4">
 <div>
 
-### Approche A : un tableau
+### Approche A&nbsp;: un tableau
 
 ```ts
 private models: Model[] = [];
@@ -2226,7 +2226,7 @@ addModel(model: Model): void {
 </div>
 <div>
 
-### Approche B : une `Map`
+### Approche B&nbsp;: une `Map`
 
 ```ts
 private models = new Map<string, Model>();
@@ -2243,10 +2243,10 @@ addModel(model: Model): void {
 
 <div class="pt-8">
 
-Le test *« remplace un modèle déjà présent »* départage les deux : avec un tableau, il faut
-chercher puis remplacer à la main ; avec une `Map`, `set` écrase la clé et c'est fini.
+Le test *« remplace un modèle déjà présent »* départage les deux&nbsp;: avec un tableau, il faut
+chercher puis remplacer à la main&nbsp;; avec une `Map`, `set` écrase la clé et c’est fini.
 
-**Aucune des deux n'est fausse.** L'une demande plus de code que l'autre : c'est ça, une décision de conception.
+**Aucune des deux n’est fausse.** L’une demande plus de code que l’autre&nbsp;: c’est ça, une décision de conception.
 
 </div>
 
@@ -2267,7 +2267,7 @@ class: text-center
 
 # Demain
 
-## Séance 2 : NestJS
+## Séance 2&nbsp;: NestJS
 
 <div class="pt-4 text-left max-w-lg mx-auto text-sm">
 
@@ -2283,17 +2283,17 @@ GET /models?task=text-generation
 </div>
 
 <div class="pt-6 text-lg">
-<b>Ça</b>, à partir du code que vous venez d'écrire.
+<b>Ça</b>, à partir du code que vous venez d’écrire.
 </div>
 
 <div class="pt-8 op-75 text-sm">
-Au programme : le modèle client / serveur, l'asynchronisme,<br/>
-et pourquoi il faut valider tout ce qui vient de l'extérieur.
+Au programme&nbsp;: le modèle client / serveur, l’asynchronisme,<br/>
+et pourquoi il faut valider tout ce qui vient de l’extérieur.
 </div>
 
 <div class="pt-8 text-sm op-60">
-Slides : gaetanmaisse.github.io/ismin-web-2026-tps<br/>
-TPs : github.com/gaetanmaisse/ismin-web-2026-tps
+Slides&nbsp;: gaetanmaisse.github.io/ismin-web-2026-tps<br/>
+TPs&nbsp;: github.com/gaetanmaisse/ismin-web-2026-tps
 </div>
 
 <!--
