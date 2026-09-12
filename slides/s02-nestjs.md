@@ -104,7 +104,7 @@ layout: section
 
 # 1. Le web&nbsp;: JSON et REST
 
-<div class="op-75 pt-2">On ne suppose rien</div>
+<div class="op-75 pt-2">On valide les bases</div>
 
 ---
 
@@ -1043,19 +1043,8 @@ Blocages classiques :
   find ModelsService element » ; contrôleur déclaré sans son service :
   « Nest can't resolve dependencies » ; contrôleur oublié : 404 muet
 - l'exception HTTP levée dans le service : c'est le contrôleur qui traduit
--->
 
----
-layout: center
-class: text-center
----
-
-# ⏸ Pause
-
-## 15 minutes
-
-<!--
-⏱ On doit être à +90. Noter l'écart réel.
+⏱ Pause de 15 min à +90, annoncée à l'oral. Noter l'écart réel.
 -->
 
 ---
