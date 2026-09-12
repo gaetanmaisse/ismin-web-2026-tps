@@ -25,7 +25,7 @@ mdc: true
 
 ## ORM & base de données
 
-<div class="pt-4 op-75">Séance 3 : Sprint 1, Fondations & serveur</div>
+<div class="pt-4 op-75">Séance 3&nbsp;: Sprint 1, Fondations & serveur</div>
 
 <div class="pt-10 text-sm op-75">
 📱 <b>gaetanmaisse.github.io/ismin-web-2026-tps</b>
@@ -38,10 +38,11 @@ mdc: true
   +22  Ce qu'est un ORM
   +37  Prisma en pratique
   +52  TP partie 1 : schéma, migration, service branché
-  +90  PAUSE (15 min)
-  +105 Relations et le piège du N+1
-  +122 TP partie 2 : relations, seed
-  +155 Correction + revue de fin de sprint
+  +85  PAUSE (15 min)
+  +100 Relations et le piège du N+1
+  +115 TP partie 2 : relation, seed, N+1
+  +140 Correction
+  +145 Revue de fin de sprint, en binôme
   +165 Fin
 
 ⚠️ SI EN RETARD, coupez dans cet ordre :
@@ -50,17 +51,17 @@ mdc: true
   3. Le bonus du TP
 Ne coupez JAMAIS le N+1 : c'est LE piège des ORM.
 
-🔴 C'est la séance de REVUE DE FIN DE SPRINT 1 : garder 30 min.
+🔴 C'est la séance de REVUE DE FIN DE SPRINT 1 : garder 20 min,
+huit binômes à deux minutes trente.
 
 Ctrl+Shift+R pour remettre le relevé à zéro MAINTENANT.
 -->
-
 
 ---
 layout: center
 ---
 
-# Faites l'expérience maintenant
+# Faites l’expérience maintenant
 
 <div class="pt-4 text-left max-w-md mx-auto">
 
@@ -82,7 +83,7 @@ curl localhost:3000/models      # → []
 </div>
 
 <div class="pt-4 text-center op-75">
-Vos données vivaient dans une <code>Map</code>, en mémoire.<br/>
+Vos données vivaient dans votre <code>ModelZoo</code>, en mémoire.<br/>
 Un redémarrage, une mise à jour, un plantage, et il ne reste rien.
 </div>
 
@@ -95,7 +96,7 @@ le meilleur argument de la séance.
 
 ---
 
-# Où mettre les données, alors ?
+# Où mettre les données, alors&nbsp;?
 
 <div class="grid grid-cols-3 gap-4 pt-6 text-sm">
 
@@ -110,7 +111,7 @@ Simple. Mais il faut tout relire pour chercher, tout réécrire pour modifier, e
 <div class="p-4 border border-blue-500 border-opacity-50 rounded">
 <div class="font-bold">🗄 Une base relationnelle</div>
 <div class="pt-2 op-75">
-Recherche indexée, écritures concurrentes, contraintes d'intégrité, transactions. Cinquante ans de maturité.
+Recherche indexée, écritures concurrentes, contraintes d’intégrité, transactions. Cinquante ans de maturité.
 </div>
 <div class="pt-2 text-xs op-60">→ notre choix</div>
 </div>
@@ -118,7 +119,7 @@ Recherche indexée, écritures concurrentes, contraintes d'intégrité, transact
 <div class="p-4 border border-gray-500 border-opacity-30 rounded">
 <div class="font-bold">📦 Une base NoSQL</div>
 <div class="pt-2 op-75">
-Souple sur le schéma, très bien pour certains usages, mais l'intégrité devient votre problème.
+Souple sur le schéma, très bien pour certains usages, mais l’intégrité devient votre problème.
 </div>
 <div class="pt-2 text-xs op-60">→ un autre cours</div>
 </div>
@@ -128,7 +129,7 @@ Souple sur le schéma, très bien pour certains usages, mais l'intégrité devie
 <v-click>
 
 <div class="pt-8 text-center">
-On commence avec <b>SQLite</b> : une base relationnelle complète… dans un simple fichier.<br/>
+On commence avec <b>SQLite</b>&nbsp;: une base relationnelle complète… dans un simple fichier.<br/>
 <span class="op-75 text-sm">Zéro serveur à installer. On passera à PostgreSQL en séance 10, et ce sera une ligne à changer.</span>
 </div>
 
@@ -138,18 +139,20 @@ On commence avec <b>SQLite</b> : une base relationnelle complète… dans un sim
 
 # SQL, le minimum vital
 
-<div class="text-sm op-75 mb-3">Rappel express : vous n'écrirez presque pas de SQL aujourd'hui, mais il faut savoir ce que l'outil produit.</div>
+<div class="text-sm op-75 mb-3">Rappel express&nbsp;: vous n’écrirez presque pas de SQL aujourd’hui, mais il faut savoir ce que l’outil produit.</div>
 
 ```sql
 CREATE TABLE Model (
   id          TEXT PRIMARY KEY,
   name        TEXT NOT NULL,
+  org         TEXT NOT NULL,
+  task        TEXT NOT NULL,
   parameters  REAL NOT NULL,
-  orgId       INTEGER NOT NULL REFERENCES Organisation(id)
+  downloads   INTEGER NOT NULL DEFAULT 0
 );
 
-INSERT INTO Model (id, name, parameters, orgId)
-     VALUES ('mistral-7b', 'Mistral-7B', 7.25, 1);
+INSERT INTO Model (id, name, org, task, parameters)
+     VALUES ('mistral-7b', 'Mistral-7B', 'mistralai', 'text-generation', 7.2);
 
 SELECT * FROM Model WHERE parameters > 5 ORDER BY downloads DESC;
 
@@ -159,7 +162,7 @@ DELETE FROM Model WHERE id = 'mistral-7b';
 ```
 
 <div class="pt-3 text-sm op-75">
-Une <b>table</b> = une classe. Une <b>ligne</b> = un objet. Une <b>colonne</b> = un attribut. Une <b>clé étrangère</b> = une référence.
+Une <b>table</b> = une classe. Une <b>ligne</b> = un objet. Une <b>colonne</b> = un attribut. La clé étrangère viendra avec les relations, après la pause.
 </div>
 
 <!--
@@ -178,6 +181,8 @@ layout: section
 
 # 1. Les ORM
 
+<div class="op-75 pt-2">Des objets plutôt que du SQL</div>
+
 ---
 
 # Le problème que résout un ORM
@@ -189,7 +194,7 @@ layout: section
 
 ```ts
 const rows = await db.query(
-  "SELECT * FROM Model WHERE org = ?",
+  'SELECT * FROM Model WHERE org = ?',
   [org],
 );
 
@@ -221,7 +226,7 @@ const models = await prisma.model.findMany({
 
 <div class="pt-8">
 
-**O**bject-**R**elational **M**apping : faire correspondre des **tables** à des **objets**, et écrire des requêtes dans votre langage plutôt qu'en chaînes de caractères.
+**O**bject-**R**elational **M**apping&nbsp;: faire correspondre des **tables** à des **objets**, et écrire des requêtes dans votre langage plutôt qu’en chaînes de caractères.
 
 </div>
 
@@ -229,23 +234,23 @@ const models = await prisma.model.findMany({
 
 ---
 
-# Ce qu'un ORM vous coûte
+# Ce qu’un ORM vous coûte
 
 <v-clicks>
 
 <div>
 
-### 🎭 L'illusion que la base a disparu
+### 🎭 L’illusion que la base a disparu
 
-`prisma.model.findMany()` ressemble à un appel de méthode. C'est un **aller-retour réseau** vers un autre processus. Vous l'oublierez, et vous en mettrez un dans une boucle.
+`prisma.model.findMany()` ressemble à un appel de méthode. C’est un **aller-retour réseau** vers un autre processus. Vous l’oublierez, et vous en mettrez un dans une boucle.
 
 </div>
 
 <div>
 
-### 🐌 Des requêtes que vous n'avez pas écrites
+### 🐌 Des requêtes que vous n’avez pas écrites
 
-L'ORM génère le SQL. La plupart du temps c'est bien. Parfois c'est catastrophique, et vous ne le verrez qu'en production, avec de vraies données.
+L’ORM génère le SQL. La plupart du temps c’est bien. Parfois c’est catastrophique, et vous ne le verrez qu’en production, avec de vraies données.
 
 </div>
 
@@ -253,10 +258,10 @@ L'ORM génère le SQL. La plupart du temps c'est bien. Parfois c'est catastrophi
 
 ### 🔍 Le réflexe à prendre
 
-Savoir **afficher le SQL généré**. Avec Prisma :
+Savoir **afficher le SQL généré**. Avec Prisma&nbsp;:
 
 ```ts
-new PrismaClient({ log: ["query"] })
+new PrismaClient({ log: ['query'] })
 ```
 
 </div>
@@ -274,13 +279,15 @@ layout: section
 
 # 2. Prisma
 
+<div class="op-75 pt-2">Le schéma d’abord</div>
+
 ---
 
 # Le schéma, source de vérité
 
 `prisma/schema.prisma`
 
-```prisma {1-4|6-9|11-19|all}
+```prisma {1-4|6-8|10-18|all}
 datasource db {
   provider = "sqlite"          // ← séance 10 : "postgresql"
   url      = env("DATABASE_URL")
@@ -291,14 +298,13 @@ generator client {
 }
 
 model Model {
-  id         String @id
+  id         String  @id
   name       String
-  task       String
+  org        String
+  task       String              // pas d'union côté base : une chaîne
   parameters Float
-  downloads  Int    @default(0)
-
-  org        Organisation @relation(fields: [orgId], references: [id])
-  orgId      Int
+  downloads  Int     @default(0)
+  license    String?             // le ? = colonne nullable
 }
 ```
 
@@ -330,7 +336,7 @@ npx prisma studio
 
 Les **migrations sont versionnées avec le code**. Votre binôme lance `prisma migrate dev` et obtient exactement votre base. En production, `prisma migrate deploy` applique les migrations manquantes.
 
-C'est du Git pour le schéma de données.
+C’est du Git pour le schéma de données.
 
 </div>
 
@@ -343,12 +349,12 @@ C'est du Git pour le schéma de données.
 ```ts {1-6|8-13|15-20|all}
 // Lire
 await prisma.model.findMany();
-await prisma.model.findMany({ where: { task: "translation" } });
+await prisma.model.findMany({ where: { task: 'translation' } });
 await prisma.model.findUnique({ where: { id } });        // → Model | null
-await prisma.model.findMany({ orderBy: { downloads: "desc" }, take: 10 });
+await prisma.model.findMany({ orderBy: { downloads: 'desc' }, take: 10 });
 
 // Écrire
-await prisma.model.create({ data: { id, name, parameters, orgId } });
+await prisma.model.create({ data: { id, name, org, task, parameters } });
 await prisma.model.update({ where: { id }, data: { downloads: 42 } });
 await prisma.model.delete({ where: { id } });
 await prisma.model.upsert({ where: { id }, create: {...}, update: {...} });
@@ -359,12 +365,12 @@ await prisma.model.aggregate({ _avg: { parameters: true } });
 ```
 
 <div class="pt-2 text-sm op-75">
-Tout renvoie une <b>promesse</b> : chaque appel part sur le réseau. D'où les <code>await</code> partout.
+Tout renvoie une <b>promesse</b>&nbsp;: chaque appel part sur le réseau. D’où les <code>await</code> partout.
 </div>
 
 ---
 
-# Brancher ça dans NestJS
+# Brancher Prisma dans Nest
 
 <div class="grid grid-cols-2 gap-4 pt-2">
 <div>
@@ -386,7 +392,7 @@ export class PrismaService
 </div>
 <div>
 
-**Injecté comme n'importe quel service**
+**Injecté comme n’importe quel service**
 
 ```ts
 @Injectable()
@@ -408,7 +414,7 @@ export class ModelsService {
 
 <div class="pt-8">
 
-**Le contrôleur ne change pas d'une ligne.** C'est tout l'intérêt de la séparation d'hier :
+**Le contrôleur ne change presque pas**&nbsp;: un `await` par route, rien d’autre. C’est tout l’intérêt de la séparation d’hier&nbsp;:
 on remplace le stockage sans toucher aux routes.
 
 </div>
@@ -425,15 +431,15 @@ layout: section
 
 <div class="pt-8 text-sm inline-block text-left">
 
-1. `git pull upstream main`, puis `npm install`
+1. `cp .env.example .env`, `npm install`, et constater dans `tp02`&nbsp;: tout a disparu
 2. Écrire le modèle `Model` dans `schema.prisma`
-3. Première migration : `npx prisma migrate dev`
-4. Brancher `ModelsService` sur Prisma : les tests d'hier doivent repasser au vert
+3. Première migration&nbsp;: `npx prisma migrate dev`
+4. Brancher `ModelsService` sur Prisma&nbsp;: les tests d’hier doivent repasser au vert
 
 </div>
 
 <div class="pt-8 text-sm op-75">
-🖐 Bloqué ? Levez la main.
+🖐 Bloqué&nbsp;? Levez la main.
 </div>
 
 <!--
@@ -445,21 +451,13 @@ table vide. 10 minutes.
 
 Blocages classiques :
 - oublier DATABASE_URL dans .env → message d'erreur clair, les laisser lire
-- findUnique renvoie null, pas undefined → le service doit s'adapter
+- findUnique renvoie null, pas undefined → le service doit s'adapter,
+  et license nullable aussi : null en base, undefined dans le domaine
 - oublier `await` → une Promise qui part en JSON
--->
+- avant l'étape 3, rien ne compile : prisma.model n'existe pas encore,
+  c'est normal, le leur dire avant qu'ils cherchent
 
----
-layout: center
-class: text-center
----
-
-# ⏸ Pause
-
-## 15 minutes
-
-<!--
-⏱ On doit être à +90.
+⏱ Pause de 15 min à +85, annoncée à l'oral. Noter l'écart réel.
 -->
 
 ---
@@ -468,11 +466,13 @@ layout: section
 
 # 3. Les relations
 
+<div class="op-75 pt-2">Une colonne, deux directions</div>
+
 ---
 
 # Une organisation, plusieurs modèles
 
-```prisma {1-8|10-19|all}
+```prisma {1-8|10-20|all}
 model Organisation {
   id      Int     @id @default(autoincrement())
   slug    String  @unique        // "mistralai"
@@ -488,6 +488,7 @@ model Model {
   task       String
   parameters Float
   downloads  Int    @default(0)
+  license    String?
 
   org        Organisation @relation(fields: [orgId], references: [id])
   orgId      Int                 // ← la clé étrangère, vraie colonne
@@ -495,31 +496,31 @@ model Model {
 ```
 
 <div class="pt-2 text-sm op-75">
-Côté base : une seule colonne <code>orgId</code>. Côté TypeScript : deux propriétés navigables dans les deux sens.
+Côté base&nbsp;: une seule colonne <code>orgId</code>. Côté TypeScript&nbsp;: deux propriétés navigables dans les deux sens.
 </div>
 
 ---
 
-# Charger la relation : `include`
+# Charger la relation&nbsp;: `include`
 
 ```ts {1-4|6-12|all}
 // Sans include : orgId seulement, pas l'organisation
 const model = await prisma.model.findUnique({ where: { id } });
-// { id: "…", name: "…", orgId: 3 }
+// { id: '…', name: '…', orgId: 3 }
 
 // Avec include : Prisma fait la jointure
 const model = await prisma.model.findUnique({
   where: { id },
   include: { org: true },
 });
-// { id: "…", name: "…", orgId: 3,
-//   org: { id: 3, slug: "mistralai", name: "Mistral AI" } }
+// { id: '…', name: '…', orgId: 3,
+//   org: { id: 3, slug: 'mistralai', name: 'Mistral AI' } }
 ```
 
 <v-click>
 
 <div class="pt-6 text-sm op-75">
-Et le type TypeScript s'ajuste : sans <code>include</code>, accéder à <code>model.org</code> est une <b>erreur de compilation</b>. C'est ce qui distingue Prisma d'un ORM classique.
+Et le type TypeScript s’ajuste&nbsp;: sans <code>include</code>, accéder à <code>model.org</code> est une <b>erreur de compilation</b>. C’est ce qui distingue Prisma d’un ORM classique.
 </div>
 
 </v-click>
@@ -531,7 +532,7 @@ Et le type TypeScript s'ajuste : sans <code>include</code>, accéder à <code>mo
 <div class="grid grid-cols-2 gap-6 pt-2">
 <div>
 
-**Ce qu'on écrit naturellement**
+**Ce qu’on écrit naturellement**
 
 ```ts
 const models = await prisma.model.findMany();
@@ -570,7 +571,7 @@ SELECT * FROM Organisation WHERE id = 3;
 
 <div class="pt-6 p-4 bg-green-500 bg-opacity-10 rounded">
 
-**La correction tient en un mot :**
+**La correction tient en un mot&nbsp;:**
 
 ```ts
 const models = await prisma.model.findMany({ include: { org: true } });
@@ -591,16 +592,16 @@ défiler dans le terminal, puis les 2 avec include. Ça se voit.
 
 ---
 
-# Les transactions
+# Les transactions&nbsp;: tout ou rien
 
-Deux écritures qui doivent réussir ou échouer **ensemble** :
+Deux écritures qui doivent réussir ou échouer **ensemble**&nbsp;:
 
 ```ts
 await prisma.$transaction([
   prisma.model.create({ data: nouveauModele }),
   prisma.organisation.update({
     where: { id: orgId },
-    data: { modelCount: { increment: 1 } },
+    data: { modelCount: { increment: 1 } },   // un compteur ajouté à Organisation
   }),
 ]);
 ```
@@ -609,7 +610,7 @@ await prisma.$transaction([
 
 <div class="pt-6">
 
-Si la seconde échoue, la première est **annulée**. Sans transaction, vous auriez un modèle créé et un compteur faux : une incohérence silencieuse, qui ne se verra que des semaines plus tard.
+Si la seconde échoue, la première est **annulée**. Sans transaction, vous auriez un modèle créé et un compteur faux&nbsp;: une incohérence silencieuse, qui ne se verra que des semaines plus tard.
 
 </div>
 
@@ -630,9 +631,9 @@ layout: section
 
 <div class="pt-8 text-sm inline-block text-left">
 
-5. Ajouter `Organisation` et la relation
-6. Peupler la base avec le script de seed
-7. Repérer un N+1 dans votre code, et le corriger
+5. Ajouter `Organisation` et la relation, **sans changer la forme de l’API**
+6. Adapter le seed&nbsp;: les organisations d’abord, les modèles ensuite
+7. Repérer le N+1 dans votre `findAll`, et le corriger
 
 </div>
 
@@ -645,17 +646,17 @@ et compter les requêtes eux-mêmes.
 
 ---
 
-# Correction : combien de requêtes ?
+# Correction&nbsp;: combien de requêtes&nbsp;?
 
 <div class="pt-4">
 
-Activez le journal, appelez `GET /models`, et comptez :
+Activez le journal, appelez `GET /models`, et comptez&nbsp;:
 
 </div>
 
 ```ts
 // prisma.service.ts
-super({ log: ["query"] });
+super({ log: ['query'] });
 ```
 
 <div class="grid grid-cols-2 gap-6 pt-6 text-sm">
@@ -670,7 +671,7 @@ Vous avez un N+1. Cherchez la boucle avec un `await` dedans.
 
 **2 lignes**
 
-`include` fait la jointure. C'est ce qu'on veut.
+`include` fait la jointure. C’est ce qu’on veut.
 
 </div>
 </div>
@@ -679,7 +680,7 @@ Vous avez un N+1. Cherchez la boucle avec un `await` dedans.
 
 <div class="pt-8">
 
-**Le réflexe à garder :** devant une lenteur, la première question n'est jamais « quel index ajouter ? » mais **« combien de requêtes ma page envoie-t-elle ? »**
+**Le réflexe à garder&nbsp;:** devant une lenteur, la première question n’est jamais « quel index ajouter&nbsp;? » mais **« combien de requêtes ma page envoie-t-elle&nbsp;? »**
 
 </div>
 
@@ -693,24 +694,24 @@ layout: center
 
 <div class="pt-6">
 
-Chacun montre, en trois minutes :
+En binôme, deux minutes trente pour montrer&nbsp;:
 
 </div>
 
 <div class="pt-4 text-left max-w-lg mx-auto">
 
-1. Son API qui répond, avec des données qui **survivent au redémarrage**
-2. Son historique Git : commits réguliers, une pull request relue
-3. **Un bout de code proposé par l'IA qu'il a corrigé** : lequel, et pourquoi
+1. Votre API qui répond, avec des données qui **survivent au redémarrage**
+2. Votre historique Git&nbsp;: des commits réguliers, des messages qui suivent la convention
+3. **Un bout de code proposé par l’IA que vous avez corrigé**&nbsp;: lequel, et pourquoi
 
 </div>
 
 <div class="pt-8 op-75 text-sm">
-Ce n'est pas noté. C'est pour se situer, et pour prendre l'habitude de défendre son code.
+Ce n’est pas noté. C’est pour se situer, et pour prendre l’habitude de défendre son code.
 </div>
 
 <!--
-🔴 30 MINUTES BUDGÉTÉES. Ne pas les sacrifier si la séance déborde :
+🔴 20 MINUTES BUDGÉTÉES, huit binômes. Ne pas les sacrifier si la séance déborde :
 c'est ici que la règle d'or passe du contrôle individuel pendant les TP
 à une explication devant les autres.
 
@@ -722,17 +723,17 @@ layout: center
 class: text-center
 ---
 
-# Sprint 2 : la semaine prochaine
+# Sprint 2&nbsp;: la semaine prochaine
 
 ## Sécurité & interface
 
 <div class="pt-6 op-75">
-Votre API est ouverte à tous les vents : n'importe qui peut supprimer n'importe quoi.<br/>
+Votre API est ouverte à tous les vents&nbsp;: n’importe qui peut supprimer n’importe quoi.<br/>
 Lundi, on la verrouille, puis on lui donne enfin un visage.
 </div>
 
 <div class="pt-10 text-sm op-60">
-Slides : gaetanmaisse.github.io/ismin-web-2026-tps
+Slides&nbsp;: gaetanmaisse.github.io/ismin-web-2026-tps
 </div>
 
 <!--
@@ -742,65 +743,3 @@ Slides : gaetanmaisse.github.io/ismin-web-2026-tps
   3. ./publier-tp.sh corrige 03
   4. Préparer le sprint 2 pendant la semaine
 -->
-
----
-layout: section
----
-
-# Annexes
-
----
-
-# Annexe · Types Prisma ↔ TypeScript
-
-| Prisma | SQLite | TypeScript |
-|---|---|---|
-| `String` | `TEXT` | `string` |
-| `Int` | `INTEGER` | `number` |
-| `Float` | `REAL` | `number` |
-| `Boolean` | `INTEGER` (0/1) | `boolean` |
-| `DateTime` | `DATETIME` | `Date` |
-| `String?` | colonne nullable | `string \| null` |
-| `String[]` | ❌ non supporté par SQLite | : |
-
-<div class="pt-4 text-sm op-75">
-⚠️ SQLite ne gère pas les tableaux ni les énumérations. Pour une liste de tâches par modèle, il faudrait une table de liaison : on garde un seul <code>task</code> par modèle cette semaine.
-</div>
-
----
-
-# Annexe · Attributs de schéma courants
-
-```prisma
-model Exemple {
-  id        Int      @id @default(autoincrement())
-  uuid      String   @id @default(uuid())
-  slug      String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  note      String?                        // nullable
-  actif     Boolean  @default(true)
-
-  parent    Autre    @relation(fields: [parentId], references: [id], onDelete: Cascade)
-  parentId  Int
-
-  @@index([slug])                          // index secondaire
-  @@unique([nom, parentId])                // contrainte composite
-}
-```
-
----
-
-# Annexe · Dépannage Prisma
-
-| Message | Cause probable |
-|---|---|
-| `Environment variable not found: DATABASE_URL` | Pas de fichier `.env`, ou variable absente |
-| `The table main.Model does not exist` | Migration pas appliquée → `npx prisma migrate dev` |
-| `Property 'org' does not exist` | Client pas régénéré → `npx prisma generate` |
-| `Unique constraint failed` | Doublon sur un champ `@unique` → utilisez `upsert` |
-| Les types ne correspondent plus au schéma | Redémarrez le serveur TypeScript de l'éditeur |
-
-<div class="pt-6 text-sm op-75">
-En cas de doute, tout remettre à plat : <code>npx prisma migrate reset</code> : <b>efface la base</b> et rejoue toutes les migrations.
-</div>
