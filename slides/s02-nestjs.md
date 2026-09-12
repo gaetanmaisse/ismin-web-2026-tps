@@ -1053,7 +1053,7 @@ layout: section
 
 # 4. L’asynchronisme
 
-<div class="op-75 pt-2">Préviens-moi quand tu l’as</div>
+<div class="op-75 pt-2">Attendre sans bloquer</div>
 
 ---
 
