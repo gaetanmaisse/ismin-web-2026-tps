@@ -142,23 +142,22 @@ On commence avec <b>SQLite</b>&nbsp;: une base relationnelle complète… dans u
 <div class="text-sm op-75 mb-3">Rappel express&nbsp;: vous n’écrirez presque pas de SQL aujourd’hui, mais il faut savoir ce que l’outil produit.</div>
 
 ```sql
-CREATE TABLE Model (
-  id          TEXT PRIMARY KEY,
-  name        TEXT NOT NULL,
+CREATE TABLE Dataset (
+  name        TEXT PRIMARY KEY,
   org         TEXT NOT NULL,
-  task        TEXT NOT NULL,
-  parameters  REAL NOT NULL,
+  licence     TEXT NOT NULL,
+  rows        INTEGER NOT NULL,
   downloads   INTEGER NOT NULL DEFAULT 0
 );
 
-INSERT INTO Model (id, name, org, task, parameters)
-     VALUES ('mistral-7b', 'Mistral-7B', 'mistralai', 'text-generation', 7.2);
+INSERT INTO Dataset (name, org, licence, rows)
+     VALUES ('squad', 'stanfordnlp', 'cc-by-sa-4.0', 98169);
 
-SELECT * FROM Model WHERE parameters > 5 ORDER BY downloads DESC;
+SELECT * FROM Dataset WHERE rows > 50000 ORDER BY downloads DESC;
 
-UPDATE Model SET downloads = 1500000 WHERE id = 'mistral-7b';
+UPDATE Dataset SET downloads = 1500000 WHERE name = 'squad';
 
-DELETE FROM Model WHERE id = 'mistral-7b';
+DELETE FROM Dataset WHERE name = 'squad';
 ```
 
 <div class="pt-3 text-sm op-75">
@@ -194,7 +193,7 @@ layout: section
 
 ```ts
 const rows = await db.query(
-  'SELECT * FROM Model WHERE org = ?',
+  'SELECT * FROM Dataset WHERE org = ?',
   [org],
 );
 
@@ -210,11 +209,11 @@ const rows = await db.query(
 **Avec un ORM**
 
 ```ts
-const models = await prisma.model.findMany({
+const datasets = await prisma.dataset.findMany({
   where: { org },
 });
 
-// models est de type Model[]
+// datasets est de type Dataset[]
 // Autocomplétion complète,
 // erreurs à la compilation
 ```
@@ -242,7 +241,7 @@ const models = await prisma.model.findMany({
 
 ### 🎭 L’illusion que la base a disparu
 
-`prisma.model.findMany()` ressemble à un appel de méthode. C’est un **aller-retour réseau** vers un autre processus. Vous l’oublierez, et vous en mettrez un dans une boucle.
+`prisma.dataset.findMany()` ressemble à un appel de méthode. C’est un **aller-retour réseau** vers un autre processus. Vous l’oublierez, et vous en mettrez un dans une boucle.
 
 </div>
 
@@ -287,7 +286,7 @@ layout: section
 
 `prisma/schema.prisma`
 
-```prisma {1-4|6-8|10-18|all}
+```prisma {1-4|6-8|10-17|all}
 datasource db {
   provider = "sqlite"          // ← séance 10 : "postgresql"
   url      = env("DATABASE_URL")
@@ -297,14 +296,13 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Model {
-  id         String  @id
-  name       String
-  org        String
-  task       String              // pas d'union côté base : une chaîne
-  parameters Float
-  downloads  Int     @default(0)
-  license    String?             // le ? = colonne nullable
+model Dataset {
+  name        String  @id
+  org         String
+  licence     String             // pas d'union côté base : une chaîne
+  rows        Int
+  downloads   Int     @default(0)
+  description String?            // le ? = colonne nullable
 }
 ```
 
@@ -318,14 +316,14 @@ Un seul fichier décrit la base <b>et</b> les types TypeScript. Les deux ne peuv
 
 ```sh {1-3|5-7|9-11|all}
 # 1. Créer/mettre à jour la base à partir du schéma
-npx prisma migrate dev --name ajout-du-modele
+npx prisma migrate dev --name ajout-du-dataset
 #    → écrit un fichier SQL dans prisma/migrations/, l'applique, régénère le client
 
 # 2. Régénérer le client typé (fait automatiquement par migrate)
 npx prisma generate
 #    → met à jour les types TypeScript à partir du schéma
 
-# 3. Inspecter la base à la souris
+# 3. Inspecter la DB
 npx prisma studio
 #    → une interface web sur localhost:5555
 ```
@@ -348,20 +346,20 @@ C’est du Git pour le schéma de données.
 
 ```ts {1-6|8-13|15-20|all}
 // Lire
-await prisma.model.findMany();
-await prisma.model.findMany({ where: { task: 'translation' } });
-await prisma.model.findUnique({ where: { id } });        // → Model | null
-await prisma.model.findMany({ orderBy: { downloads: 'desc' }, take: 10 });
+await prisma.dataset.findMany();
+await prisma.dataset.findMany({ where: { licence: 'cc0-1.0' } });
+await prisma.dataset.findUnique({ where: { name } });      // → Dataset | null
+await prisma.dataset.findMany({ orderBy: { downloads: 'desc' }, take: 10 });
 
 // Écrire
-await prisma.model.create({ data: { id, name, org, task, parameters } });
-await prisma.model.update({ where: { id }, data: { downloads: 42 } });
-await prisma.model.delete({ where: { id } });
-await prisma.model.upsert({ where: { id }, create: {...}, update: {...} });
+await prisma.dataset.create({ data: { name, org, licence, rows } });
+await prisma.dataset.update({ where: { name }, data: { downloads: 42 } });
+await prisma.dataset.delete({ where: { name } });
+await prisma.dataset.upsert({ where: { name }, create: {...}, update: {...} });
 
 // Compter, agréger
-await prisma.model.count();
-await prisma.model.aggregate({ _avg: { parameters: true } });
+await prisma.dataset.count();
+await prisma.dataset.aggregate({ _avg: { rows: true } });
 ```
 
 <div class="pt-2 text-sm op-75">
@@ -396,13 +394,13 @@ export class PrismaService
 
 ```ts
 @Injectable()
-export class ModelsService {
+export class DatasetsService {
   constructor(
     private readonly prisma: PrismaService,
   ) {}
 
   findAll() {
-    return this.prisma.model.findMany();
+    return this.prisma.dataset.findMany();
   }
 }
 ```
@@ -470,28 +468,27 @@ layout: section
 
 ---
 
-# Une organisation, plusieurs modèles
+# Une organisation, plusieurs datasets
 
-```prisma {1-8|10-20|all}
+```prisma {1-8|10-19|all}
 model Organisation {
   id      Int     @id @default(autoincrement())
-  slug    String  @unique        // "mistralai"
-  name    String                 // "Mistral AI"
+  slug    String  @unique        // "mozilla"
+  name    String                 // "Mozilla"
   country String?                // le ? = colonne nullable
 
-  models  Model[]                // ← le côté "plusieurs"
+  datasets Dataset[]             // ← le côté "plusieurs"
 }
 
-model Model {
-  id         String @id
-  name       String
-  task       String
-  parameters Float
-  downloads  Int    @default(0)
-  license    String?
+model Dataset {
+  name        String  @id
+  licence     String
+  rows        Int
+  downloads   Int     @default(0)
+  description String?
 
-  org        Organisation @relation(fields: [orgId], references: [id])
-  orgId      Int                 // ← la clé étrangère, vraie colonne
+  org         Organisation @relation(fields: [orgId], references: [id])
+  orgId       Int                // ← la clé étrangère, vraie colonne
 }
 ```
 
@@ -505,16 +502,16 @@ Côté base&nbsp;: une seule colonne <code>orgId</code>. Côté TypeScript&nbsp;
 
 ```ts {1-4|6-12|all}
 // Sans include : orgId seulement, pas l'organisation
-const model = await prisma.model.findUnique({ where: { id } });
-// { id: '…', name: '…', orgId: 3 }
+const dataset = await prisma.dataset.findUnique({ where: { name } });
+// { name: 'common_voice', orgId: 3 }
 
 // Avec include : Prisma fait la jointure
-const model = await prisma.model.findUnique({
-  where: { id },
+const dataset = await prisma.dataset.findUnique({
+  where: { name },
   include: { org: true },
 });
-// { id: '…', name: '…', orgId: 3,
-//   org: { id: 3, slug: 'mistralai', name: 'Mistral AI' } }
+// { name: 'common_voice', orgId: 3,
+//   org: { id: 3, slug: 'mozilla', name: 'Mozilla' } }
 ```
 
 <v-click>
@@ -535,13 +532,13 @@ Et le type TypeScript s’ajuste&nbsp;: sans <code>include</code>, accéder à <
 **Ce qu’on écrit naturellement**
 
 ```ts
-const models = await prisma.model.findMany();
+const datasets = await prisma.dataset.findMany();
 
-for (const model of models) {
+for (const dataset of datasets) {
   const org = await prisma.organisation
-    .findUnique({ where: { id: model.orgId } });
+    .findUnique({ where: { id: dataset.orgId } });
 
-  console.log(model.name, org.name);
+  console.log(dataset.name, org.name);
 }
 ```
 
@@ -551,17 +548,17 @@ for (const model of models) {
 **Ce que la base reçoit**
 
 ```sql
-SELECT * FROM Model;              -- 1
+SELECT * FROM Dataset;              -- 1
 
 SELECT * FROM Organisation WHERE id = 1;
 SELECT * FROM Organisation WHERE id = 2;
 SELECT * FROM Organisation WHERE id = 3;
--- … une par modèle              -- N
+-- … une par dataset              -- N
 ```
 
 <div class="pt-2 text-sm op-75">
-17 modèles → <b>18 requêtes</b>.<br/>
-10 000 modèles → 10 001 requêtes.
+17 datasets → <b>18 requêtes</b>.<br/>
+10 000 datasets → 10 001 requêtes.
 </div>
 
 </div>
@@ -574,8 +571,8 @@ SELECT * FROM Organisation WHERE id = 3;
 **La correction tient en un mot&nbsp;:**
 
 ```ts
-const models = await prisma.model.findMany({ include: { org: true } });
-// → 2 requêtes, quel que soit le nombre de modèles
+const datasets = await prisma.dataset.findMany({ include: { org: true } });
+// → 2 requêtes, quel que soit le nombre de datasets
 ```
 
 </div>
@@ -598,10 +595,10 @@ Deux écritures qui doivent réussir ou échouer **ensemble**&nbsp;:
 
 ```ts
 await prisma.$transaction([
-  prisma.model.create({ data: nouveauModele }),
+  prisma.dataset.create({ data: nouveauDataset }),
   prisma.organisation.update({
     where: { id: orgId },
-    data: { modelCount: { increment: 1 } },   // un compteur ajouté à Organisation
+    data: { datasetCount: { increment: 1 } },   // un compteur ajouté à Organisation
   }),
 ]);
 ```
@@ -633,7 +630,7 @@ layout: section
 
 5. Ajouter `Organisation` et la relation, **sans changer la forme de l’API**
 6. Adapter le seed&nbsp;: les organisations d’abord, les modèles ensuite
-7. Repérer le N+1 dans votre `findAll`, et le corriger
+7. Repérer le N+1 dans votre code, et le corriger
 
 </div>
 

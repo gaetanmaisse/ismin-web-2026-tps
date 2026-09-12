@@ -114,11 +114,11 @@ Le format d’échange du web.
 
 ```json
 {
-  "id": "mistral-7b-instruct-v0-3",
-  "name": "Mistral-7B-Instruct-v0.3",
-  "parameters": 7.2,
-  "task": "text-generation",
-  "downloads": 1420000
+  "name": "common_voice",
+  "org": "mozilla",
+  "licence": "cc0-1.0",
+  "rows": 1800000,
+  "downloads": 4100000
 }
 ```
 
@@ -148,19 +148,19 @@ Des **noms au pluriel**, manipulés par des **verbes** HTTP.
 
 | Verbe | Chemin | Effet |
 |---|---|---|
-| `GET` | `/models` | Lister les modèles |
-| `GET` | `/models/:id` | Lire un modèle |
-| `POST` | `/models` | Créer un modèle, à partir du corps |
-| `PUT` / `PATCH` | `/models/:id` | Remplacer / modifier |
-| `DELETE` | `/models/:id` | Supprimer |
+| `GET` | `/datasets` | Lister les datasets |
+| `GET` | `/datasets/:id` | Lire un dataset |
+| `POST` | `/datasets` | Créer un dataset, à partir du corps |
+| `PUT` / `PATCH` | `/datasets/:id` | Remplacer / modifier |
+| `DELETE` | `/datasets/:id` | Supprimer |
 
 </div>
 
 <v-click>
 
 <div class="pt-4 text-sm op-75">
-On filtre avec des paramètres de requête&nbsp;: <code>GET /models<b>?org=mistralai&task=translation</b></code><br/>
-Jamais de verbe dans l’URL&nbsp;: <code>/getModels</code> ou <code>/models/delete</code> ne sont pas du REST.
+On filtre avec des paramètres de requête&nbsp;: <code>GET /datasets<b>?org=mozilla&licence=cc0-1.0</b></code><br/>
+Jamais de verbe dans l’URL&nbsp;: <code>/getDatasets</code> ou <code>/datasets/delete</code> ne sont pas du REST.
 </div>
 
 </v-click>
@@ -359,12 +359,12 @@ layout: section
 import http from 'node:http';
 
 http.createServer((req, res) => {
-  if (req.url === '/models'
+  if (req.url === '/datasets'
       && req.method === 'GET') {
     res.writeHead(200, {
       'Content-Type': 'application/json'
     });
-    res.end(JSON.stringify(models));
+    res.end(JSON.stringify(datasets));
   }
   // … et 40 routes comme ça
 }).listen(3000);
@@ -376,11 +376,11 @@ http.createServer((req, res) => {
 **Avec NestJS**
 
 ```ts
-@Controller('models')
-export class ModelsController {
+@Controller('datasets')
+export class DatasetsController {
   @Get()
-  findAll(): Model[] {
-    return this.modelsService.findAll();
+  findAll(): Dataset[] {
+    return this.datasetsService.findAll();
   }
 }
 ```
@@ -466,12 +466,12 @@ Une convention forte&nbsp;: <b>un fichier = une responsabilité</b>, et le nom d
 %%{init: {'theme':'base','themeVariables':{'fontFamily':'ui-sans-serif, -apple-system, Segoe UI, sans-serif','fontSize':'16px','lineColor':'#94a3b8','primaryTextColor':'#0f172a','clusterBkg':'#f8fafc','clusterBorder':'#cbd5e1'}}}%%
 flowchart LR
   MA["🚀 main.ts<br/>bootstrap"] -.->|"NestFactory.create"| M
-  R["📨 Requête HTTP<br/>POST /models"] --> C
-  subgraph M["📦 models.module.ts"]
+  R["📨 Requête HTTP<br/>POST /datasets"] --> C
+  subgraph M["📦 datasets.module.ts"]
     direction LR
     C["🎯 Controller<br/>@Controller"] --> S["⚙️ Service<br/>@Injectable"]
     C -.-> D["🛡️ DTO<br/>validation"]
-    S -.-> E["📐 model.ts<br/>types"]
+    S -.-> E["📐 dataset.ts<br/>types"]
   end
   S --> DB[("🗄️ Données")]
 
@@ -513,8 +513,8 @@ Trois secondes par transition, pas plus.
 Tout ce qui suit est parsemé de `@`. C’est une **annotation** qui attache des métadonnées à une classe, une méthode ou un paramètre.
 
 ```ts
-@Controller('models')   // cette classe répond aux routes /models
-@Get(':id')             // cette méthode répond à GET /models/:id
+@Controller('datasets')   // cette classe répond aux routes /datasets
+@Get(':id')             // cette méthode répond à GET /datasets/:id
 @Param('id')            // injecte ici le segment :id de l'URL
 @Query('org')           // injecte ici le paramètre ?org=
 @Body()                 // injecte ici le corps JSON de la requête
@@ -550,12 +550,12 @@ class: text-center
 %%{init: {'theme':'base','themeVariables':{'fontFamily':'ui-sans-serif, -apple-system, Segoe UI, sans-serif','fontSize':'16px','lineColor':'#94a3b8','primaryTextColor':'#0f172a','clusterBkg':'#f8fafc','clusterBorder':'#cbd5e1'}}}%%
 flowchart LR
   MA["🚀 main.ts<br/>bootstrap"] -.->|"NestFactory.create"| M
-  R["📨 Requête HTTP<br/>POST /models"] --> C
-  subgraph M["📦 models.module.ts"]
+  R["📨 Requête HTTP<br/>POST /datasets"] --> C
+  subgraph M["📦 datasets.module.ts"]
     direction LR
     C["🎯 Controller<br/>@Controller"] --> S["⚙️ Service<br/>@Injectable"]
     C -.-> D["🛡️ DTO<br/>validation"]
-    S -.-> E["📐 model.ts<br/>types"]
+    S -.-> E["📐 dataset.ts<br/>types"]
   end
   S --> DB[("🗄️ Données")]
 
@@ -585,21 +585,20 @@ flowchart LR
 # ① Les types&nbsp;: du TypeScript ordinaire
 
 ```ts
-export type Task = 'text-generation' | 'translation' | 'image-classification' | 'speech-to-text';
+export type Licence = 'cc0-1.0' | 'cc-by-sa-4.0' | 'odc-by' | 'propriétaire';
 
-export interface Model {
-  id: string;           // slug, unique dans le catalogue
-  name: string;
+export interface Dataset {
+  name: string;          // identifiant, unique dans le catalogue
   org: string;
-  task: Task;
-  parameters: number;   // en milliards
+  licence: Licence;
+  rows: number;
   downloads: number;
-  license?: string;
+  description?: string;
 }
 ```
 
 <div class="pt-3 text-sm op-75">
-Rien de spécifique à Nest ici&nbsp;: ce sont <b>vos types d’hier</b>, copiés tels quels dans <code>src/models/</code>. Vos données se modélisent en TypeScript pur.
+Rien de spécifique à Nest ici&nbsp;: les mêmes interfaces et types qu’hier. Dans le TP, ce sont <b>les vôtres</b>, copiés tels quels dans <code>src/models/</code>.
 </div>
 
 ---
@@ -613,12 +612,12 @@ class: text-center
 %%{init: {'theme':'base','themeVariables':{'fontFamily':'ui-sans-serif, -apple-system, Segoe UI, sans-serif','fontSize':'16px','lineColor':'#94a3b8','primaryTextColor':'#0f172a','clusterBkg':'#f8fafc','clusterBorder':'#cbd5e1'}}}%%
 flowchart LR
   MA["🚀 main.ts<br/>bootstrap"] -.->|"NestFactory.create"| M
-  R["📨 Requête HTTP<br/>POST /models"] --> C
-  subgraph M["📦 models.module.ts"]
+  R["📨 Requête HTTP<br/>POST /datasets"] --> C
+  subgraph M["📦 datasets.module.ts"]
     direction LR
     C["🎯 Controller<br/>@Controller"] --> S["⚙️ Service<br/>@Injectable"]
     C -.-> D["🛡️ DTO<br/>validation"]
-    S -.-> E["📐 model.ts<br/>types"]
+    S -.-> E["📐 dataset.ts<br/>types"]
   end
   S --> DB[("🗄️ Données")]
 
@@ -671,19 +670,19 @@ Ce qu’on n’y met <b>jamais</b>&nbsp;: tout ce qui parle HTTP. Un service ne 
 
 ```ts {4-5|6|8-11|13-15|all}
 import { Injectable } from '@nestjs/common';
-import { ModelZoo } from './model-zoo';
+import { DatasetCatalog } from './dataset-catalog';
 
 @Injectable()                       // ← « Nest peut fournir cette classe »
-export class ModelsService {
-  private zoo = new ModelZoo();     // ← votre classe du TP1, intacte
+export class DatasetsService {
+  private catalog = new DatasetCatalog();   // ← la classe du cours d’hier, intacte
 
-  create(model: Model): Model {
-    this.zoo.addModel(model);
-    return model;
+  create(dataset: Dataset): Dataset {
+    this.catalog.add(dataset);
+    return dataset;
   }
 
-  findAll(): Model[] {
-    return this.zoo.getAllModels();
+  findAll(): Dataset[] {
+    return this.catalog.all();
   }
 }
 ```
@@ -703,12 +702,12 @@ class: text-center
 %%{init: {'theme':'base','themeVariables':{'fontFamily':'ui-sans-serif, -apple-system, Segoe UI, sans-serif','fontSize':'16px','lineColor':'#94a3b8','primaryTextColor':'#0f172a','clusterBkg':'#f8fafc','clusterBorder':'#cbd5e1'}}}%%
 flowchart LR
   MA["🚀 main.ts<br/>bootstrap"] -.->|"NestFactory.create"| M
-  R["📨 Requête HTTP<br/>POST /models"] --> C
-  subgraph M["📦 models.module.ts"]
+  R["📨 Requête HTTP<br/>POST /datasets"] --> C
+  subgraph M["📦 datasets.module.ts"]
     direction LR
     C["🎯 Controller<br/>@Controller"] --> S["⚙️ Service<br/>@Injectable"]
     C -.-> D["🛡️ DTO<br/>validation"]
-    S -.-> E["📐 model.ts<br/>types"]
+    S -.-> E["📐 dataset.ts<br/>types"]
   end
   S --> DB[("🗄️ Données")]
 
@@ -738,13 +737,13 @@ flowchart LR
 # ③ Le contrôleur&nbsp;: traduire HTTP ↔ métier
 
 ```ts {1-3|5-8|all}
-@Controller('models')           // toutes les routes commencent par /models
-export class ModelsController {
-  constructor(private readonly modelsService: ModelsService) {}
+@Controller('datasets')           // toutes les routes commencent par /datasets
+export class DatasetsController {
+  constructor(private readonly datasetsService: DatasetsService) {}
 
-  @Get()                        // GET /models
-  findAll(): Model[] {
-    return this.modelsService.findAll();
+  @Get()                        // GET /datasets
+  findAll(): Dataset[] {
+    return this.datasetsService.findAll();
   }
 }
 ```
@@ -758,17 +757,17 @@ Un objet retourné devient du <b>JSON automatiquement</b>, avec un <code>200</co
 # ③ Un contrôleur, plusieurs routes
 
 ```ts {1-7|9-14|all}
-@Controller('models')
-export class ModelsController {
-  @Get()          findAll()  { … }    // GET    /models
-  @Post()         create()   { … }    // POST   /models   ← même chemin
-  @Get(':id')     findOne()  { … }    // GET    /models/:id
-  @Delete(':id')  remove()   { … }    // DELETE /models/:id  ← même chemin
+@Controller('datasets')
+export class DatasetsController {
+  @Get()          findAll()  { … }    // GET    /datasets
+  @Post()         create()   { … }    // POST   /datasets   ← même chemin
+  @Get(':id')     findOne()  { … }    // GET    /datasets/:id
+  @Delete(':id')  remove()   { … }    // DELETE /datasets/:id  ← même chemin
 }
 
 // Récupérer le paramètre d'URL
-findOne(@Param('id') id: string): Model {
-  const model = this.modelsService.findOne(id);
+findOne(@Param('id') id: string): Dataset {
+  const model = this.datasetsService.findOne(id);
   // model peut être undefined : à vous de renvoyer un 404 (README, étape 3)
   …
 }
@@ -786,9 +785,9 @@ findOne(@Param('id') id: string): Model {
 # ③ Vous n’écrivez jamais `new`
 
 ```ts {2|all}
-export class ModelsController {
-  constructor(private readonly modelsService: ModelsService) {}
-  //           ↑ vous n'écrivez JAMAIS new ModelsService()
+export class DatasetsController {
+  constructor(private readonly datasetsService: DatasetsService) {}
+  //           ↑ vous n'écrivez JAMAIS new DatasetsService()
 }
 ```
 
@@ -796,7 +795,7 @@ export class ModelsController {
 
 - C’est l’injection de dépendances&nbsp;: vous **déclarez** ce dont vous avez besoin, Nest vous le **fournit**
 - Fonctionne pour les contrôleurs **et** pour les services entre eux
-- Une seule instance de `ModelsService` est partagée par toute l’application
+- Une seule instance de `DatasetsService` est partagée par toute l’application
 - En test, on peut fournir un faux service à la place, sans changer une ligne du contrôleur
 
 </v-clicks>
@@ -820,12 +819,12 @@ class: text-center
 %%{init: {'theme':'base','themeVariables':{'fontFamily':'ui-sans-serif, -apple-system, Segoe UI, sans-serif','fontSize':'16px','lineColor':'#94a3b8','primaryTextColor':'#0f172a','clusterBkg':'#f8fafc','clusterBorder':'#cbd5e1'}}}%%
 flowchart LR
   MA["🚀 main.ts<br/>bootstrap"] -.->|"NestFactory.create"| M
-  R["📨 Requête HTTP<br/>POST /models"] --> C
-  subgraph M["📦 models.module.ts"]
+  R["📨 Requête HTTP<br/>POST /datasets"] --> C
+  subgraph M["📦 datasets.module.ts"]
     direction LR
     C["🎯 Controller<br/>@Controller"] --> S["⚙️ Service<br/>@Injectable"]
     C -.-> D["🛡️ DTO<br/>validation"]
-    S -.-> E["📐 model.ts<br/>types"]
+    S -.-> E["📐 dataset.ts<br/>types"]
   end
   S --> DB[("🗄️ Données")]
 
@@ -859,11 +858,11 @@ flowchart LR
 import { Module } from '@nestjs/common';
 
 @Module({
-  controllers: [ModelsController],   // les routes de ce module
-  providers: [ModelsService],        // ses fournisseurs (providers), les classes injectables
-  exports: [ModelsService],          // ce que d'autres modules peuvent réutiliser
+  controllers: [DatasetsController],   // les routes de ce module
+  providers: [DatasetsService],        // ses fournisseurs (providers), les classes injectables
+  exports: [DatasetsService],          // ce que d'autres modules peuvent réutiliser
 })
-export class ModelsModule {}         // classe vide : tout est dans le décorateur
+export class DatasetsModule {}         // classe vide : tout est dans le décorateur
 ```
 
 <div class="pt-3 p-3 bg-amber-500 bg-opacity-10 rounded text-sm">
@@ -881,12 +880,12 @@ class: text-center
 %%{init: {'theme':'base','themeVariables':{'fontFamily':'ui-sans-serif, -apple-system, Segoe UI, sans-serif','fontSize':'16px','lineColor':'#94a3b8','primaryTextColor':'#0f172a','clusterBkg':'#f8fafc','clusterBorder':'#cbd5e1'}}}%%
 flowchart LR
   MA["🚀 main.ts<br/>bootstrap"] -.->|"NestFactory.create"| M
-  R["📨 Requête HTTP<br/>POST /models"] --> C
-  subgraph M["📦 models.module.ts"]
+  R["📨 Requête HTTP<br/>POST /datasets"] --> C
+  subgraph M["📦 datasets.module.ts"]
     direction LR
     C["🎯 Controller<br/>@Controller"] --> S["⚙️ Service<br/>@Injectable"]
     C -.-> D["🛡️ DTO<br/>validation"]
-    S -.-> E["📐 model.ts<br/>types"]
+    S -.-> E["📐 dataset.ts<br/>types"]
   end
   S --> DB[("🗄️ Données")]
 
@@ -1065,16 +1064,16 @@ layout: section
 **Aujourd’hui&nbsp;: tout en mémoire**
 
 ```ts
-export class ModelsService {
-  create(model: Model): Model {
+export class DatasetsService {
+  create(dataset: Dataset): Dataset {
     …
   }
 
-  findAll(): Model[] {
+  findAll(): Dataset[] {
     …
   }
 
-  findOne(id: string): Model | undefined {
+  findOne(id: string): Dataset | undefined {
     …
   }
 }
@@ -1086,16 +1085,16 @@ export class ModelsService {
 **Demain, avec une base de données**
 
 ```ts
-export class ModelsService {
-  create(model: Model): Promise<Model> {
+export class DatasetsService {
+  create(dataset: Dataset): Promise<Dataset> {
     …
   }
 
-  findAll(): Promise<Model[]> {
+  findAll(): Promise<Dataset[]> {
     …
   }
 
-  findOne(id: string): Promise<Model | null> {
+  findOne(id: string): Promise<Dataset | null> {
     …
   }
 }
@@ -1147,11 +1146,11 @@ Conséquence directe&nbsp;: une fonction qui fait des entrées/sorties ne renvoi
 ````md magic-move
 ```ts
 // ① Callbacks : l'enfer de l'imbrication
-readFile('models.json', (err, data) => {
+readFile('datasets.json', (err, data) => {
   if (err) return handle(err);
-  parse(data, (err, models) => {
+  parse(data, (err, datasets) => {
     if (err) return handle(err);
-    save(models, (err) => {
+    save(datasets, (err) => {
       if (err) return handle(err);
       console.log('done');
     });
@@ -1161,9 +1160,9 @@ readFile('models.json', (err, data) => {
 
 ```ts
 // ② Promises : on aplatit
-readFile('models.json')
+readFile('datasets.json')
   .then((data) => parse(data))
-  .then((models) => save(models))
+  .then((datasets) => save(datasets))
   .then(() => console.log('done'))
   .catch(handle);
 ```
@@ -1171,9 +1170,9 @@ readFile('models.json')
 ```ts
 // ③ async/await : on lit comme du synchrone
 try {
-  const data = await readFile('models.json');
-  const models = await parse(data);
-  await save(models);
+  const data = await readFile('datasets.json');
+  const datasets = await parse(data);
+  await save(datasets);
   console.log('done');
 } catch (err) {
   handle(err);
@@ -1192,24 +1191,24 @@ C'est exactement la progression du bonus A du TP.
 
 ```ts {1-5|7-9,18-20|11-15|all}
 // async devant une fonction : elle renvoie TOUJOURS une Promise
-async function loadModels(): Promise<Model[]> {
-  const raw = await readFile('models.json', 'utf8');
+async function loadDatasets(): Promise<Dataset[]> {
+  const raw = await readFile('datasets.json', 'utf8');
   return JSON.parse(raw);        // un fichier à nous : on lui fait confiance
 }
 
 // await ne s'utilise QUE dans une fonction async
 async function main() {
-  const models = await loadModels();              // ✅
+  const datasets = await loadDatasets();              // ✅
 
   // Plusieurs appels en parallèle : Promise.all
   const [locaux, distants] = await Promise.all([
-    loadModels(),
+    loadDatasets(),
     fetchFromHuggingFace(),
   ]);
 }
 
 function nope() {
-  const models = await loadModels();              // ❌ erreur de compilation
+  const datasets = await loadDatasets();              // ❌ erreur de compilation
 }
 ```
 
@@ -1222,12 +1221,12 @@ function nope() {
 # À vous&nbsp;: dans quel ordre&nbsp;?
 
 ```ts {monaco-run}
-async function getModel(): Promise<string> {
-  return 'Mistral-7B';
+async function getDataset(): Promise<string> {
+  return 'common_voice';
 }
 
 console.log('avant');
-getModel().then((name) => console.log(name));
+getDataset().then((name) => console.log(name));
 console.log('après');
 ```
 
@@ -1264,7 +1263,7 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 
 @Injectable()
 // implements : « je fournis cette méthode », et Nest l'appelle au bon moment
-export class ModelsService implements OnModuleInit {
+export class DatasetsService implements OnModuleInit {
   async onModuleInit(): Promise<void> {
     // le bon moment pour charger des données, ouvrir une connexion…
     await this.loadCatalogue();
@@ -1300,12 +1299,12 @@ class: text-center
 %%{init: {'theme':'base','themeVariables':{'fontFamily':'ui-sans-serif, -apple-system, Segoe UI, sans-serif','fontSize':'16px','lineColor':'#94a3b8','primaryTextColor':'#0f172a','clusterBkg':'#f8fafc','clusterBorder':'#cbd5e1'}}}%%
 flowchart LR
   MA["🚀 main.ts<br/>bootstrap"] -.->|"NestFactory.create"| M
-  R["📨 Requête HTTP<br/>POST /models"] --> C
-  subgraph M["📦 models.module.ts"]
+  R["📨 Requête HTTP<br/>POST /datasets"] --> C
+  subgraph M["📦 datasets.module.ts"]
     direction LR
     C["🎯 Controller<br/>@Controller"] --> S["⚙️ Service<br/>@Injectable"]
     C -.-> D["🛡️ DTO<br/>validation"]
-    S -.-> E["📐 model.ts<br/>types"]
+    S -.-> E["📐 dataset.ts<br/>types"]
   end
   S --> DB[("🗄️ Données")]
 
@@ -1342,8 +1341,8 @@ Souvenez-vous d’hier&nbsp;: **les types de TypeScript sont effacés à la comp
 
 ```ts
 @Post()
-create(@Body() model: Model): Model {
-  return this.modelsService.create(model);
+create(@Body() dataset: Dataset): Dataset {
+  return this.datasetsService.create(dataset);
 }
 ```
 
@@ -1351,8 +1350,8 @@ create(@Body() model: Model): Model {
 
 <div class="pt-4 p-4 bg-amber-500 bg-opacity-10 rounded">
 
-Ce `: Model` ne vérifie **rien** à l’exécution. Si un client envoie
-`{"name": 42, "parameters": "beaucoup"}`, ça passe. Et ça casse plus loin, ailleurs, sans rapport apparent.
+Ce `: Dataset` ne vérifie **rien** à l’exécution. Si un client envoie
+`{"name": 42, "rows": "beaucoup"}`, ça passe. Et ça casse plus loin, ailleurs, sans rapport apparent.
 
 </div>
 
@@ -1529,10 +1528,10 @@ layout: section
 
 | Décorateur | Rôle | Exemple |
 |---|---|---|
-| `@Controller('models')` | Préfixe de routes | `/models` |
+| `@Controller('datasets')` | Préfixe de routes | `/datasets` |
 | `@Get()` `@Post()` `@Delete()` | Verbe HTTP | `@Get(':id')` |
-| `@Param('id')` | Segment d’URL | `/models/mistral-7b` |
-| `@Query('org')` | Paramètre de requête | `/models?org=mistralai` |
+| `@Param('id')` | Segment d’URL | `/datasets/common_voice` |
+| `@Query('org')` | Paramètre de requête | `/datasets?org=mozilla` |
 | `@Body()` | Corps JSON de la requête | `POST` avec un DTO |
 | `@HttpCode(204)` | Forcer le code de statut | après un `DELETE` |
 | `@Injectable()` | Fournisseur, construit et injecté par Nest | sur les services |
@@ -1553,7 +1552,7 @@ Exceptions prêtes à l’emploi&nbsp;: <code>NotFoundException</code> (404), <c
 @IsNotEmpty()                    // chaîne non vide
 @IsOptional()                    // le champ peut être absent
 @Min(0)  @Max(100)               // bornes numériques
-@IsIn(['text-generation', 'translation'])   // valeurs autorisées
+@IsIn(['cc0-1.0', 'odc-by'])              // valeurs autorisées
 @Matches(/^v\d+\.\d+$/)          // expression régulière, ici un numéro de version
 @IsArray()  @ValidateNested()    // objets imbriqués
 ```
