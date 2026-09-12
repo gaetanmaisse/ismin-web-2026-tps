@@ -419,6 +419,13 @@ on remplace le stockage sans toucher aux routes.
 
 </v-click>
 
+<!--
+Si quelqu'un a croisé nestjs-prisma : ces quinze lignes existent en
+paquet, avec en plus un filtre qui traduit les erreurs Prisma en codes
+HTTP. Maintenant ils savent ce qu'il contient, et c'est le bon critère
+pour décider d'une dépendance. La doc officielle de Nest écrit ce
+service à la main, comme le TP : on reste sur la voie de référence.
+-->
 ---
 layout: section
 ---
