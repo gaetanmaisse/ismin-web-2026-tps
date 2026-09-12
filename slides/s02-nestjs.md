@@ -35,7 +35,7 @@ mdc: true
 <!--
 ⏱ MINUTAGE PRÉVU (minutes depuis le début)
   +00  Reprise : ça ne vit que dans votre terminal
-  +03  Le web : client/serveur, JSON
+  +03  Le web : JSON, puis REST
   +13  REST : verbes et codes de statut
   +23  Node & npm
   +31  ▶ MAINS SUR LE CLAVIER : upstream, récupérer le TP, installer, démarrer
@@ -105,40 +105,6 @@ layout: section
 # 1. Le web, en dix minutes
 
 <div class="op-75 pt-2">On ne suppose rien</div>
-
----
-
-# Client et serveur
-
-```mermaid {scale: 0.8}
-%%{init: {'theme':'base','themeVariables':{'fontFamily':'ui-sans-serif, -apple-system, Segoe UI, sans-serif','fontSize':'15px','lineColor':'#94a3b8','primaryTextColor':'#0f172a'}}}%%
-flowchart LR
-  C["🖥️ Client<br/>navigateur · téléphone · curl"]
-  S["🗄️ Serveur<br/>votre API"]
-  C -- "GET /models" --> S
-  S -- "200 + JSON" --> C
-
-  classDef client fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a5f
-  classDef server fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
-  class C client
-  class S server
-```
-
-<v-clicks>
-
-- Le **client** demande, le **serveur** répond. Toujours dans cet ordre : le serveur ne parle jamais en premier.
-- Une requête, c'est une **méthode** (`GET`) et un **chemin** (`/models`) ; la réponse, c'est un **code de statut** (`200`) et des **données**.
-- Le serveur ne renvoie plus des pages HTML mais des **données**, au client de les afficher.
-
-</v-clicks>
-
-<v-click>
-
-<div class="pt-4 text-sm op-75">
-L'analogie qui marche : le serveur est une <b>fonction distante</b>. Vous l'appelez avec des arguments, elle retourne un résultat.
-</div>
-
-</v-click>
 
 ---
 
