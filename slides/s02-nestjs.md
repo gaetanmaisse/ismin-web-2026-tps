@@ -502,9 +502,10 @@ Une convention forte : <b>un fichier = une responsabilité</b>, et le nom du fic
 
 # L'architecture, vue d'ensemble
 
-```mermaid {scale: 0.62}
-%%{init: {'theme':'base','themeVariables':{'fontFamily':'ui-sans-serif, -apple-system, Segoe UI, sans-serif','fontSize':'14px','lineColor':'#94a3b8','primaryTextColor':'#0f172a','clusterBkg':'#f8fafc','clusterBorder':'#cbd5e1'}}}%%
+```mermaid {scale: 0.8}
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'ui-sans-serif, -apple-system, Segoe UI, sans-serif','fontSize':'16px','lineColor':'#94a3b8','primaryTextColor':'#0f172a','clusterBkg':'#f8fafc','clusterBorder':'#cbd5e1'}}}%%
 flowchart LR
+  MA["🚀 main.ts<br/>bootstrap"] -.->|"NestFactory.create"| M
   R["📨 Requête HTTP<br/>POST /models"] --> C
   subgraph M["📦 models.module.ts"]
     direction LR
@@ -514,19 +515,22 @@ flowchart LR
   end
   S --> DB[("🗄️ Données")]
 
+  classDef boot fill:#fee2e2,stroke:#dc2626,stroke-width:3px,color:#7f1d1d
   classDef req fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#78350f
   classDef ctrl fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a5f
   classDef svc fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#3b0764
   classDef dto fill:#ccfbf1,stroke:#0d9488,stroke-width:2px,color:#134e4a
   classDef typ fill:#f1f5f9,stroke:#64748b,stroke-width:2px,color:#1e293b
   classDef db fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
-  classDef mute fill:#f8fafc,stroke:#e2e8f0,stroke-width:1px,color:#cbd5e1
+  classDef mute fill:#f8fafc,stroke:#e2e8f0,stroke-width:1px,color:#94a3b8
+  class MA boot
   class R req
   class C ctrl
   class S svc
   class D dto
   class E typ
   class DB db
+  style M fill:#eff6ff,stroke:#2563eb,stroke-width:3px
 ```
 
 <div class="pt-4">
@@ -536,9 +540,10 @@ Cinq pièces. On va les prendre **une par une**, dans l'ordre où on les écrit.
 </div>
 
 <!--
-🔴 Ce schéma va revenir 5 fois, avec la pièce du moment mise en avant.
-C'est le fil conducteur de la section : ils doivent toujours savoir
-« où on est ».
+🔴 Ce schéma revient en pleine page avant chaque pièce, celle du moment
+allumée, les autres grisées : six fois en tout, DTO compris en section 7.
+C'est le fil conducteur : ils doivent toujours savoir « où on est ».
+Trois secondes par transition, pas plus.
 -->
 
 ---
@@ -575,12 +580,16 @@ Rien de magique : ce sont des fonctions ordinaires fournies par Nest, <code>impo
 </v-click>
 
 ---
+layout: center
+class: text-center
+---
 
-# ① Les types : du TypeScript ordinaire
+<div class="w-full flex justify-center">
 
-```mermaid {scale: 0.38}
-%%{init: {'theme':'base','themeVariables':{'fontFamily':'ui-sans-serif, -apple-system, Segoe UI, sans-serif','fontSize':'14px','lineColor':'#94a3b8','primaryTextColor':'#0f172a','clusterBkg':'#f8fafc','clusterBorder':'#cbd5e1'}}}%%
+```mermaid {scale: 0.95}
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'ui-sans-serif, -apple-system, Segoe UI, sans-serif','fontSize':'16px','lineColor':'#94a3b8','primaryTextColor':'#0f172a','clusterBkg':'#f8fafc','clusterBorder':'#cbd5e1'}}}%%
 flowchart LR
+  MA["🚀 main.ts<br/>bootstrap"] -.->|"NestFactory.create"| M
   R["📨 Requête HTTP<br/>POST /models"] --> C
   subgraph M["📦 models.module.ts"]
     direction LR
@@ -590,13 +599,15 @@ flowchart LR
   end
   S --> DB[("🗄️ Données")]
 
+  classDef boot fill:#fee2e2,stroke:#dc2626,stroke-width:3px,color:#7f1d1d
   classDef req fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#78350f
   classDef ctrl fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a5f
   classDef svc fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#3b0764
   classDef dto fill:#ccfbf1,stroke:#0d9488,stroke-width:2px,color:#134e4a
   classDef typ fill:#f1f5f9,stroke:#64748b,stroke-width:2px,color:#1e293b
   classDef db fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
-  classDef mute fill:#f8fafc,stroke:#e2e8f0,stroke-width:1px,color:#cbd5e1
+  classDef mute fill:#f8fafc,stroke:#e2e8f0,stroke-width:1px,color:#94a3b8
+  class MA mute
   class R mute
   class C mute
   class S mute
@@ -604,6 +615,14 @@ flowchart LR
   class E typ
   class DB mute
 ```
+
+</div>
+
+<div class="pt-2 text-2xl font-bold">① Les types</div>
+
+---
+
+# ① Les types : du TypeScript ordinaire
 
 ```ts
 export type Task = 'text-generation' | 'translation' | 'image-classification' | 'speech-to-text';
@@ -624,12 +643,16 @@ Rien de spécifique à Nest ici : ce sont <b>vos types d'hier</b>, copiés tels 
 </div>
 
 ---
+layout: center
+class: text-center
+---
 
-# ② Le service : la logique métier
+<div class="w-full flex justify-center">
 
-```mermaid {scale: 0.38}
-%%{init: {'theme':'base','themeVariables':{'fontFamily':'ui-sans-serif, -apple-system, Segoe UI, sans-serif','fontSize':'14px','lineColor':'#94a3b8','primaryTextColor':'#0f172a','clusterBkg':'#f8fafc','clusterBorder':'#cbd5e1'}}}%%
+```mermaid {scale: 0.95}
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'ui-sans-serif, -apple-system, Segoe UI, sans-serif','fontSize':'16px','lineColor':'#94a3b8','primaryTextColor':'#0f172a','clusterBkg':'#f8fafc','clusterBorder':'#cbd5e1'}}}%%
 flowchart LR
+  MA["🚀 main.ts<br/>bootstrap"] -.->|"NestFactory.create"| M
   R["📨 Requête HTTP<br/>POST /models"] --> C
   subgraph M["📦 models.module.ts"]
     direction LR
@@ -639,13 +662,15 @@ flowchart LR
   end
   S --> DB[("🗄️ Données")]
 
+  classDef boot fill:#fee2e2,stroke:#dc2626,stroke-width:3px,color:#7f1d1d
   classDef req fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#78350f
   classDef ctrl fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a5f
   classDef svc fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#3b0764
   classDef dto fill:#ccfbf1,stroke:#0d9488,stroke-width:2px,color:#134e4a
   classDef typ fill:#f1f5f9,stroke:#64748b,stroke-width:2px,color:#1e293b
   classDef db fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
-  classDef mute fill:#f8fafc,stroke:#e2e8f0,stroke-width:1px,color:#cbd5e1
+  classDef mute fill:#f8fafc,stroke:#e2e8f0,stroke-width:1px,color:#94a3b8
+  class MA mute
   class R mute
   class C mute
   class S svc
@@ -653,6 +678,14 @@ flowchart LR
   class E mute
   class DB db
 ```
+
+</div>
+
+<div class="pt-2 text-2xl font-bold">② Le service</div>
+
+---
+
+# ② Le service : la logique métier
 
 **Ce qu'on met dans un service :**
 
@@ -700,12 +733,16 @@ export class ModelsService {
 </div>
 
 ---
+layout: center
+class: text-center
+---
 
-# ③ Le contrôleur : traduire HTTP ↔ métier
+<div class="w-full flex justify-center">
 
-```mermaid {scale: 0.38}
-%%{init: {'theme':'base','themeVariables':{'fontFamily':'ui-sans-serif, -apple-system, Segoe UI, sans-serif','fontSize':'14px','lineColor':'#94a3b8','primaryTextColor':'#0f172a','clusterBkg':'#f8fafc','clusterBorder':'#cbd5e1'}}}%%
+```mermaid {scale: 0.95}
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'ui-sans-serif, -apple-system, Segoe UI, sans-serif','fontSize':'16px','lineColor':'#94a3b8','primaryTextColor':'#0f172a','clusterBkg':'#f8fafc','clusterBorder':'#cbd5e1'}}}%%
 flowchart LR
+  MA["🚀 main.ts<br/>bootstrap"] -.->|"NestFactory.create"| M
   R["📨 Requête HTTP<br/>POST /models"] --> C
   subgraph M["📦 models.module.ts"]
     direction LR
@@ -715,13 +752,15 @@ flowchart LR
   end
   S --> DB[("🗄️ Données")]
 
+  classDef boot fill:#fee2e2,stroke:#dc2626,stroke-width:3px,color:#7f1d1d
   classDef req fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#78350f
   classDef ctrl fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a5f
   classDef svc fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#3b0764
   classDef dto fill:#ccfbf1,stroke:#0d9488,stroke-width:2px,color:#134e4a
   classDef typ fill:#f1f5f9,stroke:#64748b,stroke-width:2px,color:#1e293b
   classDef db fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
-  classDef mute fill:#f8fafc,stroke:#e2e8f0,stroke-width:1px,color:#cbd5e1
+  classDef mute fill:#f8fafc,stroke:#e2e8f0,stroke-width:1px,color:#94a3b8
+  class MA mute
   class R req
   class C ctrl
   class S mute
@@ -729,6 +768,14 @@ flowchart LR
   class E mute
   class DB mute
 ```
+
+</div>
+
+<div class="pt-2 text-2xl font-bold">③ Le contrôleur</div>
+
+---
+
+# ③ Le contrôleur : traduire HTTP ↔ métier
 
 ```ts {1-3|5-8|all}
 @Controller('models')           // every route starts with /models
@@ -803,12 +850,16 @@ C'est le raccourci de constructeur vu hier : <code>private readonly</code> devan
 </v-click>
 
 ---
+layout: center
+class: text-center
+---
 
-# ④ Le module : ce qui relie tout
+<div class="w-full flex justify-center">
 
-```mermaid {scale: 0.38}
-%%{init: {'theme':'base','themeVariables':{'fontFamily':'ui-sans-serif, -apple-system, Segoe UI, sans-serif','fontSize':'14px','lineColor':'#94a3b8','primaryTextColor':'#0f172a','clusterBkg':'#f8fafc','clusterBorder':'#cbd5e1'}}}%%
+```mermaid {scale: 0.95}
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'ui-sans-serif, -apple-system, Segoe UI, sans-serif','fontSize':'16px','lineColor':'#94a3b8','primaryTextColor':'#0f172a','clusterBkg':'#f8fafc','clusterBorder':'#cbd5e1'}}}%%
 flowchart LR
+  MA["🚀 main.ts<br/>bootstrap"] -.->|"NestFactory.create"| M
   R["📨 Requête HTTP<br/>POST /models"] --> C
   subgraph M["📦 models.module.ts"]
     direction LR
@@ -818,13 +869,15 @@ flowchart LR
   end
   S --> DB[("🗄️ Données")]
 
+  classDef boot fill:#fee2e2,stroke:#dc2626,stroke-width:3px,color:#7f1d1d
   classDef req fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#78350f
   classDef ctrl fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a5f
   classDef svc fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#3b0764
   classDef dto fill:#ccfbf1,stroke:#0d9488,stroke-width:2px,color:#134e4a
   classDef typ fill:#f1f5f9,stroke:#64748b,stroke-width:2px,color:#1e293b
   classDef db fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
-  classDef mute fill:#f8fafc,stroke:#e2e8f0,stroke-width:1px,color:#cbd5e1
+  classDef mute fill:#f8fafc,stroke:#e2e8f0,stroke-width:1px,color:#94a3b8
+  class MA mute
   class R mute
   class C ctrl
   class S svc
@@ -833,6 +886,14 @@ flowchart LR
   class DB mute
   style M fill:#eff6ff,stroke:#2563eb,stroke-width:3px
 ```
+
+</div>
+
+<div class="pt-2 text-2xl font-bold">④ Le module</div>
+
+---
+
+# ④ Le module : ce qui relie tout
 
 ```ts
 import { Module } from '@nestjs/common';
@@ -850,24 +911,49 @@ export class ModelsModule {}         // empty class: everything is in the decora
 </div>
 
 ---
+layout: center
+class: text-center
+---
 
-# ⑤ `main.ts` : le démarrage
+<div class="w-full flex justify-center">
 
-```mermaid {scale: 0.5}
-%%{init: {'theme':'base','themeVariables':{'fontFamily':'ui-sans-serif, -apple-system, Segoe UI, sans-serif','fontSize':'14px','lineColor':'#94a3b8','primaryTextColor':'#0f172a','clusterBkg':'#f8fafc','clusterBorder':'#cbd5e1'}}}%%
+```mermaid {scale: 0.95}
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'ui-sans-serif, -apple-system, Segoe UI, sans-serif','fontSize':'16px','lineColor':'#94a3b8','primaryTextColor':'#0f172a','clusterBkg':'#f8fafc','clusterBorder':'#cbd5e1'}}}%%
 flowchart LR
   MA["🚀 main.ts<br/>bootstrap"] -.->|"NestFactory.create"| M
-  subgraph M["📦 app.module.ts"]
+  R["📨 Requête HTTP<br/>POST /models"] --> C
+  subgraph M["📦 models.module.ts"]
     direction LR
-    C["🎯 Controller"] --> S["⚙️ Service"]
+    C["🎯 Controller<br/>@Controller"] --> S["⚙️ Service<br/>@Injectable"]
+    C -.-> D["🛡️ DTO<br/>validation"]
+    S -.-> E["📐 model.ts<br/>types"]
   end
   S --> DB[("🗄️ Données")]
 
   classDef boot fill:#fee2e2,stroke:#dc2626,stroke-width:3px,color:#7f1d1d
-  classDef mute fill:#f8fafc,stroke:#e2e8f0,stroke-width:1px,color:#cbd5e1
+  classDef req fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#78350f
+  classDef ctrl fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a5f
+  classDef svc fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#3b0764
+  classDef dto fill:#ccfbf1,stroke:#0d9488,stroke-width:2px,color:#134e4a
+  classDef typ fill:#f1f5f9,stroke:#64748b,stroke-width:2px,color:#1e293b
+  classDef db fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
+  classDef mute fill:#f8fafc,stroke:#e2e8f0,stroke-width:1px,color:#94a3b8
   class MA boot
-  class C,S,DB mute
+  class R mute
+  class C mute
+  class S mute
+  class D mute
+  class E mute
+  class DB mute
 ```
+
+</div>
+
+<div class="pt-2 text-2xl font-bold">⑤ main.ts</div>
+
+---
+
+# ⑤ `main.ts` : le démarrage
 
 ```ts
 import { NestFactory } from '@nestjs/core';
@@ -1247,6 +1333,47 @@ layout: section
 ---
 
 # 7. Valider ce qui vient de l'extérieur
+
+---
+layout: center
+class: text-center
+---
+
+<div class="w-full flex justify-center">
+
+```mermaid {scale: 0.95}
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'ui-sans-serif, -apple-system, Segoe UI, sans-serif','fontSize':'16px','lineColor':'#94a3b8','primaryTextColor':'#0f172a','clusterBkg':'#f8fafc','clusterBorder':'#cbd5e1'}}}%%
+flowchart LR
+  MA["🚀 main.ts<br/>bootstrap"] -.->|"NestFactory.create"| M
+  R["📨 Requête HTTP<br/>POST /models"] --> C
+  subgraph M["📦 models.module.ts"]
+    direction LR
+    C["🎯 Controller<br/>@Controller"] --> S["⚙️ Service<br/>@Injectable"]
+    C -.-> D["🛡️ DTO<br/>validation"]
+    S -.-> E["📐 model.ts<br/>types"]
+  end
+  S --> DB[("🗄️ Données")]
+
+  classDef boot fill:#fee2e2,stroke:#dc2626,stroke-width:3px,color:#7f1d1d
+  classDef req fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#78350f
+  classDef ctrl fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a5f
+  classDef svc fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#3b0764
+  classDef dto fill:#ccfbf1,stroke:#0d9488,stroke-width:2px,color:#134e4a
+  classDef typ fill:#f1f5f9,stroke:#64748b,stroke-width:2px,color:#1e293b
+  classDef db fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
+  classDef mute fill:#f8fafc,stroke:#e2e8f0,stroke-width:1px,color:#94a3b8
+  class MA mute
+  class R req
+  class C mute
+  class S mute
+  class D dto
+  class E mute
+  class DB mute
+```
+
+</div>
+
+<div class="pt-2 text-2xl font-bold">Le DTO : la pièce qui manquait</div>
 
 ---
 
