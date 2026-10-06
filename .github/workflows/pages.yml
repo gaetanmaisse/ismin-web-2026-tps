@@ -75,6 +75,7 @@ jobs:
               <li><span class="num">S7</span><a href="./s07/">React : du composant à l’API</a></li>
               <li><span class="num">S8</span><a href="./s07/">React, la suite : le réseau et le CORS</a></li>
               <li><span class="num">S10</span><a href="./s10/">Routage et connexion</a></li>
+              <li><span class="num">S12</span><a href="./s12/">Docker : l’application en une commande</a></li>
               <li><span class="num">⭐</span><a href="./projet/">Le projet : une application pour un client</a></li>
             </ul>
             <p class="sub">Les énoncés de TP sont dans <a href="https://github.com/gaetanmaisse/ismin-web-2026-tps">ce dépôt</a>.</p>
