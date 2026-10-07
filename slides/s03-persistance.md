@@ -109,7 +109,7 @@ Souple sur le schema, très bien pour certains usages, mais l’intégrité devi
 
 <div class="pt-8 text-center">
 On commence avec <b>SQLite</b>&nbsp;: une base relationnelle complète… dans un simple fichier.<br/>
-<span class="op-75 text-sm">Zéro serveur à installer. On passera à PostgreSQL en séance 11, et ce sera une ligne à changer.</span>
+<span class="op-75 text-sm">Zéro serveur à installer, et la base tient dans un fichier&nbsp;: elle vous suivra jusque dans Docker, en séance 12.</span>
 </div>
 
 </v-click>
@@ -433,7 +433,7 @@ layout: section
 
 ```prisma {1-3|5-8|10-17|all}
 datasource db {
-  provider = "sqlite"          // ← séance 11 : "postgresql"
+  provider = "sqlite"
 }                              // l'URL de la base est dans prisma.config.ts
 
 generator client {

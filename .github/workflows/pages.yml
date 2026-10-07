@@ -75,6 +75,7 @@ jobs:
               <li><span class="num">S7</span><a href="./s07/">React : du composant à l’API</a></li>
               <li><span class="num">S8</span><a href="./s07/">React, la suite : le réseau et le CORS</a></li>
               <li><span class="num">S10</span><a href="./s10/">Routage et connexion</a></li>
+              <li><span class="num">S11</span><a href="./s10/">La connexion et les formulaires, suite</a></li>
               <li><span class="num">S12</span><a href="./s12/">Docker : l’application en une commande</a></li>
               <li><span class="num">⭐</span><a href="./projet/">Le projet : une application pour un client</a></li>
               <li><span class="num">🤖</span><a href="./ia/">Coder avec un agent</a></li>

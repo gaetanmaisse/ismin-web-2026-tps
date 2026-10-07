@@ -122,7 +122,7 @@ Les briefs complets&nbsp;: <a href="https://github.com/gaetanmaisse/ismin-web-20
 </div>
 
 <div class="pt-3 text-sm op-75">
-Docker se voit en séance 11, le mardi 6 octobre&nbsp;: d’ici là, lancez l’API et le front comme en TP. Vous pouvez partir de zéro ou réutiliser le code des TPs.
+Docker se voit en séance 12, le mercredi 7 octobre&nbsp;: d’ici là, lancez l’API et le front comme en TP. Vous pouvez partir de zéro ou réutiliser le code des TPs.
 </div>
 
 ---

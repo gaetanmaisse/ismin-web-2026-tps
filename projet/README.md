@@ -31,7 +31,7 @@ Deux conséquences :
 | `GET /health` répond `200` | Je l'appelle, une fois l'application lancée |
 | Tests automatisés, côté API et côté front | `npm test` dans chaque dossier |
 
-Vous pouvez partir de zéro ou réutiliser le code des TPs. Docker se voit en séance 11, le mardi 6 octobre : d'ici là, lancez l'API et le front comme en TP.
+Vous pouvez partir de zéro ou réutiliser le code des TPs. Docker se voit en séance 12, le mercredi 7 octobre : d'ici là, lancez l'API et le front comme en TP.
 
 ## 🗓 Les jalons
 

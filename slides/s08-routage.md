@@ -138,7 +138,7 @@ Une SPA n’a qu’un `index.html`. Mais l’utilisateur, lui, attend que&nbsp;:
 | `/n-importe-quoi` | «&nbsp;Page introuvable&nbsp;» |
 
 <div class="pt-4 op-75">
-Recharger <code>/models/…</code>, c’est demander cette adresse au serveur, qui n’a aucun fichier à ce nom. En développement, Vite renvoie <code>index.html</code>, puis React Router lit l’adresse et affiche la bonne page. Avec Docker, le serveur devra faire pareil&nbsp;: séance 11.
+Recharger <code>/models/…</code>, c’est demander cette adresse au serveur, qui n’a aucun fichier à ce nom. En développement, Vite renvoie <code>index.html</code>, puis React Router lit l’adresse et affiche la bonne page. Avec Docker, le serveur devra faire pareil&nbsp;: séance 12.
 </div>
 </div>
 </div>

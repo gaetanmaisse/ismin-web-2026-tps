@@ -916,7 +916,7 @@ await bootstrap();                                   // await hors fonction : pe
 ```
 
 <div class="pt-3 text-sm op-75">
-Deux rendez-vous ici&nbsp;: la <b>validation globale</b>, en fin de séance&nbsp;; le port lu dans une variable d’environnement, avec Docker (séance 11).
+Deux rendez-vous ici&nbsp;: la <b>validation globale</b>, en fin de séance&nbsp;; le port lu dans une variable d’environnement, avec Docker (séance 12).
 </div>
 
 ---

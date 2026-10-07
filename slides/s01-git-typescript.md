@@ -271,7 +271,7 @@ layout: center
 <div class="p-4 border border-gray-500 border-opacity-30 rounded">
 <div class="text-xs op-60 font-mono">SEMAINE 4</div>
 <div class="font-bold pt-1">L’application complète</div>
-<div class="pt-2 op-75">Routage et connexion, Docker, tests automatisés</div>
+<div class="pt-2 op-75">Routage et connexion, Docker</div>
 </div>
 
 </div>

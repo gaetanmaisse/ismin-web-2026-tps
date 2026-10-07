@@ -740,7 +740,7 @@ CMD ["npm", "run", "start:dev"]
 | une seule étape | les outils de build restent dans l’image | un build en plusieurs étapes |
 
 <div class="pt-2 text-xs op-60">
-⚠️ L’exemple en plusieurs étapes présenté ne copiait pas <code>node_modules</code> dans l’étape finale&nbsp;: <code>node dist/main.js</code> plante au démarrage. On l’écrit ensemble en séance 11.
+⚠️ L’exemple en plusieurs étapes présenté ne copiait pas <code>node_modules</code> dans l’étape finale&nbsp;: <code>node dist/main.js</code> plante au démarrage. On l’écrit ensemble en séance 12.
 </div>
 
 </div>

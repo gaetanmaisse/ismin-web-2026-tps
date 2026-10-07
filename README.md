@@ -44,8 +44,8 @@ Chaque TP est un projet autonome : `cd tpNN && npm install`.
 | 9 | Annulée : finir le TP7 chez soi, avancer le projet | |
 | **Sprint 4 : l'application complète** | | |
 | 10 | Le routage, la connexion et les formulaires | [`tp08/`](./tp08), [`tp09/`](./tp09) |
-| 11 | Docker : l'application en une commande | `tp10/` |
-| 12 | Les tests : écrire les siens | `tp11/` |
+| 11 | La connexion et les formulaires, suite | [`tp09/`](./tp09) |
+| 12 | Docker : l'application en une commande | [`tp10/`](./tp10) |
 
 ## 🎓 Le projet
 
@@ -64,7 +64,7 @@ Chaque TP est un projet autonome : `cd tpNN && npm install`.
 
 ## 🧵 Le fil rouge : ModelZoo
 
-Tous les TPs construisent la même application : **ModelZoo**, un catalogue de modèles d'IA : chercher, comparer, garder une shortlist. Vous commencez par une interface TypeScript en séance 1 et vous terminez avec une application full-stack, qui démarre d'une seule commande avec Docker, et que vos propres tests protègent.
+Tous les TPs construisent la même application : **ModelZoo**, un catalogue de modèles d'IA : chercher, comparer, garder une shortlist. Vous commencez par une interface TypeScript en séance 1 et vous terminez avec une application full-stack, qui démarre d'une seule commande avec Docker.
 
 Chaque TP démarre d'un état fonctionnel : si vous n'avez pas terminé le précédent, vous repartez d'une base saine et vous suivez quand même.
 
