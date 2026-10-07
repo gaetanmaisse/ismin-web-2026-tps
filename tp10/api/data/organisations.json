@@ -1,0 +1,61 @@
+[
+  {
+    "slug": "mistralai",
+    "name": "Mistral AI",
+    "country": "FR"
+  },
+  {
+    "slug": "openai",
+    "name": "OpenAI",
+    "country": "US"
+  },
+  {
+    "slug": "google",
+    "name": "Google",
+    "country": "US"
+  },
+  {
+    "slug": "google-t5",
+    "name": "Google, équipe T5",
+    "country": "US"
+  },
+  {
+    "slug": "meta-llama",
+    "name": "Meta",
+    "country": "US"
+  },
+  {
+    "slug": "facebook",
+    "name": "Meta AI Research",
+    "country": "US"
+  },
+  {
+    "slug": "microsoft",
+    "name": "Microsoft",
+    "country": "US"
+  },
+  {
+    "slug": "qwen",
+    "name": "Qwen, Alibaba Cloud",
+    "country": "CN"
+  },
+  {
+    "slug": "tiiuae",
+    "name": "Technology Innovation Institute",
+    "country": "AE"
+  },
+  {
+    "slug": "huggingfacetb",
+    "name": "Hugging Face, équipe SmolLM",
+    "country": "US"
+  },
+  {
+    "slug": "helsinki-nlp",
+    "name": "University of Helsinki, NLP",
+    "country": "FI"
+  },
+  {
+    "slug": "timm",
+    "name": "timm, Ross Wightman"
+  }
+]

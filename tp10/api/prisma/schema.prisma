@@ -1,0 +1,45 @@
+datasource db {
+  provider = "sqlite"
+}
+
+generator client {
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  moduleFormat        = "esm"
+  importFileExtension = "js"
+}
+
+// TP3 solution, final state (after step 5). Before that step the schema is
+// flat: `org String` on Model, no Organisation table.
+
+model Organisation {
+  id      String  @id @default(uuid())
+  slug    String  @unique
+  name    String
+  country String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  models  Model[]
+}
+
+model Model {
+  id         String  @id
+  name       String
+  task       String  // no unions in SQLite: any string, narrowed in the service
+  parameters Float
+  downloads  Int     @default(0)
+  license    String?
+  createdBy  String?
+  deletedAt  DateTime?
+
+  org        Organisation @relation(fields: [orgId], references: [id])
+  orgId      String
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([orgId])
+  @@index([task])
+}

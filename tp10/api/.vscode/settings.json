@@ -1,0 +1,5 @@
+{
+  "chat.disableAIFeatures": true,
+  "github.copilot.enable": { "*": false },
+  "editor.inlineSuggest.enabled": false
+}

@@ -1,0 +1,438 @@
+/*
+ * Given. Every class the TP needs is here: you write TypeScript and React,
+ * never CSS. The class names are the ones of the mockups, in the pages.
+ */
+
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --text: #1c2330;
+  --muted: #5f6b7a;
+  --border: #e2e6ec;
+  --accent: #2f6fde;
+  --accent-soft: #e8f0fd;
+  --danger: #b42318;
+  --danger-soft: #fef3f2;
+  --radius: 12px;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+/* ─── The page ──────────────────────────────────────────────────────────── */
+
+.app {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px 16px 64px;
+}
+
+a {
+  color: var(--accent);
+}
+
+.app-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.app-title {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.app-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.app-tagline {
+  margin: 4px 0 0;
+  color: var(--muted);
+}
+
+/* ─── The navigation: <nav class="app-nav">, links, the user and a <button class="link-button"> ── */
+
+.app-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.app-nav a {
+  text-decoration: none;
+}
+
+.app-nav a:hover {
+  text-decoration: underline;
+}
+
+/* The link of the current page, when it is a <NavLink>: "Pour aller plus loin". */
+.app-nav a.active {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.app-user {
+  font-weight: 600;
+}
+
+.app-user::after {
+  content: ' ·';
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.link-button {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  text-decoration: underline;
+}
+
+/* ─── The filter: <nav class="filters"> with one <button class="filter"> per task ── */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.filter {
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.filter:hover {
+  border-color: var(--accent);
+}
+
+.filter[aria-pressed='true'] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ─── The list: <ul class="model-list">, one <li> per card ───────────────── */
+
+.model-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ─── A card: <article class="card"> ──────────────────────────────────── */
+
+.card {
+  height: 100%;
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.05rem;
+  word-break: break-word;
+}
+
+.card-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.card-title a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.card-org {
+  margin: 4px 0 12px;
+  color: var(--muted);
+  font-family: ui-monospace, 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+}
+
+.badge {
+  flex-shrink: 0;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.card-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 0;
+}
+
+.card-stats dt {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.card-stats dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.card-license {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* ─── The three states of a network call ────────────────────────────────── */
+
+.status {
+  padding: 32px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 18px;
+  border: 1px solid var(--danger);
+  border-radius: var(--radius);
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.retry {
+  padding: 6px 14px;
+  border: 1px solid var(--danger);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--danger);
+  font: inherit;
+  cursor: pointer;
+}
+
+.empty {
+  padding: 32px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.error p,
+.error ul {
+  margin: 0;
+}
+
+/* ─── A page other than the catalogue: <section class="page"> ────────────── */
+
+.page {
+  max-width: 720px;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 16px;
+  text-decoration: none;
+}
+
+.back:hover {
+  text-decoration: underline;
+}
+
+.not-found {
+  margin: 48px auto;
+  text-align: center;
+}
+
+.not-found h2 {
+  margin-bottom: 8px;
+}
+
+.not-found p {
+  color: var(--muted);
+}
+
+/* ─── The page of a model: <article class="detail"> ─────────────────────── */
+
+.detail {
+  padding: 24px 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.detail-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.detail-title {
+  margin: 0;
+  font-size: 1.6rem;
+  word-break: break-word;
+}
+
+.detail-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px 24px;
+  margin: 0;
+}
+
+.detail-fields dt {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.detail-fields dd {
+  margin: 2px 0 0;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+/* ─── The forms: <form class="form">, one <div class="field"> per field ──── */
+
+.form-page {
+  max-width: 480px;
+}
+
+.form-page h2 {
+  margin: 0 0 16px;
+}
+
+.form-page.wide {
+  max-width: 760px;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;
+  gap: 16px 24px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.field input,
+.field select {
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+
+.field input:focus,
+.field select:focus {
+  border-color: var(--accent);
+  outline: 2px solid var(--accent-soft);
+}
+
+.field-hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+/* The wide form: two fields per row, the error and the button on a row of their own. */
+.wide .form {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.form > .error,
+.form > .button {
+  grid-column: 1 / -1;
+}
+
+.form-error {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.form-error ul {
+  padding-left: 20px;
+}
+
+.button {
+  justify-self: start;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.hint {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}

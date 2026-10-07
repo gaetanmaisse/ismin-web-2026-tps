@@ -1,0 +1,24 @@
+# TP10: all of ModelZoo, from one command.
+#
+#   docker compose up --build
+#
+# Empty for now: you write the three services, one per step. In this file,
+# each service reaches the others by their name.
+
+services: {}
+  # TODO step 4. Replace `{}` above by the service `api`, built from api/Dockerfile:
+  #   - build: the folder of the Dockerfile
+  #   - environment: DATABASE_URL (an absolute path, inside the volume),
+  #     JWT_SECRET, PORT, WEB_ORIGIN
+  #   - ports: 3000 on your machine, 3000 in the container
+  #   - volumes: the named volume `data`, mounted on the folder of the database file
+  #
+  # TODO step 5. `migrate`, a service that applies the migrations and seeds the
+  # database, then stops. Built from the `build` stage of api/Dockerfile, with
+  # the same volume and the same DATABASE_URL as `api`. `api` waits until it
+  # has finished, successfully.
+  #
+  # TODO step 6. `web`, built from web/Dockerfile, with the build argument
+  # VITE_API_URL. Port 8080 on your machine, 80 in the container.
+
+# TODO step 4. The named volume, declared here, at the top level.

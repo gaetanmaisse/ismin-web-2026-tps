@@ -1,0 +1,3 @@
+# TODO step 2. What must never enter the image, one pattern per line.
+# Think of what `COPY . .` would copy from your machine: your secrets, and
+# folders that the image builds by itself.

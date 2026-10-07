@@ -1,0 +1,3 @@
+# Les fichiers lus par Docker et par nginx gardent des fins de ligne Unix, même
+# sur un clone Windows : un script avec des fins de ligne Windows ne tourne pas sous Linux.
+* text=auto eol=lf
