@@ -77,6 +77,7 @@ jobs:
               <li><span class="num">S10</span><a href="./s10/">Routage et connexion</a></li>
               <li><span class="num">S12</span><a href="./s12/">Docker : l’application en une commande</a></li>
               <li><span class="num">⭐</span><a href="./projet/">Le projet : une application pour un client</a></li>
+              <li><span class="num">🤖</span><a href="./ia/">Coder avec un agent</a></li>
             </ul>
             <p class="sub">Les énoncés de TP sont dans <a href="https://github.com/gaetanmaisse/ismin-web-2026-tps">ce dépôt</a>.</p>
           </body>
